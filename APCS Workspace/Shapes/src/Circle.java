@@ -15,7 +15,7 @@ public class Circle
 
     /**
      * Creates a default instance of a Circle object with all dimensions 
-     * set to zero.
+     * (x, y, radius) set to zero.
      * 
      */
     public Circle()

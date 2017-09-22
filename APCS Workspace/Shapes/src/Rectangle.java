@@ -14,7 +14,7 @@ public class Rectangle
 
     /**
      * Creates a default instance of a Rectangle object with all dimensions 
-     * set to zero.
+     * (x, y, width, height) set to zero.
      * 
      */
     public Rectangle()
