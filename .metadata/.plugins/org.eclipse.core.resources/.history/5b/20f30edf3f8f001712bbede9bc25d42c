@@ -1,0 +1,83 @@
+
+
+//i like how you made a new variable for the other lines x and y
+//i like how u made a new method for checking if the intersection point is in the range
+//i like how u made a separate variable for the numerator and denominator
+
+//try initializing your fields in the constructor    
+
+
+public class Line {
+
+	private double x1, y1, x2, y2;
+	private static double pX = -10;
+	private static double pY = -10;
+
+	public Line(double x1, double y1, double x2, double y2) 
+	{
+
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+
+	}
+
+	public void draw(DrawingSurface drawingSurface) 
+	{
+		drawingSurface.line((int) x1, (int) y1, (int) x2, (int) y2);
+	}
+
+	public boolean intersects(Line l2) 
+	{
+
+		double x3 = l2.x1;
+		double x4 = l2.x2;
+		double y3 = l2.y1;
+		double y4 = l2.y2;
+
+		double num1 = ((x1 * y2 - y1 * x2) * (x3 - x4)) - ((x1 - x2) * (x3 * y4 - y3 * x4));
+		double num2 = ((x1 * y2 - y1 * x2) * (y3 - y4)) - ((y1 - y2) * (x3 * y4 - y3 * x4));
+		double denom = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));
+
+		if (denom != 0) 
+		{
+			pX = num1 / denom;
+			pY = num2 /denom;
+			
+			if (inRectangle(x1, x2, x3, x4, pX))
+				return true;
+
+		} 
+
+
+		return false;
+
+	}
+	
+	private boolean inRectangle(double x12, double x22, double x3, double x4, double pX)
+	{
+		return (pX >= Math.min(x12, x22) && pX >= Math.min(x3, x4)
+				&& pX <= Math.max(x12, x22) && pX <= Math.max(x3, x4));
+	}
+
+	public void setPoint2(double x2, double y2) 
+	{
+
+		this.x2 = x2;
+		this.y2 = y2;
+
+	}
+	
+	public static double getPx()
+	{
+		return pX;
+	}
+
+	public static double getPy() 
+	{
+		
+		return pY;
+	}
+	
+}

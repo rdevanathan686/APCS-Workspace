@@ -1,0 +1,84 @@
+import java.awt.event.MouseEvent;
+
+import processing.core.PApplet;
+
+public class House
+{
+
+	private int xVel;
+	float scaleFactor;
+	private int translateX;
+	private int translateY;
+
+	public House()
+	{
+		xVel = 0;
+		scaleFactor = 1f;
+	}
+
+	public void draw(PApplet drawer)
+	{
+
+		drawer.pushMatrix();
+
+		drawer.translate(translateX, translateY);
+
+//		drawer.scale(scaleFactor);
+
+		drawer.translate(DrawingSurface.SCREEN_WIDTH / 2, DrawingSurface.SCREEN_HEIGHT / 2);
+		drawer.scale(scaleFactor, scaleFactor);
+		drawer.translate(-DrawingSurface.SCREEN_WIDTH / 2, -DrawingSurface.SCREEN_HEIGHT / 2);
+
+
+		// body
+		drawer.fill(191, 229, 153);
+		drawer.rect(125, 250, 250, 160);
+
+		// roof
+		drawer.fill(226, 88, 24);
+		drawer.triangle(125 , 250, 375 , 250, 250 , 125);
+
+		// windows
+		drawer.fill(99, 141, 211);
+		drawer.rect(148 , 270, 40, 40);
+		drawer.rect(313 , 275, 40, 40);
+
+		// door
+		drawer.fill(209, 176, 79);
+		drawer.rect(230 , 330, 40, 80);
+
+		drawer.popMatrix();
+
+		/*
+		// axis
+		drawer.stroke(255);
+		drawer.line(250, 0, 250, 500);
+		drawer.line(0, 250, 500, 250);
+		 */
+
+	}
+
+	public void zoom(int scrollDir, int mouseX, int mouseY) 
+	{
+
+		float change = scrollDir > 0.0f ? 1.05f : scrollDir < 0.0f ? 1.0f/1.05f : 1.0f;
+		scaleFactor *= change;
+
+	}
+
+	public void move(int mouseX, int mouseY, int pmouseX, int pmouseY) 
+	{
+
+		translateX += mouseX - pmouseX;
+		translateY += mouseY - pmouseY;
+
+		System.out.println(translateX + " " + translateY);
+	}
+
+
+
+
+
+
+}
+

@@ -1,0 +1,69 @@
+import processing.core.PApplet;
+
+public class DrawingSurface extends PApplet {
+	
+	private House house;
+	private Person person;
+	
+	public static final float SCREEN_WIDTH = 500f;
+	public static final float SCREEN_HEIGHT = 500f;
+	
+	// create the house and person objects
+	public DrawingSurface()
+	{
+		house = new House();
+		person = new Person();
+	}
+	
+	// loops 60 times/sec to draw the characters with the updated changes 
+	public void draw ()
+	{
+		background(255);
+
+		scale((float)(width + 6) / SCREEN_WIDTH, (float)(height + 35) / SCREEN_HEIGHT);
+		
+		house.draw(this);
+		person.draw(this);
+
+		
+	}
+	
+	/* mouseDragged listener that calls the move method in the 
+	 * house to change its x and y coordinates
+	*/
+	public void mouseDragged()
+	{
+		
+		house.move(mouseX, mouseY, pmouseX, pmouseY);
+		
+		
+	}
+	
+	/* mouseWheel listener that calls the zoom method in the 
+	 * house to change its scaleFactor
+	*/
+	@SuppressWarnings("deprecation")
+	public void mouseWheel() 
+	{
+		house.zoom(mouseEvent.getCount(), mouseX, mouseY);
+		
+	}
+
+	/* keyPressed listener that calls the move and changeHeadColor 
+	 * in the person to change its x, y coordinates and the color of the head
+	*/
+	public void keyPressed() 
+	{
+		
+		
+		person.move(keyCode);
+		person.changeHeadColor(keyCode);
+		
+	}
+	
+	
+	
+	
+	
+
+}

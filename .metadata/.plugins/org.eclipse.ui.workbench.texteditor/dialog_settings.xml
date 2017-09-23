@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="getPx" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="inBo"/>
+			<item value="getPx"/>
+			<item value="Rectangle"/>
+			<item value="rectangle"/>
+			<item value="@pre"/>
+			<item value="r.height"/>
+			<item value="r.y"/>
+			<item value="r.width"/>
+			<item value="r.x"/>
+			<item value="saberCol"/>
+			<item value="saberSide"/>
+			<item value="setColor"/>
+			<item value="translateY"/>
+			<item value="translateX"/>
+			<item value="getxPos"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Circle"/>
+			<item value="height2"/>
+			<item value="y2"/>
+			<item value="width2"/>
+			<item value="x2"/>
+			<item value=""/>
+			<item value="yPos"/>
+			<item value="xPos"/>
+			<item value="altitude"/>
+			<item value="person"/>
+			<item value="saberColor"/>
+			<item value="- 100"/>
+			<item value="+ 25"/>
+			<item value="+ 35"/>
+			<item value="- 160"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="336" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="454" key="DIALOG_HEIGHT"/>
+		<item value="860" key="DIALOG_X_ORIGIN"/>
+		<item value="548" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

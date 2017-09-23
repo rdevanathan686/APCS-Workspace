@@ -1,0 +1,204 @@
+import java.awt.Color;
+
+import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PShape;
+
+public class DrawingSurface extends PApplet
+{
+
+    private House house;
+    private Person person, person2;
+
+    public static final float SCREEN_WIDTH = 500f;
+    public static final float SCREEN_HEIGHT = 500f;
+
+    public static final String RIGHT = "RIGHT";
+    public static final String LEFT = "LEFT";
+    public static final String UP = "UP";
+    public static final String DOWN = "DOWN";
+
+    // create the house and person objects
+    public DrawingSurface()
+    {
+        house = new House();
+        person = new Person(100, 300, RIGHT);
+        person2 = new Person(402, 300, LEFT);
+    }
+
+
+    // loops 60 times/sec to draw the characters with the updated changes
+    public void draw()
+    {        
+
+        scale((float) width / SCREEN_WIDTH, (float) height / SCREEN_HEIGHT);
+        
+        PShape background  = new PShape();
+        
+        createShape(PApplet.GROUP);
+        PShape floor = createShape(PConstants.RECT,0, 300, 500, 300);
+        PShape sky = createShape(PConstants.RECT, 0, 0, 500, 300);
+        
+        floor.setFill(color(174, 239, 158));
+        sky.setFill(color(158, 189, 239));
+        
+        background.addChild(floor);
+        background.addChild(sky);
+        
+        shape(background);
+
+        house.draw(this);
+        person.draw(this);
+        person2.draw(this);
+
+        if (person.getSaberLine() != null && person2.getSaberLine() != null)
+        {
+            if (person.getSaberLine().intersects(person2.leftHandLine()))
+            {
+                person2.setColor(new Color(239, 157, 148));
+                
+                
+            }
+
+            else if (person.rightHandLine().intersects(person2.getSaberLine()))
+            {
+                person.setColor(new Color(239, 157, 148));
+                
+            }
+            
+            else
+            {
+                person.setColor(new Color(239, 192, 122));
+                person2.setColor(new Color(239, 192, 122));
+            }
+            
+            if (person.getSaberLine().intersects(person2.getSaberLine()))
+            {
+                person.setSaberColor(Color.BLUE);
+                person2.setSaberColor(Color.BLUE);
+
+//                ellipse((float) person.getSaberLine().getPx(person2.getSaberLine()),
+//                        (float) person.getSaberLine().getPy(person2.getSaberLine()), 10f, 10f);
+                
+                
+                line((float) person.getSaberLine().getPx(person2.getSaberLine()),
+                      (float) person.getSaberLine().getPy(person2.getSaberLine()) - 5,
+                      (float) person.getSaberLine().getPx(person2.getSaberLine()) - 2,
+                      (float) person.getSaberLine().getPy(person2.getSaberLine()) - 20);
+                line((float) person.getSaberLine().getPx(person2.getSaberLine()) - 5,
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()),
+                        (float) person.getSaberLine().getPx(person2.getSaberLine()) - 10,
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()));
+                line((float) person.getSaberLine().getPx(person2.getSaberLine()) + 2,
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()) + 2,
+                        (float) person.getSaberLine().getPx(person2.getSaberLine()) + 10,
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()) - 2);
+                line((float) person.getSaberLine().getPx(person2.getSaberLine()),
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()) + 4,
+                        (float) person.getSaberLine().getPx(person2.getSaberLine()) + 2,
+                        (float) person.getSaberLine().getPy(person2.getSaberLine()) + 10);
+                
+            }
+
+            else
+            {
+                person.setSaberColor(Color.RED);
+                person2.setSaberColor(Color.RED);
+            }
+            
+            line((float) person.rightHandLine().getX1(), (float) person.rightHandLine().getY1(), 
+                    (float) person.rightHandLine().getX2(), (float) person.rightHandLine().getY2());
+            line((float) person2.leftHandLine().getX1(), (float) person2.leftHandLine().getY1(), 
+                    (float) person2.leftHandLine().getX2(), (float) person2.leftHandLine().getY2());
+            
+                    
+                
+                
+        }
+
+
+    }
+
+    /*
+     * mouseDragged listener that calls the move method in the house to change its x
+     * and y coordinates
+     */
+    public void mouseDragged()
+    {
+
+        int translateX = mouseX - (pmouseX);
+        int translateY = mouseY - (pmouseY);
+        house.move(translateX, translateY);
+
+    }
+
+    /*
+     * mouseWheel listener that calls the zoom method in the house to change its
+     * scaleFactor
+     */
+    @SuppressWarnings("deprecation")
+    public void mouseWheel()
+    {
+        int direction = mouseEvent.getCount();
+        float change;
+
+        if (direction > 0.0f)
+            change = 1.05f;
+        else if (direction < 0.0f)
+            change = 1.0f / 1.05f;
+        else change = 1.0f;
+
+        house.zoom(change);
+
+    }
+
+    /*
+     * keyPressed listener that calls the move and changeHeadColor in the person to
+     * change its x, y coordinates and the color of the head
+     */
+    public void keyPressed()
+    {
+        
+
+        if (!person.leftHandLine().intersects(person2.rightHandLine()))
+        if (keyCode == PApplet.RIGHT)
+            person2.move(RIGHT);
+        
+        if (!person.rightHandLine().intersects(person2.leftHandLine()))
+            if (keyCode == PApplet.LEFT)
+                person2.move(LEFT);
+        
+//        else if ()
+        
+        if (keyCode == PApplet.UP)
+            person2.move(UP);
+        if (keyCode == PApplet.DOWN)
+            person2.move(DOWN);
+        
+        if (keyCode == PApplet.SHIFT)
+            person2.jump();
+
+            
+
+        else if (keyCode == 'W')
+            person.move(UP);
+        else if (keyCode == 'A')
+            person.move(LEFT);
+        else if (keyCode == 'S')
+            person.move(DOWN);
+        else if (keyCode == 'D')
+            person.move(RIGHT);
+        else if (keyCode == 'J')
+            person.jump();
+
+        
+        else if (keyCode == PApplet.ENTER)
+        {
+            person.changeSaberColor();
+            person2.changeSaberColor();
+            
+        }
+
+    }
+
+}

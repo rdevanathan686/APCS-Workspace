@@ -1,0 +1,47 @@
+import processing.core.PApplet;
+
+public class DrawingSurface extends PApplet {
+	
+	private House house;
+	private Person person;
+	
+	private final float SCREEN_WIDTH = 500f;
+	private final float SCREEN_HEIGHT = 500f;
+	
+	public DrawingSurface()
+	{
+		house = new House();
+		person = new Person();
+	}
+	
+	public void draw ()
+	{
+		background(255);
+		
+		pushMatrix();
+		scale((float)(width + 6) / SCREEN_WIDTH, (float)(height + 35) / SCREEN_HEIGHT);
+
+		
+		house.draw(this);
+
+		//person.draw(this);
+		
+		
+	}
+	
+	
+	
+
+
+	public void keyPressed() 
+	{
+		
+		house.zoom(keyCode);
+		house.move(keyCode);
+		
+	}
+	
+	
+	
+
+}

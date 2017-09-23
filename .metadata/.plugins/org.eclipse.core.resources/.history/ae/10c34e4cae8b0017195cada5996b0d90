@@ -1,0 +1,68 @@
+import processing.core.PApplet;
+
+public class Person
+{
+	
+	private int xVel, yVel;
+	float scaleFactor;
+	private float[] rgb;
+	
+	public Person()
+	{
+		xVel = 0;
+		yVel = 0;
+		scaleFactor = 1f;
+		rgb = new float[3];
+	}
+
+	public void draw(PApplet drawer)
+	{	
+		drawer.pushMatrix();
+		drawer.translate(xVel, yVel);
+		// body
+		drawer.line(40, 250, 40, 300);
+		drawer.line(30, 270, 50, 270);
+		drawer.line(40, 300, 30, 325);
+		drawer.line(40, 300, 50, 325);
+	
+		// head
+		drawer.fill(rgb[0], rgb[1], rgb[2]);
+		drawer.ellipse(40, 235, 30, 30);
+		
+		drawer.popMatrix();
+				
+	}
+
+	public void move(int keyCode) 
+	{
+		
+		if (keyCode == PApplet.RIGHT)
+			xVel += 10;
+		else if (keyCode == PApplet.LEFT)
+			xVel -= 10;
+		else if (keyCode == PApplet.UP)
+			yVel -= 10;
+		else if (keyCode == PApplet.DOWN)
+			yVel += 10;
+		
+	}
+
+
+	public void changeHeadColor(int keyCode) 
+	{
+//		if (keyCode == PApplet.WHITESPACE)
+		rgb[0] = (float) ((int)Math.random()*255);
+		rgb[1] = (float) ((int)Math.random()*255);
+		rgb[2] = (float) ((int)Math.random()*255);
+		
+	}
+
+
+
+
+	
+	
+	
+
+}
+

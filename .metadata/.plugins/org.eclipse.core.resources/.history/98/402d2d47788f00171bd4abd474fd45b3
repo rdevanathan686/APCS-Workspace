@@ -1,0 +1,30 @@
+
+public class Point {
+	private double pX, pY;
+
+	
+	public Point (double pX, double pY)
+	{
+		this.pX = pX;
+		this.pY = pY;
+	}
+	
+	public void setpX(double pX) {
+		this.pX = pX;
+	}
+
+	public void setpY(double pY) {
+		this.pY = pY;
+	}
+
+	public double getpX() {
+		return pX;
+	}
+
+	public double getpY() {
+		return pY;
+	}
+
+
+	
+}

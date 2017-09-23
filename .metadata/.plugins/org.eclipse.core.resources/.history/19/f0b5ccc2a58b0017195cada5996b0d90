@@ -1,0 +1,63 @@
+import java.awt.event.MouseEvent;
+
+import processing.core.PApplet;
+
+public class DrawingSurface extends PApplet {
+	
+	private House house;
+	private Person person;
+	
+	public static final float SCREEN_WIDTH = 500f;
+	public static final float SCREEN_HEIGHT = 500f;
+	
+	public DrawingSurface()
+	{
+		house = new House();
+		person = new Person();
+	}
+	
+	public void draw ()
+	{
+		background(255);
+		
+		
+		scale((float)(width + 6) / SCREEN_WIDTH, (float)(height + 35) / SCREEN_HEIGHT);
+		
+
+
+		house.draw(this);
+		person.draw(this);
+
+		
+	}
+	
+	
+	
+	public void mouseDragged()
+	{
+		house.move(mouseX, mouseY, pmouseX, pmouseY);
+		
+		
+	}
+	
+	
+	public void mouseWheel() 
+	{
+		System.out.println(mouseEvent.getCount());
+		
+	}
+
+	public void keyPressed() 
+	{
+		
+		//house.zoom(keyCode);
+		//house.move(keyCode);
+		
+		person.move(keyCode);
+		
+	}
+	
+	
+	
+
+}

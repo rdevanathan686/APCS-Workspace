@@ -1,0 +1,91 @@
+import java.awt.geom.Point2D;
+
+//i like how you made a new variable for the other lines x and y
+//i like how u made a new method for checking if the intersection point is in the range
+//i like how u made a separate variable for the numerator and denominator, makes it more clear and easier to debug
+//i like how u made a dot showing where the lines intersected
+
+//try initializing your fields in the constructor    
+//maybe only show the dot of intersection only when the lines actually intersect
+
+public class Line {
+
+	private double x1, y1; 
+	private double x2, y2;
+
+	public Line(double x1, double y1, double x2, double y2) 
+	{
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+	}
+
+	public void draw(DrawingSurface drawingSurface) 
+	{
+		drawingSurface.line((int) x1, (int) y1, (int) x2, (int) y2);
+	}
+	
+	public Point2D.Double getIntersectionPoint(Line l2)
+	{
+		double x3 = l2.x1;
+		double x4 = l2.x2;
+		double y3 = l2.y1;
+		double y4 = l2.y2;
+
+		double num1 = ((x1 * y2 - y1 * x2) * (x3 - x4)) - ((x1 - x2) * (x3 * y4 - y3 * x4));
+		double num2 = ((x1 * y2 - y1 * x2) * (y3 - y4)) - ((y1 - y2) * (x3 * y4 - y3 * x4));
+		double denom = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));
+
+
+		if (Double.compare(denom, 0.0) == 0) 
+			return null;
+		
+		
+		double pX = num1 / denom;
+		double pY = num2 /denom;
+		
+		Point2D.Double intersectionPoint = new Point2D.Double(pX, pY);
+		System.out.println(intersectionPoint.getX());
+		
+		return intersectionPoint;
+	}
+
+	public boolean intersects(Line l2) 
+	{
+		
+		System.out.println(getIntersectionPoint(l2).getX() + " " + getIntersectionPoint(l2).getY());
+//		if (inBounds(getIntersectionPoint(l2).getX(), getIntersectionPoint(l2).getY()))
+//			return true;
+		
+
+//		if (Double.compare(denom, 0.0) != 0) 
+//		{
+//			pX = num1 / denom;
+//			pY = num2 /denom;
+//
+//			
+//		} 
+		
+		return false;
+
+	}
+
+
+	private boolean inBounds(double pX, double pY)
+	{
+		return (pX >= Math.min(x1, x2) && pX <= Math.max(x1, x2) 
+//				&& pX >= Math.min(x3, x4) && pX <= Math.max(x3, x4)
+				&& pY >= Math.min(y1, y2) && pY <= Math.max(y1, y2)); 
+//				&& pY >= Math.min(y3, y4) && pX <= Math.max(y3, y4));
+	}
+
+	public void setPoint2(double x2, double y2) 
+	{
+
+		this.x2 = x2;
+		this.y2 = y2;
+
+	}
+
+}
