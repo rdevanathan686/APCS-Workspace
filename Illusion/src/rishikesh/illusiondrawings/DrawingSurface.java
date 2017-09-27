@@ -33,7 +33,6 @@ public class DrawingSurface extends PApplet
     public void draw()
     {
         background(255);
-        System.out.println(width + " " + height);
         
         // setup and draw the circles from the array
         strokeWeight(10);

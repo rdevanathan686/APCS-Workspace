@@ -2,9 +2,6 @@ package rishikesh.illusiondrawings;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-
-import com.sun.javafx.collections.FloatArraySyncer;
-
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
