@@ -3,6 +3,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import com.sun.javafx.collections.FloatArraySyncer;
+
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
@@ -19,7 +21,7 @@ public class Main
         JFrame window = (JFrame) canvas.getFrame();
 
         window.setSize(500, 500);
-        window.setMinimumSize(new Dimension(100, 100));
+        window.setMinimumSize(new Dimension(500, 500));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
 
