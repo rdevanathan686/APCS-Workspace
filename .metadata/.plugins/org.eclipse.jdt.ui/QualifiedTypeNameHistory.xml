@@ -21,4 +21,5 @@
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="Rectangle"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 </qualifiedTypeNameHistroy>
