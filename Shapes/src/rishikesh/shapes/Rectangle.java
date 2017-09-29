@@ -19,7 +19,7 @@ public class Rectangle extends Shape
      */
     public Rectangle()
     {
-        this(0, 0, 0, 0);
+        this(0.0, 0.0, 0.0, 0.0);
     }
 
     /**
@@ -34,39 +34,26 @@ public class Rectangle extends Shape
      */
     public Rectangle(double x, double y, double width, double height)
     {
-
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.width = width;
         this.height = height;
 
     }
-
-    /**
-     * Calculates and returns the perimeter of the rectangle
-     * @return the perimeter of the Rectangle
-     */
+    
+    @Override
     public double getPerimeter()
     {
         return 2 * (width + height);
     }
 
-    /**
-     * Calculates and returns the area of the rectangle
-     * @return the area of the Rectangle
-     */
+    @Override
     public double getArea()
     {
         return (width * height);
     }
 
-    /**
-     * Determines whether the point x,y is contained inside this rectangle
-     * 
-     * @param x the x-coordinate of the point to check
-     * @param y the y-coordinate of the point to check
-     * @return boolean value representing whether the point is contained in the rectangle
-     */
+    
+    @Override
     public boolean isPointInside(double x, double y)
     {
         if (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height)
@@ -129,5 +116,7 @@ public class Rectangle extends Shape
         drawer.rectMode(PApplet.CORNER);
         drawer.rect((float) x, (float) y, (float) (x + width), (float) (y + height));
     }
+
+
 
 }

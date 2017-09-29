@@ -23,6 +23,7 @@ import rishikesh.tester.DrawingSurface;
  * @version 9.20.2017
  *
  */
+// TODO Restructure Shape hierarchy to Shape2D and Shape1D
 public class Line extends Shape
 {
  
@@ -149,5 +150,26 @@ public class Line extends Shape
 		this.y2 = y2;
 
 	}
+
+    @Override
+    public boolean isPointInside(double x, double y)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public double getArea()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public double getPerimeter()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

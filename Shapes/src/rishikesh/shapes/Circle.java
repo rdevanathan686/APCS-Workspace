@@ -34,8 +34,7 @@ public class Circle extends Shape
     public Circle(double x, double y, double radius)
     {
 
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.radius = radius;
 
     }
@@ -44,6 +43,7 @@ public class Circle extends Shape
      * Calculates and returns the perimeter of the Circle
      * @return the perimeter of the Circle
      */
+    @Override
     public double getPerimeter()
     {
         return 2 * Math.PI * radius;
@@ -53,6 +53,7 @@ public class Circle extends Shape
      * Calculates and returns the area of the Circle
      * @return the area of the Circle
      */
+    @Override
     public double getArea()
     {
         return Math.PI * radius * radius;
@@ -65,6 +66,7 @@ public class Circle extends Shape
      * @param y the y-coordinate of the point to check
      * @return boolean value representing whether the point is contained in the Circle
      */
+    @Override
     public boolean isPointInside(double x, double y)
     {
         if (getDistance(x, y) < radius)
@@ -119,8 +121,11 @@ public class Circle extends Shape
     public void draw(PApplet drawer)
     {
         super.draw(drawer);
+        
         drawer.ellipseMode(PConstants.RADIUS);
         drawer.ellipse((float) x, (float) y, (float) radius, (float) radius);
     }
+
+    
 
 }
