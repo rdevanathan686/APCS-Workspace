@@ -11,18 +11,23 @@ public abstract class Shape
     public Shape()
     {
         this(0.0, 0.0);
-        strokeWeight = 1;
-        fillColor = 0;
-        strokeColor = 0;
     }
     
     public Shape(double x, double y)
     {
+        this(x, y, 1, 255, 0);
+    }
+    
+    public Shape(double x, double y, int strokeWeight, int fillColor, int strokeColor)
+    {
         this.x = x;
         this.y = y;
-        strokeWeight = 1;
-        fillColor = 0;
-        strokeColor = 0;
+        
+        if (!setStrokeWeight(strokeWeight))
+            this.strokeWeight = strokeWeight;
+        
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
     }
 
     public void draw(PApplet drawer)
@@ -33,7 +38,7 @@ public abstract class Shape
         drawer.fill(fillColor);
         drawer.strokeWeight(strokeWeight);
         
-        drawer.popStyle();
+        drawer.pushStyle();
     }
 
     /**
@@ -94,9 +99,13 @@ public abstract class Shape
         return strokeWeight;
     }
 
-    public void setStrokeWeight(int strokeWeight)
+    public boolean setStrokeWeight(int strokeWeight)
     {
+        if (strokeWeight <= 0)
+            return false;
+        
         this.strokeWeight = strokeWeight;
+        return true;
     }
 
     public int getFillColor()

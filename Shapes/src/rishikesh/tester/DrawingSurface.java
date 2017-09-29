@@ -41,6 +41,11 @@ public class DrawingSurface extends PApplet
         System.out.println(circleB.getPerimeter());
         System.out.println(circleB.isPointInside(50, 59));
         System.out.println(circleB.overlaps(circleC));
+        
+        circleB.setFillColor(color(255, 0, 0));
+        circleB.setStrokeWeight(3);
+        circleB.setStrokeColor(color(0, 255, 0));
+        
 
     }
 
