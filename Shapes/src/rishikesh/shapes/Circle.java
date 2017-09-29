@@ -9,9 +9,8 @@ import processing.core.PConstants;
  * @version 9.20.2017
  * 
  */
-public class Circle
+public class Circle extends Shape
 {
-    private double x, y;
     private double radius;
 
     /**
@@ -116,8 +115,10 @@ public class Circle
      * @pre drawer must not be null, and appropriate settings should have been selected (color, fill, etc)
      * @post the drawer will have its ellipse mode modified to PApplet.RADIUS
      */
+    @Override
     public void draw(PApplet drawer)
     {
+        super.draw(drawer);
         drawer.ellipseMode(PConstants.RADIUS);
         drawer.ellipse((float) x, (float) y, (float) radius, (float) radius);
     }

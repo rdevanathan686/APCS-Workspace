@@ -8,9 +8,8 @@ import processing.core.PApplet;
  * @version 9.20.2017
  * 
  */
-public class Rectangle
+public class Rectangle extends Shape
 {
-    private double x, y;
     private double width, height;
 
     /**
@@ -122,8 +121,11 @@ public class Rectangle
      * @pre drawer must not be null, and appropriate settings should have been selected (color, fill, etc)
      * @post the drawer will have its rectangle mode modified to PApplet.CORNER 
      */
+    @Override
     public void draw(PApplet drawer)
     {
+        super.draw(drawer);
+
         drawer.rectMode(PApplet.CORNER);
         drawer.rect((float) x, (float) y, (float) (x + width), (float) (y + height));
     }
