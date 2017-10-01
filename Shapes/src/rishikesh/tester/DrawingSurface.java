@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet
     public DrawingSurface()
     {
         rectA = new Rectangle();
-        rectB = new Rectangle(0, 0, 400, 160);
+        rectB = new Rectangle(0, 80, 400, 160);
         rectC = new Rectangle(0, 100, 20, -300);
 
         circleA = new Circle();
