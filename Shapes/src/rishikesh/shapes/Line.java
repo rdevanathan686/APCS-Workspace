@@ -1,20 +1,5 @@
 package rishikesh.shapes;
 import processing.core.PApplet;
-import rishikesh.tester.DrawingSurface;
-
-/*
- * Commentaries
- * 
- * Positives
- *i like how you made a new variable for the other lines x and y
- *i like how u made a new method for checking if the intersection point is in the range
- *i like how u made a separate variable for the numerator and denominator, makes it more clear and easier to debug
- *i like how u made a dot showing where the lines intersected
- *
- *Deltas
- *try initializing your fields in the constructor    
- *maybe only show the dot of intersection only when the lines actually intersect
- */
 
 /**
  * This class represents a Line modeled for processing.js
@@ -23,7 +8,6 @@ import rishikesh.tester.DrawingSurface;
  * @version 9.20.2017
  *
  */
-// TODO Restructure Shape hierarchy to Shape2D and Shape1D
 public class Line extends Shape
 {
  
@@ -152,24 +136,30 @@ public class Line extends Shape
 	}
 
     @Override
-    public boolean isPointInside(double x, double y)
+    public boolean isPointInside(double pointX, double pointY)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return getDistance(x, y, pointX, pointY) 
+                + getDistance(x2, y2, pointX, pointY) == getPerimeter();
     }
 
     @Override
     public double getArea()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return 1;
     }
 
     @Override
     public double getPerimeter()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return getDistance(x, y, x2, y2);
+    }
+   
+    private double getDistance(double startX, double startY, double endX, double endY)
+    {
+        double distance = Math.pow((startX - endX), 2) 
+                + Math.pow((startY - endY), 2);
+        
+        return Math.sqrt(distance);
     }
 
 }

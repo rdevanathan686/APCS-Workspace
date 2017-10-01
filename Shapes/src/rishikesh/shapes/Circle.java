@@ -38,34 +38,19 @@ public class Circle extends Shape
         this.radius = radius;
 
     }
- 
-    /**
-     * Calculates and returns the perimeter of the Circle
-     * @return the perimeter of the Circle
-     */
+    
     @Override
     public double getPerimeter()
     {
         return 2 * Math.PI * radius;
     }
 
-    /**
-     * Calculates and returns the area of the Circle
-     * @return the area of the Circle
-     */
     @Override
     public double getArea()
     {
         return Math.PI * radius * radius;
     }
 
-    /**
-     * Determines whether the point x,y is contained inside this Circle
-     * 
-     * @param x the x-coordinate of the point to check
-     * @param y the y-coordinate of the point to check
-     * @return boolean value representing whether the point is contained in the Circle
-     */
     @Override
     public boolean isPointInside(double x, double y)
     {
@@ -117,7 +102,6 @@ public class Circle extends Shape
      * @pre drawer must not be null, and appropriate settings should have been selected (color, fill, etc)
      * @post the drawer will have its ellipse mode modified to PApplet.RADIUS
      */
-    //@Override
     public void draw(PApplet drawer)
     {
         super.draw(drawer);

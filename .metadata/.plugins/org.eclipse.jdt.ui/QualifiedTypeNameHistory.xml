@@ -20,8 +20,10 @@
 <fullyQualifiedTypeName name="processing.core.PShape"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="Rectangle"/>
-<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.io.PushbackInputStream"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Shape"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Rectangle"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 </qualifiedTypeNameHistroy>
