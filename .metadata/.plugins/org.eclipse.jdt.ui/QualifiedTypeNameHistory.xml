@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
-<fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="processing.event.KeyEvent"/>
@@ -20,8 +19,12 @@
 <fullyQualifiedTypeName name="processing.core.PShape"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="Rectangle"/>
-<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.io.PushbackInputStream"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Shape"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Rectangle"/>
+<fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 </qualifiedTypeNameHistroy>
