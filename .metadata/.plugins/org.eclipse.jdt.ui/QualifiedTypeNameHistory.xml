@@ -17,7 +17,6 @@
 <fullyQualifiedTypeName name="Circle"/>
 <fullyQualifiedTypeName name="java.awt.Rectangle"/>
 <fullyQualifiedTypeName name="processing.core.PShape"/>
-<fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="Rectangle"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.io.PushbackInputStream"/>
@@ -27,4 +26,7 @@
 <fullyQualifiedTypeName name="rishikesh.shapes.Rectangle"/>
 <fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
+<fullyQualifiedTypeName name="rella.shapes.Shape"/>
+<fullyQualifiedTypeName name="processing.core.PApplet"/>
+<fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
 </qualifiedTypeNameHistroy>
