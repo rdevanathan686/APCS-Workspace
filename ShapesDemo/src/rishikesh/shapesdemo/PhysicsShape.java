@@ -7,7 +7,8 @@ public class PhysicsShape
 {
     private Shape boundingShape;
     private double vx, vy;
-    
+    private double acceleration;
+
     public PhysicsShape(Shape boundingShape)
     {
         this.boundingShape = boundingShape;
@@ -34,7 +35,42 @@ public class PhysicsShape
     
     public void act()
     {
-        boundingShape.setPos(vx, vy);
+        boundingShape.move(boundingShape.getX() + vx, boundingShape.getY() + vy);
+    }
+    
+    public double getVx()
+    {
+        return vx;
+    }
+
+    public void setVx(double vx)
+    {
+        this.vx = vx;
+    }
+
+    public double getVy()
+    {
+        return vy;
+    }
+
+    public void setVy(double vy)
+    {
+        this.vy = vy;
+    }
+
+    public double getAcceleration()
+    {
+        return acceleration;
+    }
+
+    public void setAcceleration(double acceleration)
+    {
+        this.acceleration = acceleration;
+    }
+
+    public void setBoundingShape(Shape boundingShape)
+    {
+        this.boundingShape = boundingShape;
     }
     
 }

@@ -29,4 +29,6 @@
 <fullyQualifiedTypeName name="rella.shapes.Shape"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
+<fullyQualifiedTypeName name="java.awt.dnd.MouseDragGestureRecognizer"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

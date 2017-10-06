@@ -1,6 +1,6 @@
 package rishikesh.shapesdemo;
-
 import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
@@ -17,8 +17,8 @@ public class Main
         PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
         JFrame window = (JFrame) canvas.getFrame();
 
-        window.setMinimumSize(new Dimension(830, 840));
-        window.setSize(830, 840);
+        window.setSize(500, 500);
+        window.setMinimumSize(new Dimension(500, 500));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
 
