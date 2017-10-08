@@ -2,12 +2,18 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="getPx" key="selection"/>
+		<item value="poll" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="poll"/>
+			<item value="dy"/>
+			<item value="targetY"/>
+			<item value="counter"/>
+			<item value="startRun"/>
+			<item value="shapeA"/>
 			<item value="inBo"/>
 			<item value="getPx"/>
 			<item value="Rectangle"/>
@@ -17,14 +23,13 @@
 			<item value="r.y"/>
 			<item value="r.width"/>
 			<item value="r.x"/>
-			<item value="saberCol"/>
-			<item value="saberSide"/>
-			<item value="setColor"/>
-			<item value="translateY"/>
-			<item value="translateX"/>
-			<item value="getxPos"/>
 		</list>
 		<list key="replacehistory">
+			<item value="displacementY"/>
+			<item value="finalY"/>
+			<item value="currentPath"/>
+			<item value="currentRoad"/>
+			<item value="runStarted"/>
 			<item value="Circle"/>
 			<item value="height2"/>
 			<item value="y2"/>
@@ -35,11 +40,6 @@
 			<item value="xPos"/>
 			<item value="altitude"/>
 			<item value="person"/>
-			<item value="saberColor"/>
-			<item value="- 100"/>
-			<item value="+ 25"/>
-			<item value="+ 35"/>
-			<item value="- 160"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

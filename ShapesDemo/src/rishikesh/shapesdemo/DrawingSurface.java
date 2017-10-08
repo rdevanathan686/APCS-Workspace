@@ -1,68 +1,64 @@
 package rishikesh.shapesdemo;
 
 import java.awt.Color;
-import java.util.ArrayList;
+import java.util.Stack;
 
 import processing.core.PApplet;
 import rella.shapes.*;
 
 public class DrawingSurface extends PApplet
 {
-
     private PhysicsShape shapeA;
-    private ArrayList<Line> path;
-    private boolean startRun;
-    int counter = 0;
+    private Stack<Line> path;
+    private boolean runStarted;
+    private int currentPath = 0;
 
     public DrawingSurface()
     {
         shapeA = null;
-        startRun = false;
-        path = new ArrayList<Line>();
+        runStarted = false;
+        path = new Stack<Line>();
     }
 
-    // The statements in the setup() function
-    // execute once when the program begins
-    public void setup()
-    {
-
-        background(255);
-
-    }
-
-    // The statements in draw() are executed until the
-    // program is stopped. Each statement is executed in
-    // sequence and after the last line is read, the first
-    // line is executed again.
     public void draw()
     {
+        
         background(255);
+        
+//        pushStyle();
+//        textSize(17);
+//        fill(color(0, 0, 255));
+//        text("Draw a path then press enter for the circle to follow", 30, 20);
+//        pushStyle();
+        
+        for (Line road : path)
+            road.draw(this);
 
-        if (startRun)
-            update(counter);
+        if (runStarted)
+            moveToPath(currentPath);
 
         if (shapeA != null)
             shapeA.draw(this);
 
-            
-
-        for (Line road : path)
-            road.draw(this);
+        
     }
 
-    private void update(int counter)
+    private void moveToPath(int pathIndex)
     {
-        Line road = path.get(counter);
-        double targetX = road.getXf();
-        double dx = targetX - shapeA.getBoundingShape().getX();
-        shapeA.setVx(dx * 0.05);
-
-        double targetY = road.getYf();
-        double dy = targetY - shapeA.getBoundingShape().getY();
-        shapeA.setVy(dy * 0.05);
+        Line road = path.get(pathIndex);
         
-        if(Math.abs(shapeA.getVx()) < 0.01 && counter < path.size() - 1)
-            this.counter++;
+        double finalX = road.getXf();
+        double displacementX = finalX - shapeA.getBoundingShape().getX();
+        shapeA.setVx(displacementX * PhysicsShape.FRICTION);
+
+        double finalY = road.getYf();
+        double displacementY = finalY - shapeA.getBoundingShape().getY();
+        shapeA.setVy(displacementY * PhysicsShape.FRICTION);
+        
+        if((Math.abs(shapeA.getVx()) <= PhysicsShape.STOP_VELOCITY 
+                || Math.abs(shapeA.getVy()) <= PhysicsShape.STOP_VELOCITY)
+                && pathIndex < path.size() - 1)
+            currentPath++;
 
         shapeA.act();
 
@@ -71,27 +67,43 @@ public class DrawingSurface extends PApplet
     public void mousePressed()
     {
         if (path.isEmpty())
-            path.add(new Line(mouseX, mouseY, mouseX, mouseY));
-        else path.add(new Line(path.get(path.size() - 1).getXf(), path.get(path.size() - 1).getYf(),
-                mouseX, mouseY));
+        {
+            Line newLine = new Line(mouseX, mouseY, mouseX, mouseY);
+            newLine.setStrokeWidth(10);
+            path.add(newLine);
+        }
+        else 
+        {
+            Line lastLine = path.peek();
+            Line newLine = new Line(lastLine.getXf(), lastLine.getYf(), mouseX, mouseY);
+            newLine.setStrokeWidth(10);
+            path.add(newLine);
+        }
+            
 
     }
 
     public void mouseDragged()
     {
-        Line finalLine = path.get(path.size() - 1);
+        Line finalLine = path.pop();
         finalLine.setPoint2(mouseX, mouseY);
-        path.remove(path.size() - 1);
+        finalLine.setStrokeWidth(10);
         path.add(finalLine);
     }
 
     public void keyPressed()
     {
-        Circle boundingShape = new Circle(path.get(0).getX(), path.get(0).getY(), 20);
-        boundingShape.setFillColor(new Color(0, 255, 0));
-        shapeA = new PhysicsShape(boundingShape);
-        startRun = true;
-
+        if (!runStarted)
+        {
+            
+            Circle boundingShape = new Circle(path.firstElement().getX(), path.firstElement().getY(), 30);
+            boundingShape.setFillColor(Color.GREEN);
+            boundingShape.setStrokeWidth(0);
+            shapeA = new PhysicsShape(boundingShape);
+            runStarted = true;
+            
+        }
+            
     }
 
 }

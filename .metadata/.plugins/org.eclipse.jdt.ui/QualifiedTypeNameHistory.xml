@@ -16,7 +16,6 @@
 <fullyQualifiedTypeName name="processing.core.PConstants"/>
 <fullyQualifiedTypeName name="Circle"/>
 <fullyQualifiedTypeName name="java.awt.Rectangle"/>
-<fullyQualifiedTypeName name="processing.core.PShape"/>
 <fullyQualifiedTypeName name="Rectangle"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.io.PushbackInputStream"/>
@@ -28,7 +27,14 @@
 <fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 <fullyQualifiedTypeName name="rella.shapes.Shape"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
-<fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
 <fullyQualifiedTypeName name="java.awt.dnd.MouseDragGestureRecognizer"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Stack"/>
+<fullyQualifiedTypeName name="java.util.Queue"/>
+<fullyQualifiedTypeName name="java.util.AbstractQueue"/>
+<fullyQualifiedTypeName name="java.util.concurrent.ArrayBlockingQueue"/>
+<fullyQualifiedTypeName name="java.util.concurrent.LinkedBlockingQueue"/>
+<fullyQualifiedTypeName name="rella.shapes.Line"/>
+<fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
+<fullyQualifiedTypeName name="processing.core.PShape"/>
 </qualifiedTypeNameHistroy>

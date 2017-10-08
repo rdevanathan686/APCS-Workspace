@@ -8,6 +8,8 @@ public class PhysicsShape
     private Shape boundingShape;
     private double vx, vy;
     private double acceleration;
+    public static final double FRICTION = 0.05;
+    public static final double STOP_VELOCITY = 0.01;
 
     public PhysicsShape(Shape boundingShape)
     {
