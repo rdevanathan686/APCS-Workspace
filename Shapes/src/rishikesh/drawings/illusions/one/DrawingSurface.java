@@ -1,5 +1,4 @@
-package rishikesh.illusions.one;
-
+package rishikesh.drawings.illusions.one;
 
 import processing.core.PApplet;
 import rishikesh.shapes.Line;
@@ -44,7 +43,7 @@ public class DrawingSurface extends PApplet
         {
             Line line = new Line((i * 110) + 30, 50, (i * 110) + 30, 750);
             line.setStrokeWeight(10);
-            line.setStrokeColor(color(255, 0, 0));
+            line.setStrokeColor(0x00FFFFFF + color(255, 0, 0));
             line.draw(this);
         }
 

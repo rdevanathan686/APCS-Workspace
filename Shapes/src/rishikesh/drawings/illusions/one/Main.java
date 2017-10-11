@@ -1,4 +1,4 @@
-package rishikesh.illusions.one;
+package rishikesh.drawings.illusions.one;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;

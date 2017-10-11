@@ -1,4 +1,4 @@
-package rishikesh.illusions.two;
+package rishikesh.drawings.illusions.two;
 
 import processing.core.PApplet;
 

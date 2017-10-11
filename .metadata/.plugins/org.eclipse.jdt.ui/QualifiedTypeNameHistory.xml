@@ -6,12 +6,10 @@
 <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="processing.event.KeyEvent"/>
 <fullyQualifiedTypeName name="DrawingSurface"/>
 <fullyQualifiedTypeName name="java.io.PipedInputStream"/>
 <fullyQualifiedTypeName name="java.lang.Float"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.lang.Readable"/>
 <fullyQualifiedTypeName name="processing.core.PConstants"/>
 <fullyQualifiedTypeName name="Circle"/>
@@ -21,12 +19,10 @@
 <fullyQualifiedTypeName name="java.io.PushbackInputStream"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Shape"/>
-<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Rectangle"/>
 <fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 <fullyQualifiedTypeName name="rella.shapes.Shape"/>
-<fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="java.awt.dnd.MouseDragGestureRecognizer"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Stack"/>
@@ -37,4 +33,9 @@
 <fullyQualifiedTypeName name="rella.shapes.Line"/>
 <fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
 <fullyQualifiedTypeName name="processing.core.PShape"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="processing.core.PApplet"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.RegularPolygon"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

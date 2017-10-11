@@ -110,6 +110,23 @@ public class Circle extends Shape
         drawer.ellipse((float) x, (float) y, (float) radius, (float) radius);
     }
 
+    /**
+     * Returns the radius of the circle
+     * @return
+     */
+    public double getRadius()
+    {
+        return radius;
+    }
+
+    /**
+     * Sets the radius of the circle to the given value
+     * @param radius the radius of the shape to set to, must be greater than 0
+     */
+    public void setRadius(double radius)
+    {
+        this.radius = radius;
+    }
     
 
 }
