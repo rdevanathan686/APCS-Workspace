@@ -80,13 +80,12 @@ public abstract class Shape
 
     public void draw(PApplet drawer)
     {
-        drawer.pushStyle();
         
         drawer.stroke(strokeColor);
         drawer.fill(fillColor);
         drawer.strokeWeight(strokeWeight);
         
-        drawer.pushStyle();
+     
     }
 
     /**

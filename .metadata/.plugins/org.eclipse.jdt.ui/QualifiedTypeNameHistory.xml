@@ -21,7 +21,6 @@
 <fullyQualifiedTypeName name="rishikesh.shapes.Shape"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Rectangle"/>
 <fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
-<fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 <fullyQualifiedTypeName name="rella.shapes.Shape"/>
 <fullyQualifiedTypeName name="java.awt.dnd.MouseDragGestureRecognizer"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -38,4 +37,5 @@
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.RegularPolygon"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 </qualifiedTypeNameHistroy>

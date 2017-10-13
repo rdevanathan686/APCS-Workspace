@@ -104,9 +104,10 @@ public class Circle extends Shape
      */
     public void draw(PApplet drawer)
     {
+        
         super.draw(drawer);
         
-        drawer.ellipseMode(PConstants.RADIUS);
+        drawer.ellipseMode(PConstants.CENTER);
         drawer.ellipse((float) x, (float) y, (float) radius, (float) radius);
     }
 

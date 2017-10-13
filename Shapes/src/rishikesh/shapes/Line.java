@@ -153,13 +153,33 @@ public class Line extends Shape
     {
         return getDistance(x, y, x2, y2);
     }
-   
+
     private double getDistance(double startX, double startY, double endX, double endY)
     {
         double distance = Math.pow((startX - endX), 2) 
                 + Math.pow((startY - endY), 2);
         
         return Math.sqrt(distance);
+    }
+    
+    public double getX2()
+    {
+        return x2;
+    }
+
+    public void setX2(double x2)
+    {
+        this.x2 = x2;
+    }
+
+    public double getY2()
+    {
+        return y2;
+    }
+
+    public void setY2(double y2)
+    {
+        this.y2 = y2;
     }
 
 }

@@ -87,9 +87,9 @@
 				<item value="\\hhsfs3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\Illusions2\doc" key="destdir"/>
 				<item value="" key="href"/>
 			</section>
-			<section name="Illusion">
-				<item value="\\HHSFS3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\Illusion\javadoc.xml" key="antpath"/>
-				<item value="\\HHSFS3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\Illusion\doc" key="destdir"/>
+			<section name="ShapesDemo">
+				<item value="\\HHSFS3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\ShapesDemo\javadoc.xml" key="antpath"/>
+				<item value="\\HHSFS3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\ShapesDemo\doc" key="destdir"/>
 				<item value="" key="href"/>
 			</section>
 			<section name="Shapes">
