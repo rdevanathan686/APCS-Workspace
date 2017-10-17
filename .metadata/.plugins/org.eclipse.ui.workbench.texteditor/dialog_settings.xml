@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="triangle"/>
 			<item value="color"/>
 			<item value="poll"/>
 			<item value="dy"/>
@@ -22,7 +23,6 @@
 			<item value="@pre"/>
 			<item value="r.height"/>
 			<item value="r.y"/>
-			<item value="r.width"/>
 		</list>
 		<list key="replacehistory">
 			<item value="displacementY"/>

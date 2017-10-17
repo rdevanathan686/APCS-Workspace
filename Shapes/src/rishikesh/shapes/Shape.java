@@ -73,8 +73,8 @@ public abstract class Shape
             this.strokeWeight = DEFAULT_STROKE_WEIGHT;
         if (!setFillColor(fillColor))
             this.fillColor = DEFAULT_FILL_COLOR;
-        if (!setStrokeColor(strokeColor))
-            this.strokeColor = DEFAULT_STROKE_COLOR;
+        
+        this.strokeColor = DEFAULT_STROKE_COLOR;
        
     }
 
@@ -236,13 +236,9 @@ public abstract class Shape
      * @return true if it's set to the new value and false if not
      * @post stroke color of the shape may not be set if the param is not a valid color
      */
-    public boolean setStrokeColor(int strokeColor)
+    public void setStrokeColor(int strokeColor)
     {
-        if (strokeColor < 0 || strokeColor > 16777216)
-            return false;
-            
         this.strokeColor = strokeColor;
-        return true;
     }
 
 }

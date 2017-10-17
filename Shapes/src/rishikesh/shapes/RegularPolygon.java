@@ -32,8 +32,8 @@ public class RegularPolygon extends Shape
     /**
      * Parameter-taking constructor that creates a polygon with the given
      * number of sides and the side length of each side
-     * @param numSides
-     * @param sideLength
+     * @param numSides the number of sides the polygon has
+     * @param sideLength the sidelength of each side
      */
     public RegularPolygon(int numSides, double sideLength)
     {
@@ -48,22 +48,25 @@ public class RegularPolygon extends Shape
 
     }
 
-    // private methods
+    
     private void calcr()
     {
         double result = 0.5 * sideLength / Math.tan(Math.PI / numSides);
 
-        inCircle.setRadius(result);
+        inCircle.setRadius(result * 2);
     }
 
     private void calcR()
     {
         double result = 0.5 * sideLength / Math.sin(Math.PI / numSides);
 
-        outCircle.setRadius(result);
+        outCircle.setRadius(result * 2);
     }
 
-    // public methods
+    /**
+     * Calculates and returns the value of the angle at each vertex 
+     * @return the angle at each vertex
+     */
     public double calcVertexAngle()
     {
         double result = (double) (numSides - 2) / numSides;
@@ -87,26 +90,48 @@ public class RegularPolygon extends Shape
         return numSides * sideLength;
     }
 
+    /**
+     * Returns the number of sides of the polygon
+     * @return an integer representing the number of sides of the polygon
+     */
     public int getNumSides()
     {
         return numSides;
     }
 
+    /**
+     * Returns the length of each sides of the polygon
+     * @return an double representing the length of each sides of the polygon
+     */
     public double getSideLength()
     {
         return sideLength;
     }
 
+    /**
+     * Returns the radius of the circumscribed circle 
+     * @return the double representing the radius of the circumscribed circle 
+     */
     public double getR()
     {
         return outCircle.getRadius();
     }
 
+    /**
+     * Returns the radius of the inscribed circle 
+     * @return the double representing the radius of the inscribed circle 
+     */
     public double getr()
     {
         return inCircle.getRadius();
     }
 
+    /**
+     * Draws the polygon in the center on the given drawing surface 
+     * with the previously specified side length and number of sides
+     * @param marker the PApplet drawing surface to draw on
+     * @pre all style and matrix will affect the polygon
+     */
     public void draw(PApplet marker)
     {
         int angle = 180;
@@ -116,8 +141,8 @@ public class RegularPolygon extends Shape
 
         for (int i = 0; i < numSides; i++)
         {
-            x = 250 + getr() * Math.cos(Math.toRadians(angle));
-            y = 250 + getr() * Math.sin(Math.toRadians(angle));
+            x = 250 + getR()/2 * Math.cos(Math.toRadians(angle));
+            y = 250 + getR()/2 * Math.sin(Math.toRadians(angle));
 
             sides[i] = new Line(x, y, previousx, previousy);
 
@@ -139,17 +164,27 @@ public class RegularPolygon extends Shape
 
     }
 
+    /**
+     * Draws the inscribed and circumscribed circles in the center 
+     * and on the given drawing surface 
+     * @param marker the PApplet drawing surface to draw on
+     * @pre all style and matrix will affect the circles
+     */
     public void drawBoundingCircles(PApplet marker)
     {
-        
         inCircle.setX(250);
         inCircle.setY(250);
 
         outCircle.setX(250);
         outCircle.setY(250);
-
+        
+        outCircle.setFillColor(marker.color(0, 0, 0, 255));
+        outCircle.setFillColor(marker.color(0, 0, 0, 255));
+        
         outCircle.draw(marker);
         inCircle.draw(marker);
+        
+
         
     }
 
