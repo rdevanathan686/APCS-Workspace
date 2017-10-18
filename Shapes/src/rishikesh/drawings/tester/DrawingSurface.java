@@ -9,16 +9,21 @@ import rishikesh.shapes.RegularPolygon;
 public class DrawingSurface extends PApplet
 {
 
-    // Testers
+    // Testers for Rectangle
     Rectangle rectA;
     Rectangle rectB;
     Rectangle rectC;
 
+    // Testers for Circle
     Circle circleA;
     Circle circleB;
     Circle circleC;
     
-    RegularPolygon triangle = new RegularPolygon(8, 100);
+    // Testers for Polygon
+    RegularPolygon square;
+    RegularPolygon octagon;
+    RegularPolygon enneadecagon;
+    RegularPolygon enneacontakaihenagon; 
 
     public DrawingSurface()
     {
@@ -29,6 +34,11 @@ public class DrawingSurface extends PApplet
         circleA = new Circle();
         circleB = new Circle(50, 50, 10);
         circleC = new Circle(40, 60, -10);
+        
+        square = new RegularPolygon(4, 100);
+        octagon =  = new RegularPolygon(8, 100);
+        enneadecagon = new RegularPolygon(19, 100);
+        enneacontakaihenagon = new RegularPolygon(91, 100);
     }
 
     // The statements in the setup() function
@@ -36,17 +46,17 @@ public class DrawingSurface extends PApplet
     public void setup()
     {
         System.out.println("Rectangle Testers:");
-        System.out.println(rectB.getArea());
-        System.out.println(rectB.getPerimeter());
-        System.out.println(rectB.isPointInside(50, 250));
-        System.out.println(rectB.inWindow(width, height));
-        System.out.println(rectB.overlaps(rectC) + "\n");
+        System.out.println("Area of a Rectangle: " + rectB.getArea());
+        System.out.println("Perimeter of a Rectangle: " + rectB.getPerimeter());
+        System.out.println("Is point(50, 250) inside the rectangle? " + rectB.isPointInside(50, 250));
+        System.out.println("Is the rectangle contained inside the window? " + rectB.inWindow(width, height));
+        System.out.println("Does the rectangle(B) overlap with the other rectangle(C)? " + rectB.overlaps(rectC) + "\n");
 
         System.out.println("Circle Testers:");
-        System.out.println(circleB.getArea());
-        System.out.println(circleB.getPerimeter());
-        System.out.println(circleB.isPointInside(50, 59));
-        System.out.println(circleB.overlaps(circleC));
+        System.out.println("Area of a Circle: " + circleB.getArea());
+        System.out.println("Perimeter of a Circle: " + circleB.getPerimeter());
+        System.out.println("Is point(50, 59) inside the Circle? " + circleB.isPointInside(50, 59));
+        System.out.println("Does the Circle(B) overlap with the other Circle(C)? " + circleB.overlaps(circleC) + "\n");
         
         // Testing Colors
         circleB.setFillColor(color(255, 0, 0));
@@ -54,8 +64,10 @@ public class DrawingSurface extends PApplet
         circleB.setStrokeColor(color(0, 255, 0));
         
         System.out.println("Regular Polygon Testers:");
-        System.out.println(triangle.getr());
-        System.out.println(triangle.getR());
+        System.out.println("Inner-circle radius of a square: " + square.getr());
+        System.out.println("Outer-circle radius of an octagon: " + octagon.getR());
+        System.out.println("Perimeter of a Enneadecagon: " + enneadecagon.getPerimeter());
+        System.out.println("Area of a Enneacontakaihenagon: " + enneacontakaihenagon.getArea());
 
     }
 
@@ -67,16 +79,20 @@ public class DrawingSurface extends PApplet
     {
 
         background(255);
+        
+        // Drawing rectangles
         rectA.draw(this);
         rectB.draw(this);
         rectC.draw(this);
 
+        // Drawing circles
         circleA.draw(this);
         circleB.draw(this);
         circleC.draw(this);
         
-        triangle.drawBoundingCircles(this);
-        triangle.draw(this);
+        // Drawing octagon of RegularPolygon class
+        octagon.drawBoundingCircles(this);
+        octagon.draw(this);
         
         
 
