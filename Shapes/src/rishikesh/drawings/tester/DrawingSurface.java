@@ -35,10 +35,10 @@ public class DrawingSurface extends PApplet
         circleB = new Circle(50, 50, 10);
         circleC = new Circle(40, 60, -10);
         
-        square = new RegularPolygon(4, 100);
-        octagon =  = new RegularPolygon(8, 100);
-        enneadecagon = new RegularPolygon(19, 100);
-        enneacontakaihenagon = new RegularPolygon(91, 100);
+        square = new RegularPolygon(4, 10);
+        octagon = new RegularPolygon(8, 5.75);
+        enneadecagon = new RegularPolygon(19, 2);
+        enneacontakaihenagon = new RegularPolygon(91, 0.5);
     }
 
     // The statements in the setup() function
@@ -93,9 +93,6 @@ public class DrawingSurface extends PApplet
         // Drawing octagon of RegularPolygon class
         octagon.drawBoundingCircles(this);
         octagon.draw(this);
-        
-        
-
     }
 
 }
