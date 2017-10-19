@@ -16,17 +16,19 @@
 		<item value="https://github.com/rdevanathan686/APCS-Workspace"/>
 	</list>
 	<list key="CommitDialog.authorValues">
+		<item value="rdevanathan686 &lt;rdevanathan686@PR17.hhs.win.fuhsd.org&gt;"/>
 		<item value="rishi &lt;rdevanathan686@student.fuhsd.org&gt;"/>
 	</list>
 	<list key="CommitDialog.committerValues">
+		<item value="rdevanathan686 &lt;rdevanathan686@PR17.hhs.win.fuhsd.org&gt;"/>
 		<item value="rishi &lt;rdevanathan686@student.fuhsd.org&gt;"/>
 	</list>
 	<section name="GitImportWizard">
 	</section>
 	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
-		<item value="700" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="481" key="DIALOG_HEIGHT"/>
+		<item value="666" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="457" key="DIALOG_HEIGHT"/>
 		<item value="619" key="DIALOG_X_ORIGIN"/>
 		<item value="204" key="DIALOG_Y_ORIGIN"/>
 		<list key="sashWeights">
@@ -35,6 +37,9 @@
 		</list>
 	</section>
 	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item value="777" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="780" key="DIALOG_X_ORIGIN"/>
 		<item value="368" key="DIALOG_Y_ORIGIN"/>
 	</section>
