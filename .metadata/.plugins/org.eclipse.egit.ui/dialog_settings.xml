@@ -44,6 +44,13 @@
 		<item value="368" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="GitCommitMessageComponent">
+		<list key="\\HHSFS3\Student\rdevanathan686\My Documents\GitHub\APCS-Workspace\.git">
+			<item value="false"/>
+			<item value="rdevanathan686 &lt;rdevanathan686@student.fuhsd.org&gt;"/>
+			<item value="IRS with feedback"/>
+			<item value="rdevanathan686 &lt;rdevanathan686@student.fuhsd.org&gt;"/>
+			<item value="ff5bfb8969913deb74aaba6ff03629390ebdac37"/>
+		</list>
 	</section>
 	<section name="GitCommitSearchPage">
 		<item value="0" key="HISTORY_SIZE"/>
