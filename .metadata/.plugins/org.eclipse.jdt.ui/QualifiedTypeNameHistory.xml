@@ -38,5 +38,7 @@
 <fullyQualifiedTypeName name="rishikesh.shapes.RegularPolygon"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
+<fullyQualifiedTypeName name="java.lang.Package"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="Package"/>
 </qualifiedTypeNameHistroy>
