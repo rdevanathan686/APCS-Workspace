@@ -16,7 +16,7 @@ public class Package
     {
         double girth = 0.0;
                 
-        if (dim1 >= dim2 && dim1 > dim3)
+        if (dim1 >= dim2 && dim1 >= dim3)
         {
             girth = (dim2 + dim3) * 2;
         }
@@ -39,8 +39,7 @@ public class Package
         
         if (girth + dim1 <= 100 && weight <= 70)
         {
-            return "Package too heavy";
-                    
+            return "Package is acceptable";
         }
         else if (girth + dim1 > 100)
         {
