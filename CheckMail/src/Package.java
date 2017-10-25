@@ -1,4 +1,8 @@
-
+/**
+ * Flowchart Author: Will Borlik
+ * @author rdevanathan686
+ *
+ */
 public class Package
 {
     private double dim1, dim2, dim3, weight;
@@ -17,9 +21,7 @@ public class Package
         double girth = 0.0;
                 
         if (dim1 >= dim2 && dim1 >= dim3)
-        {
             girth = (dim2 + dim3) * 2;
-        }
         else if (dim2 >= dim1 && dim2 >= dim3)
         {
             double temp = dim1;
@@ -36,11 +38,9 @@ public class Package
             
             girth = (dim2 + dim3) * 2;
         }
-        
+  
         if (girth + dim1 <= 100 && weight <= 70)
-        {
             return "Package is acceptable";
-        }
         else if (girth + dim1 > 100)
         {
             if (weight > 70)
