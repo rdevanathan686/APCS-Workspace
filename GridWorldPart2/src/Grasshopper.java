@@ -1,5 +1,5 @@
 /* 
-* AP(r) Computer Science GridWorld Case Study:
+ * AP(r) Computer Science GridWorld Case Study:
  * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
  *
  * This code is free software; you can redistribute it and/or modify

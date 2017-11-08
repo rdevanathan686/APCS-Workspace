@@ -87,15 +87,11 @@ public class SevenSegment extends JPanel implements ActionListener
             number[i] = ((counter & mask) == mask);
         }
 
-        // TODO: Complete the conditions below.
-        // number[] contains the bits of the currently stored number in the form of a
-        // boolean array.
-        // number[0] is the least significant bit, while number[3] is the most
-        // significant bit.
-
         /*
-         * segments[0] = segments[1] = segments[2] = /* segments[3] = segments[4] =
-         * segments[5] = segments[6] =
+         number[] contains the bits of the currently stored number in the form of a
+         boolean array.
+         number[0] is the least significant bit, while number[3] is the most
+         significant bit.
          */
 
         segments[0] = number[1] || number[3] || number[0] == number[2];
@@ -105,8 +101,8 @@ public class SevenSegment extends JPanel implements ActionListener
 
         segments[2] = number[0] || number[2] || !number[1];
 
-        segments[3] = !number[0] && (number[1] || !number[2]) || (number[1] && !number[2])
-                || (number[3]) || (!number[1] && number[2] && number[0]);
+        segments[3] = !number[0] && (number[1] || !number[2]) || (number[1] && !number[2]) ||
+                number[3] || (!number[1] && number[2] && number[0]);
 
         segments[4] = !number[0] && (number[1] || !number[2]);
 
