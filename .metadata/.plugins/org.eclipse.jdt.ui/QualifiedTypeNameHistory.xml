@@ -41,4 +41,6 @@
 <fullyQualifiedTypeName name="Package"/>
 <fullyQualifiedTypeName name="info.gridworld.actor.Actor"/>
 <fullyQualifiedTypeName name="info.gridworld.actor.Flower"/>
+<fullyQualifiedTypeName name="info.gridworld.actor.Bug"/>
+<fullyQualifiedTypeName name="DancingBug"/>
 </qualifiedTypeNameHistroy>
