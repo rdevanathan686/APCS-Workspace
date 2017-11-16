@@ -23,8 +23,19 @@ public class ZBug extends BoxBug
      */
     public void act()
     {
-        if (side <= 3)
+        if (super.getSteps() <= super.getSideLength() && side <= 3)
+        {
             super.move();
+            super.setSteps(getSteps() + 1); 
+        }
+
+        else
+        {
+            turn();
+            super.setSteps(0);
+        }
+
+        
     }
     
     public void turn()
@@ -32,9 +43,7 @@ public class ZBug extends BoxBug
         if (side == 1)
             this.setDirection(getDirection() + 135);
         else if (side == 2)
-            this.setDirection(getDirection() - 45); 
-        else if (side == 3)
-            this.setDirection(90);
+            this.setDirection(90); 
         
         side++;
     }

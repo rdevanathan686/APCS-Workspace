@@ -54,4 +54,24 @@ public class BoxBug extends Bug
             steps = 0;
         }
     }
+
+    public int getSteps()
+    {
+        return steps;
+    }
+
+    public void setSteps(int steps)
+    {
+        this.steps = steps;
+    }
+
+    public int getSideLength()
+    {
+        return sideLength;
+    }
+
+    public void setSideLength(int sideLength)
+    {
+        this.sideLength = sideLength;
+    }
 }
