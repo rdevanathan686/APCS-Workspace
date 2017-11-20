@@ -31,7 +31,6 @@
 <fullyQualifiedTypeName name="rishikesh.shapesdemo.PhysicsShape"/>
 <fullyQualifiedTypeName name="processing.core.PShape"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.RegularPolygon"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
@@ -43,4 +42,7 @@
 <fullyQualifiedTypeName name="info.gridworld.actor.Flower"/>
 <fullyQualifiedTypeName name="info.gridworld.actor.Bug"/>
 <fullyQualifiedTypeName name="DancingBug"/>
+<fullyQualifiedTypeName name="ArrayReader"/>
+<fullyQualifiedTypeName name="Statistics"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
 </qualifiedTypeNameHistroy>
