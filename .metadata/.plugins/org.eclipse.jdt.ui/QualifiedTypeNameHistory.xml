@@ -3,7 +3,6 @@
 <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="processing.event.KeyEvent"/>
 <fullyQualifiedTypeName name="DrawingSurface"/>
 <fullyQualifiedTypeName name="java.io.PipedInputStream"/>
@@ -21,7 +20,6 @@
 <fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
 <fullyQualifiedTypeName name="rella.shapes.Shape"/>
 <fullyQualifiedTypeName name="java.awt.dnd.MouseDragGestureRecognizer"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Stack"/>
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="java.util.AbstractQueue"/>
@@ -33,7 +31,6 @@
 <fullyQualifiedTypeName name="rishikesh.shapes.Circle"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.RegularPolygon"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="rishikesh.shapes.Line"/>
 <fullyQualifiedTypeName name="java.lang.Package"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
@@ -45,4 +42,8 @@
 <fullyQualifiedTypeName name="ArrayReader"/>
 <fullyQualifiedTypeName name="Statistics"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
 </qualifiedTypeNameHistroy>
