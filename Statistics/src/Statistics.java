@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Statistics
 {
     private int[] data;
@@ -26,8 +28,20 @@ public class Statistics
     
     public void printData(int[] inputData)
     {
-        for(int num : inputData)
-            System.out.println(num);
+        String output = "[";
+        
+        for(int i = 0; i < inputData.length; i++)
+        {
+            int num = inputData[i];
+            
+            if (i != inputData.length - 1)
+                output += (num + ", ");
+            else
+                output += (num + "]");
+        }
+
+        
+        System.out.print(output);
     }
     
     public void calcAvg()
@@ -44,54 +58,78 @@ public class Statistics
     public int[] calcMode()
     {
         int maxOccurence = 0;
-        int numModes = 0;
-        int[] localMode = new int[numModes + 1];
+        int[] localMode = new int[0];
+        int[] localModeOcc = new int[0];
 
-        
-        for(int i : data)
+        for (int i = 0; i < data.length; i++)
         {
-           int iOcc = 0;
-           
-           for(int j : data)
-               if (i == j)
-                   iOcc++;
-                         
-           if (maxOccurence <= iOcc)
-           {
-               boolean exists = false;
-               
-               for (int k = 0; k < localMode.length; k++)
-               {
-                   if (localMode[k] == i)
-                   {
-                       exists = true;
-                       break;
-                   }
-               }
-               
-               if (!exists)
-               {
-                   numModes++;
-                   maxOccurence = iOcc;
-                   
-                   int[] copyLocalMode = new int[localMode.length + 1];
-                   
-                   for (int l = 0; l < localMode.length; l++)
-                   {
-                       copyLocalMode[l] = localMode[l];
-                   }
-                   
-                   copyLocalMode[numModes] = i;
-                   
-                   localMode = copyLocalMode;
+            int element = data[i];
+            int elementOcc = 0;
 
-               }
+            for (int j : data)
+                if (element == j)
+                    elementOcc++;
 
-           }
+            boolean exists = false;
+
+            for (int k : localMode)
+            {
+                if (k == element)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+            {
+                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
+                copyLocalMode[localMode.length] = element;
+                
+                int[] copyLocalModeOcc = Arrays.copyOf(localModeOcc, localModeOcc.length + 1);
+                copyLocalModeOcc[localMode.length] = elementOcc;
+                
+                localMode = copyLocalMode;
+                localModeOcc = copyLocalModeOcc;
+
+            }
 
         }
         
-        return localMode;
+        
+        int[] index = null;
+        
+        for (int a = 0; a < localModeOcc.length; a++)
+        {
+            if (maxOccurence < localModeOcc[a])
+            {
+                maxOccurence = localModeOcc[a];
+                index = new int[1];
+                index[0] = a;
+            }
+            
+            else if (maxOccurence == localModeOcc[a])
+            {
+                int[] copyIndex = Arrays.copyOf(index, index.length + 1);
+                copyIndex[copyIndex.length - 1] = a;
+                
+                index = copyIndex;
+            }
+                
+                
+        }
+        
+        int[] result = new int[index.length];
+        
+        for (int b = 0; b < index.length; b++)
+        {
+            result[b] = localMode[index[b]];
+        }
+        
+        return result;
+
+    
+
     }
     
     public void calcStdDev()
