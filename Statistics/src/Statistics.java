@@ -6,6 +6,8 @@ public class Statistics
     private double average;
     private int[] mode;
     private double stdDiv;
+    private int realLength;
+    
     
     
     public Statistics(int maxLength)
@@ -17,7 +19,8 @@ public class Statistics
     public void readData(String fileName)
     {
         ArrayReader reader = new ArrayReader(fileName);
-        reader.fillArray(data);
+        realLength = reader.fillArray(data);
+
     }
     
     public void printData()
@@ -57,78 +60,121 @@ public class Statistics
     
     public int[] calcMode()
     {
-        int maxOccurence = 0;
-        int[] localMode = new int[0];
-        int[] localModeOcc = new int[0];
+//        int maxOccurence = 0;
+//        int[] localMode = new int[0];
+//        int[] localModeOcc = new int[0];
+//
+//        for (int i = 0; i < data.length; i++)
+//        {
+//            int element = data[i];
+//            int elementOcc = 0;
+//
+//            for (int j : data)
+//                if (element == j)
+//                    elementOcc++;
+//
+//            boolean exists = false;
+//
+//            for (int k : localMode)
+//            {
+//                if (k == element)
+//                {
+//                    exists = true;
+//                    break;
+//                }
+//            }
+//
+//            if (!exists)
+//            {
+//                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
+//                copyLocalMode[localMode.length] = element;
+//                
+//                int[] copyLocalModeOcc = Arrays.copyOf(localModeOcc, localModeOcc.length + 1);
+//                copyLocalModeOcc[localMode.length] = elementOcc;
+//                
+//                localMode = copyLocalMode;
+//                localModeOcc = copyLocalModeOcc;
+//
+//            }
+//
+//        }
+//        
+//        
+//        int[] index = null;
+//        
+//        for (int a = 0; a < localModeOcc.length; a++)
+//        {
+//            if (maxOccurence < localModeOcc[a])
+//            {
+//                maxOccurence = localModeOcc[a];
+//                index = new int[1];
+//                index[0] = a;
+//            }
+//            
+//            else if (maxOccurence == localModeOcc[a])
+//            {
+//                int[] copyIndex = Arrays.copyOf(index, index.length + 1);
+//                copyIndex[copyIndex.length - 1] = a;
+//                
+//                index = copyIndex;
+//            }
+//                
+//                
+//        }
+//        
+//        int[] result = new int[index.length];
+//        
+//        for (int b = 0; b < index.length; b++)
+//        {
+//            result[b] = localMode[index[b]];
+//        }
+//        
+//        return result;
 
-        for (int i = 0; i < data.length; i++)
+        int element = data[0];
+        int[] count = new int[element];
+        
+        for(int i = 0; i < data.length; i++)
         {
-            int element = data[i];
-            int elementOcc = 0;
-
-            for (int j : data)
-                if (element == j)
-                    elementOcc++;
-
-            boolean exists = false;
-
-            for (int k : localMode)
+            element = data[i];
+            
+            if (count.length <= element)
             {
-                if (k == element)
-                {
-                    exists = true;
-                    break;
-                }
-            }
-
-            if (!exists)
-            {
-                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
-                copyLocalMode[localMode.length] = element;
+                int[] copyCount =  Arrays.copyOf(count, element + 1);
+                copyCount[element]++;
                 
-                int[] copyLocalModeOcc = Arrays.copyOf(localModeOcc, localModeOcc.length + 1);
-                copyLocalModeOcc[localMode.length] = elementOcc;
-                
-                localMode = copyLocalMode;
-                localModeOcc = copyLocalModeOcc;
-
+                count = copyCount;
             }
-
+            else
+                count[element]++;
         }
         
+        int max = 0;
+        int[] localMode = new int[0];
         
-        int[] index = null;
-        
-        for (int a = 0; a < localModeOcc.length; a++)
+        for(int i = 0; i < data.length; i++)
         {
-            if (maxOccurence < localModeOcc[a])
+            if (max < count[i])
             {
-                maxOccurence = localModeOcc[a];
-                index = new int[1];
-                index[0] = a;
+                max = count[i];
+                
             }
             
-            else if (maxOccurence == localModeOcc[a])
+            else if (max == count[i])
             {
-                int[] copyIndex = Arrays.copyOf(index, index.length + 1);
-                copyIndex[copyIndex.length - 1] = a;
+                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
+                copyLocalMode[copyLocalMode.length - 1] = i;
                 
-                index = copyIndex;
+                localMode = copyLocalMode;
             }
-                
-                
-        }
-        
-        int[] result = new int[index.length];
-        
-        for (int b = 0; b < index.length; b++)
-        {
-            result[b] = localMode[index[b]];
-        }
-        
-        return result;
+            
+            localMode[localMode.length - 1] = i;
 
-    
+            
+        }
+        
+        return localMode;
+
 
     }
     
