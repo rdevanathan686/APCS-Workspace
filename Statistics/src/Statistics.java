@@ -6,9 +6,6 @@ public class Statistics
     private double average;
     private int[] mode;
     private double stdDiv;
-    private int realLength;
-    
-    
     
     public Statistics(int maxLength)
     {
@@ -19,7 +16,7 @@ public class Statistics
     public void readData(String fileName)
     {
         ArrayReader reader = new ArrayReader(fileName);
-        realLength = reader.fillArray(data);
+        reader.fillArray(data);
 
     }
     
@@ -148,32 +145,27 @@ public class Statistics
             else
                 count[element]++;
         }
+       
+        int[] copyCount = Arrays.copyOf(count, count.length);
+        Arrays.sort(copyCount);
         
-        int max = 0;
-        int[] localMode = new int[0];
+        int max = copyCount[copyCount.length - 1];
         
-        for(int i = 0; i < data.length; i++)
+        int[] result = new int[0];
+        
+        for(int i = 0; i < count.length; i++)
         {
-            if (max < count[i])
+            if (count[i] == max)
             {
-                max = count[i];
+                int[] copyResult =  Arrays.copyOf(result, result.length + 1);
+                copyResult[copyResult.length - 1] = i;
                 
+                result = copyResult;
             }
-            
-            else if (max == count[i])
-            {
-                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
-                copyLocalMode[copyLocalMode.length - 1] = i;
-                
-                localMode = copyLocalMode;
-            }
-            
-            localMode[localMode.length - 1] = i;
 
-            
         }
         
-        return localMode;
+        return result;
 
 
     }
