@@ -8,8 +8,6 @@ public class Statistics
     private double stdDiv;
     private int realLength;
     
-    
-    
     public Statistics(int maxLength)
     {
         data = new int[maxLength];
@@ -25,8 +23,8 @@ public class Statistics
     
     public void printData()
     {
-        for(int num : data)
-            System.out.println(num);
+        for(int num = 0; num < realLength; num++)
+            System.out.println(data[num]);
     }
     
     public void printData(int[] inputData)
@@ -51,10 +49,10 @@ public class Statistics
     {
         long localAvg = 0;
         
-        for (int num : data)
-            localAvg += num;
+        for (int num = 0; num < realLength; num++)
+            localAvg += data[num];
 
-        average = localAvg / (double)(data.length);
+        average = localAvg / (double)(realLength);
         
     }
     
@@ -64,7 +62,7 @@ public class Statistics
 //        int[] localMode = new int[0];
 //        int[] localModeOcc = new int[0];
 //
-//        for (int i = 0; i < data.length; i++)
+//        for (int i = 0; i < realLength; i++)
 //        {
 //            int element = data[i];
 //            int elementOcc = 0;
@@ -134,7 +132,7 @@ public class Statistics
         int element = data[0];
         int[] count = new int[element];
         
-        for(int i = 0; i < data.length; i++)
+        for(int i = 0; i < realLength; i++)
         {
             element = data[i];
             
@@ -148,32 +146,28 @@ public class Statistics
             else
                 count[element]++;
         }
+       
+        int[] copyCount = Arrays.copyOf(count, count.length);
+        Arrays.sort(copyCount);
         
-        int max = 0;
-        int[] localMode = new int[0];
+        int max = copyCount[copyCount.length - 1];
         
-        for(int i = 0; i < data.length; i++)
+        int[] result = new int[0];
+        
+        for(int i = 0; i < count.length; i++)
         {
-            if (max < count[i])
+            if (count[i] == max)
             {
-                max = count[i];
+                int[] copyResult =  Arrays.copyOf(result, result.length + 1);
+                copyResult[copyResult.length - 1] = i;
                 
+                result = copyResult;
             }
-            
-            else if (max == count[i])
-            {
-                int[] copyLocalMode = Arrays.copyOf(localMode, localMode.length + 1);
-                copyLocalMode[copyLocalMode.length - 1] = i;
-                
-                localMode = copyLocalMode;
-            }
-            
-            localMode[localMode.length - 1] = i;
 
-            
         }
         
-        return localMode;
+        return result;
+
 
 
     }
@@ -184,13 +178,72 @@ public class Statistics
         
         int localStdDiv = 0;
         
-        for(int num : data)
-            localStdDiv += ((average - num) * (average - num));
+        for(int num = 0; num < realLength; num++)
+            localStdDiv += ((average - data[num]) * (average - data[num]));
         
-        stdDiv = Math.sqrt(localStdDiv / (double)(data.length - 1));
+        stdDiv = Math.sqrt(localStdDiv / (double)(realLength - 1));
         
     }
     
+    // Precondition: data is non-null int array, size is the number of legitimate
+    // elements in data
+    // Postcondition: Moves all non-zero integers to the front of the array data,
+    // leaving the
+    // order of integers otherwise unchanged. Returns the new number of legitimate
+    // data
+    // elements.
+    public void compact()
+    {
+        int newRealLength = 0;
+        
+        for(int i = 0; i < realLength; i++)
+        {
+            int element = data[i];
+            
+            if (element == 0)
+            {
+
+                for(int j = i; j < realLength; j++)
+                {
+                    if (data[j] != 0)
+                    {
+                        swap(i, j);
+                        
+                    }
+
+                        
+                    
+                }
+                
+            }
+
+        }
+        
+        int i = 0;
+        while (data[i] != 0)
+        {
+            newRealLength++;
+            i++;
+        }
+        
+        for(int k = 0; k < newRealLength/4; k++)
+        {
+            swap(k, newRealLength - k - 1);
+        }
+        
+        realLength = newRealLength;
+        
+        
+    }
+
+    
+    private void swap(int a, int b)
+    {
+        int temp = data[a];
+        data[a] = data[b];
+        data[b] = temp;
+    }
+
     public int[] getData()
     {
         return data;
