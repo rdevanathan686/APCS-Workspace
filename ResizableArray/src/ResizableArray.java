@@ -22,7 +22,7 @@ public class ResizableArray
          
          for(int i = 0; i < size; i++)
          { 
-             if (data[i] == value)
+             while (data[i] == value)
              {
 
                  for(int j = i; j < size - 1; j++)
@@ -36,6 +36,8 @@ public class ResizableArray
 
          }
      }
+     
+     
      
      public String toString()
      {
