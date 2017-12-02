@@ -7,8 +7,9 @@ public class Tester
         arr.addData(10);
         arr.addData(40);
         arr.addData(40);
+        arr.addData(10);
         
-        arr.removeAll(40);
+        arr.removeAll(10);
         
         System.out.println(arr);
     }

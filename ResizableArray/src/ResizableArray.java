@@ -1,4 +1,3 @@
-
 public class ResizableArray
 {
      private int[] data;
@@ -22,23 +21,34 @@ public class ResizableArray
          
          for(int i = 0; i < size; i++)
          { 
-             while (data[i] == value)
+             if (data[i] == value)
              {
-
                  for(int j = i; j < size - 1; j++)
-                 {
                      data[j] = data[j + 1];
-                     size--;
-                     
-                 }
                  
+                 size--;
+                 i--;   
              }
-
          }
      }
      
-     
-     
+     public int remove(int index)
+     {
+
+        if (index >= size || index < 0)
+            throw new IllegalArgumentException("Index out of range of the data");
+
+        int result = data[index];
+
+        for (int j = index; j < size - 1; j++)
+            data[j] = data[j + 1];
+
+        size--;
+
+        return result;
+
+    }
+
      public String toString()
      {
          String output = "[";
@@ -58,20 +68,9 @@ public class ResizableArray
 
      }
      
-     
-     //Methods
-     /*
-      * Sort Methods
-      * Accessors
-      * Inverse
-      * Duplicate 
-      * Find - returns the index
-      * Get Occurences
-      * Print Methods
-      * Contains Method
-      * Swap Method
-      * 
-      * get, set for specific elements
-      */
+     public int size()
+     {
+         return size;
+     }
 
 }
