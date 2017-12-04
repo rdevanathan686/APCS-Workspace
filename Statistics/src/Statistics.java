@@ -7,6 +7,7 @@ public class Statistics
     private int[] mode;
     private double stdDiv;
     private int realLength;
+
     
     public Statistics(int maxLength)
     {
@@ -17,7 +18,7 @@ public class Statistics
     public void readData(String fileName)
     {
         ArrayReader reader = new ArrayReader(fileName);
-        realLength = reader.fillArray(data);
+        reader.fillArray(data);
 
     }
     
@@ -167,7 +168,14 @@ public class Statistics
         }
         
         return result;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> f3a3597a9c278e41cfb98e8da1bd2f4142ecbf55
+>>>>>>> b1aa8c54b8db7a79b90c614949eafd2ddb365040
 
 
     }

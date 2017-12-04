@@ -10,7 +10,7 @@ public class ResizableArray
          size = 0;
      }
      
-     public void addData(int value)
+     public void add(int value)
      {
          data[size] = value;
          size++;
@@ -72,5 +72,29 @@ public class ResizableArray
      {
          return size;
      }
+
+    public void insert(int i, int j)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void set(int i, int val)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public int get(int i)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public void sort()
+    {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
