@@ -1,19 +1,30 @@
+import java.util.Arrays;
+
 public class ResizableArray
 {
      private int[] data;
      private int size;
-     private final int MAX = 1000;
+     private final int DEFAULT_LENGTH = 50;
      
      public ResizableArray()
      {
-         data = new int[MAX];
+         data = new int[DEFAULT_LENGTH];
          size = 0;
      }
      
      public void add(int value)
      {
+         if (data.length == size)
+             resize();
+         
          data[size] = value;
          size++;
+     }
+     
+     private void resize()
+     {
+         int[] resizedData = Arrays.copyOf(data, DEFAULT_LENGTH + 50);
+         data = resizedData;
      }
      
      public void removeAll(int value)
@@ -73,22 +84,43 @@ public class ResizableArray
          return size;
      }
 
-    public void insert(int i, int j)
+    public void insert(int index, int value)
     {
-        // TODO Auto-generated method stub
+        if (index > size || index < 0)
+            throw new IllegalArgumentException("Index out of range of the data");
         
+        size++;
+        
+        for (int i = size - 1; i > index; i--)
+        {
+            data[i] = data[i - 1];
+        }
+        
+        data[index] = value;
     }
 
-    public void set(int i, int val)
+    public void set(int index, int value)
     {
-        // TODO Auto-generated method stub
-        
+        data[index] = value;
     }
 
-    public int get(int i)
+    public int get(int index)
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data[index];
+    }
+    
+    public boolean equals(Object other)
+    {
+        if (other instanceof ResizableArray)
+        {
+            ResizableArray other2 = (ResizableArray)(other);
+            
+            //TODO
+            return Arrays.equals(other2.data, this.data);
+        }
+        
+        return false;
+        
     }
 
     public void sort()

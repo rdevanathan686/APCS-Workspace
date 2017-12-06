@@ -8,8 +8,10 @@ public class Tester
         arr.add(40);
         arr.add(40);
         arr.add(10);
-        
-        arr.removeAll(10);
+        arr.add(10);
+        arr.insert(0, 9);
+     
+        //arr.removeAll(10);
         
         System.out.println(arr);
     }
