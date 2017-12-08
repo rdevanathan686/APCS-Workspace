@@ -23,8 +23,8 @@ public class ResizableArrayTester {
     	// Only run 1 test at a time (so that memory and timing data is as accurate as possible).
     	
     	//worker.runFirstWaveFunctionalTest();
-    	worker.runFunctionalTest();
-    	//worker.runEfficiencyTest(10000);
+    	//worker.runFunctionalTest();
+    	worker.runEfficiencyTest(100000);
 
     	worker.runDown();
 

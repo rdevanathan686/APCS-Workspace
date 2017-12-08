@@ -1,0 +1,7 @@
+For 10000:
+The test took 23 milliseconds.
+And -1296912 bytes of memory.
+
+For 100000:
+The test took 966 milliseconds.
+And -936912 bytes of memory.
