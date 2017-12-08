@@ -25,7 +25,7 @@ public class ResizableArray
 
     private void resize()
     {
-        int[] resizedData = Arrays.copyOf(data, DEFAULT_LENGTH + 50);
+        int[] resizedData = Arrays.copyOf(data, size + 50);
         data = resizedData;
     }
 
@@ -71,15 +71,16 @@ public class ResizableArray
     {
         if (index > size || index < 0)
             throw new IllegalArgumentException("Index out of range of the data");
+        else if (size == data.length)
+            resize();
 
         size++;
 
         for (int i = size - 1; i > index; i--)
-        {
             data[i] = data[i - 1];
-        }
 
         data[index] = value;
+
     }
 
     public int get(int index)
@@ -100,7 +101,24 @@ public class ResizableArray
 
     public void sort()
     {
+        for (int i = 0; i < size - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < size; j++)
+                if (data[j] < data[index])
+                    index = j;
 
+            swap(index, i);
+
+        }
+
+    }
+
+    private void swap(int indexA, int indexB)
+    {
+        int temp = data[indexA];
+        this.set(indexA, data[indexB]);
+        this.set(indexB, temp);
     }
 
     public int indexOf(int value)
@@ -124,7 +142,7 @@ public class ResizableArray
     {
         if (other instanceof ResizableArray)
         {
-            ResizableArray other2 = (ResizableArray)(other);
+            ResizableArray other2 = (ResizableArray) (other);
 
             if (size != other2.size())
                 return false;

@@ -21,6 +21,6 @@ public class Tester
      
         //arr.removeAll(10);
         
-        System.out.println(arr.equals(arr2));
+        System.out.println(arr2);
     }
 }

@@ -140,17 +140,13 @@ public class ResizableArrayTester {
 		// true
 
 	}
-	
-	
-	
 
 	// STEP 3: UNCOMMENT THE FOLLOWING TO DO EFFICIENCY TESTING
 	// This code tests the efficiency of the ResizableArray by performing a large number of adds, inserts, and removes.
 	
-	
 	public void runEfficiencyTest (int num) {
 		runAddTest(num,true);
-		//runInsertTest(num,true);
+		runInsertTest(num,true);
 		runRemoveTest(num,true);
 	}
 
