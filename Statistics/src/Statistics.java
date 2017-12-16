@@ -168,16 +168,6 @@ public class Statistics
         }
         
         return result;
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> f3a3597a9c278e41cfb98e8da1bd2f4142ecbf55
->>>>>>> b1aa8c54b8db7a79b90c614949eafd2ddb365040
-
-
     }
     
     public void calcStdDev()
