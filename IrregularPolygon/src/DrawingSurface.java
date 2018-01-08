@@ -15,7 +15,10 @@ public class DrawingSurface extends PApplet
     public DrawingSurface()
     {
         poly = new IrregularPolygon();
-
+        poly.add(new Point2D.Double(10, 10));
+        poly.add(new Point2D.Double(10, 20));
+        poly.add(new Point2D.Double(20, 20));
+        poly.add(new Point2D.Double(20, 10));
         runSketch();
     }
 
@@ -23,7 +26,7 @@ public class DrawingSurface extends PApplet
     // execute once when the program begins
     public void setup()
     {
-        // size(0,0,PApplet.P3D);
+        //size(0,0,PApplet.P3D);
     }
 
     // The statements in draw() are executed until the
@@ -39,6 +42,9 @@ public class DrawingSurface extends PApplet
 
         if (poly != null)
         {
+            
+            System.out.println(poly.isRegualarPolygon());
+
             poly.draw(this);
 
             fill(0);

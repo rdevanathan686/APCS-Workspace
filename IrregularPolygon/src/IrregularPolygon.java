@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.awt.geom.*; // for Point2D.Double
 import java.util.ArrayList; // for ArrayList
 import processing.core.PApplet; // for Processing
@@ -16,44 +17,45 @@ public class IrregularPolygon extends Shape
     // public methods
     public void add(Point2D.Double aPoint)
     {
-        myPolygon.add(aPoint);  
+        myPolygon.add(aPoint);
     }
 
     public void draw(PApplet marker)
     {
-        for (int i = 0; i < myPolygon.size() - 1; i++)
+        for (int i = 0; i < myPolygon.size(); i++)
         {
-            marker.line((float) myPolygon.get(i).getX(), (float) myPolygon.get(i).getY(), 
-                    (float) myPolygon.get(i + 1).getX(), (float) myPolygon.get(i + 1).getY());
+            marker.line((float) myPolygon.get(i).getX(), (float) myPolygon.get(i).getY(),
+                    (float) myPolygon.get((i + 1) % myPolygon.size()).getX(),
+                    (float) myPolygon.get((i + 1) % myPolygon.size()).getY());
         }
         
-        if (myPolygon.size() >= 2)
-            marker.line((float) myPolygon.get(0).getX(), (float) myPolygon.get(0).getY(), 
-                (float) myPolygon.get(myPolygon.size() - 1).getX(), (float) myPolygon.get(myPolygon.size() - 1).getY());
+
     }
 
     @Override
     public double getArea()
     {
-        double area = 0;
+        int n = myPolygon.size();
+        int area = 0;
         
-        for (int i = 0; i < myPolygon.size(); i++)
+        for (int i = 0; i < n; i++)
         {
-            
+            area += myPolygon.get(i).x * (myPolygon.get((i + 1) % n).y - myPolygon.get((i + n - 1) % n).y);
         }
-        return area;
+
+        return Math.abs(area / 2.0);
     }
 
     @Override
     public double getPerimeter()
     {
         double perimeter = 0;
-        
-        for(int i = 0; i < myPolygon.size() - 1; i++)        
+
+        for (int i = 0; i < myPolygon.size(); i++)
         {
-            perimeter += myPolygon.get(i).distance(myPolygon.get(i + 1));
+            perimeter += myPolygon.get(i).distance(myPolygon.get((i + 1) % myPolygon.size()));
         }
-        
+
         return perimeter;
     }
 
@@ -63,4 +65,47 @@ public class IrregularPolygon extends Shape
         // TODO Auto-generated method stub
         return false;
     }
+    
+    public Point2D.Double centerOfMass()
+    {
+        Point2D.Double center = new Point2D.Double();
+        
+        double x = 0;
+        double y = 0;
+               
+        for (int i = 0; i < myPolygon.size(); i++)
+        {
+            x += myPolygon.get(i).x;
+            y += myPolygon.get(i).x;
+        }
+        
+        center.setLocation(x / myPolygon.size(), y / myPolygon.size());
+        
+        return center;
+    }
+    
+    public boolean isRegualarPolygon()
+    {
+        
+        for (int i = 0; i < myPolygon.size() - 1; i++)
+        {
+            
+            if (Math.abs(myPolygon.get(i).distance(centerOfMass()) - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001)
+            {
+                if (Math.atan2(myPolygon.get(i).y-centerOfMass().y, myPolygon.get(i).x-centerOfMass().x) % ((Math.PI * 2) / myPolygon.size()) == 0)
+                    return true;
+            }
+                
+            else
+                return false;
+                
+        }
+        
+        return true;
+        
+    }
+        
+        
+        
 }
+
