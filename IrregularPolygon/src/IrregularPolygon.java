@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.awt.geom.*; // for Point2D.Double
 import java.util.ArrayList; // for ArrayList
 import processing.core.PApplet; // for Processing
@@ -95,13 +94,12 @@ public class IrregularPolygon extends Shape
                 if (Math.atan2(myPolygon.get(i).y-centerOfMass().y, myPolygon.get(i).x-centerOfMass().x) % ((Math.PI * 2) / myPolygon.size()) == 0)
                     return true;
             }
-                
-            else
-                return false;
+
                 
         }
         
-        return true;
+        return false;
+        
         
     }
         
