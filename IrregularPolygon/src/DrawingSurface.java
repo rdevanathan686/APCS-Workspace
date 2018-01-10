@@ -15,10 +15,18 @@ public class DrawingSurface extends PApplet
     public DrawingSurface()
     {
         poly = new IrregularPolygon();
+
+        // Provided Tester
+        // poly.add(new Point2D.Double(20, 10));
+        // poly.add(new Point2D.Double(70, 20));
+        // poly.add(new Point2D.Double(50, 50));
+        // poly.add(new Point2D.Double(0, 40));
+
         poly.add(new Point2D.Double(10, 10));
         poly.add(new Point2D.Double(10, 20));
         poly.add(new Point2D.Double(20, 20));
         poly.add(new Point2D.Double(20, 10));
+
         runSketch();
     }
 
@@ -26,7 +34,8 @@ public class DrawingSurface extends PApplet
     // execute once when the program begins
     public void setup()
     {
-        //size(0,0,PApplet.P3D);
+        // size(0,0,PApplet.P3D);
+
     }
 
     // The statements in draw() are executed until the
@@ -42,13 +51,12 @@ public class DrawingSurface extends PApplet
 
         if (poly != null)
         {
-            
-            System.out.println(poly.isRegualarPolygon());
-
             poly.draw(this);
 
             fill(0);
-            text("Perimeter: " + poly.getPerimeter() + "\nArea: " + poly.getArea(), (float) width / 2, (float) 20);
+            text("Perimeter: " + poly.getPerimeter() + "\nArea: " + poly.getArea() + "\nIs Equilateral?: "
+                    + poly.isEquilateral(), (float) width / 2, (float) 20);
+            ellipse((float)poly.centerOfMass().getX(), (float)poly.centerOfMass().getY(), 5, 5);
         }
         if (time > 0)
         {
@@ -67,6 +75,7 @@ public class DrawingSurface extends PApplet
             x = mouseX;
             y = mouseY;
             time = ANIMATION_TIME;
+
         }
     }
 
@@ -75,7 +84,9 @@ public class DrawingSurface extends PApplet
         if (keyCode == KeyEvent.VK_SPACE)
         {
             poly = new IrregularPolygon();
+
         }
+
     }
 
 }

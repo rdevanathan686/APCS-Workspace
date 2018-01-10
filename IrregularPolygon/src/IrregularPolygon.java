@@ -28,7 +28,6 @@ public class IrregularPolygon extends Shape
                     (float) myPolygon.get((i + 1) % myPolygon.size()).getX(),
                     (float) myPolygon.get((i + 1) % myPolygon.size()).getY());
         }
-        
 
     }
 
@@ -37,10 +36,11 @@ public class IrregularPolygon extends Shape
     {
         int n = myPolygon.size();
         int area = 0;
-        
+
         for (int i = 0; i < n; i++)
         {
             area += myPolygon.get(i).x * (myPolygon.get((i + 1) % n).y - myPolygon.get((i + n - 1) % n).y);
+            // area += myPolygon.get(i)
         }
 
         return Math.abs(area / 2.0);
@@ -65,47 +65,49 @@ public class IrregularPolygon extends Shape
         // TODO Auto-generated method stub
         return false;
     }
-    
+
     public Point2D.Double centerOfMass()
     {
         Point2D.Double center = new Point2D.Double();
-        
+
         double x = 0;
         double y = 0;
-               
+
         for (int i = 0; i < myPolygon.size(); i++)
         {
             x += myPolygon.get(i).x;
-            y += myPolygon.get(i).x;
+            y += myPolygon.get(i).y;
         }
-        
+
         center.setLocation(x / myPolygon.size(), y / myPolygon.size());
-        
+
         return center;
     }
-    
-    public boolean isRegualarPolygon()
+
+    public boolean isEquilateral()
     {
-        
+
+        if (myPolygon.size() <= 0)
+            return false;
+
         for (int i = 0; i < myPolygon.size() - 1; i++)
         {
-            
-            if (Math.abs(myPolygon.get(i).distance(centerOfMass()) - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001)
-            {
-                if (Math.atan2(myPolygon.get(i).y-centerOfMass().y, myPolygon.get(i).x-centerOfMass().x) % ((Math.PI * 2) / myPolygon.size()) == 0)
-                    return true;
-            }
-                
-            else
+            if (!(Math.abs(myPolygon.get(i).distance(centerOfMass())
+                    - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001))
                 return false;
-                
-        }
-        
-        return true;
-        
-    }
-        
-        
-        
-}
 
+        }
+
+        return true;
+
+    }
+
+    public void translate(Point2D.Double a)
+    {
+
+        for (int i = 0; i < myPolygon.size(); i++)
+            myPolygon.get(i).setLocation(myPolygon.get(i).x + a.x, myPolygon.get(i).y + a.y);
+
+    }
+
+}
