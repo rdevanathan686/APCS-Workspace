@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.awt.geom.*; // for Point2D.Double
 import java.util.ArrayList; // for ArrayList
 import processing.core.PApplet; // for Processing
@@ -92,6 +91,7 @@ public class IrregularPolygon extends Shape
 
         for (int i = 0; i < myPolygon.size() - 1; i++)
         {
+<<<<<<< HEAD
             if (!(Math.abs(myPolygon.get(i).distance(centerOfMass())
                     - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001))
                 return false;
@@ -100,6 +100,21 @@ public class IrregularPolygon extends Shape
 
         return true;
 
+=======
+            
+            if (Math.abs(myPolygon.get(i).distance(centerOfMass()) - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001)
+            {
+                if (Math.atan2(myPolygon.get(i).y-centerOfMass().y, myPolygon.get(i).x-centerOfMass().x) % ((Math.PI * 2) / myPolygon.size()) == 0)
+                    return true;
+            }
+
+                
+        }
+        
+        return false;
+        
+        
+>>>>>>> 78123a8ccc6ef351d8eafad6a23ef2f6db677508
     }
 
     public void translate(Point2D.Double a)
