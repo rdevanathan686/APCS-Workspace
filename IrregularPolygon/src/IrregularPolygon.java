@@ -3,6 +3,16 @@ import java.util.ArrayList; // for ArrayList
 import processing.core.PApplet; // for Processing
 import rishikesh.shapes.Shape;
 
+/*
+ * I like the idea of using the center of mass, as it shows me roughly where the middle of the shape is. 
+ * 
+ * I think the center of mass function should only work when there is more than 3 points. 
+ * If there's 2 points and it draws a random point it looks a bit weird
+ * 
+ * Another improvement i would recommend is to create a separate array list for each side. 
+ * This would make expandability easier and bug fixing easier as well.
+ */
+
 public class IrregularPolygon extends Shape
 {
     private ArrayList<Point2D.Double> myPolygon;
@@ -21,6 +31,7 @@ public class IrregularPolygon extends Shape
 
     public void draw(PApplet marker)
     {
+
         for (int i = 0; i < myPolygon.size(); i++)
         {
             marker.line((float) myPolygon.get(i).getX(), (float) myPolygon.get(i).getY(),
@@ -91,7 +102,7 @@ public class IrregularPolygon extends Shape
 
         for (int i = 0; i < myPolygon.size() - 1; i++)
         {
-<<<<<<< HEAD
+
             if (!(Math.abs(myPolygon.get(i).distance(centerOfMass())
                     - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001))
                 return false;
@@ -100,21 +111,6 @@ public class IrregularPolygon extends Shape
 
         return true;
 
-=======
-            
-            if (Math.abs(myPolygon.get(i).distance(centerOfMass()) - myPolygon.get(i + 1).distance(centerOfMass())) <= 0.00001)
-            {
-                if (Math.atan2(myPolygon.get(i).y-centerOfMass().y, myPolygon.get(i).x-centerOfMass().x) % ((Math.PI * 2) / myPolygon.size()) == 0)
-                    return true;
-            }
-
-                
-        }
-        
-        return false;
-        
-        
->>>>>>> 78123a8ccc6ef351d8eafad6a23ef2f6db677508
     }
 
     public void translate(Point2D.Double a)

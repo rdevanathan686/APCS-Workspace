@@ -1,3 +1,6 @@
+/*
+ * @
+ */
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
@@ -17,15 +20,15 @@ public class DrawingSurface extends PApplet
         poly = new IrregularPolygon();
 
         // Provided Tester
-        // poly.add(new Point2D.Double(20, 10));
-        // poly.add(new Point2D.Double(70, 20));
-        // poly.add(new Point2D.Double(50, 50));
-        // poly.add(new Point2D.Double(0, 40));
+        //poly.add(new Point2D.Double(20, 10));
+        //poly.add(new Point2D.Double(70, 20));
+        //poly.add(new Point2D.Double(50, 50));
+        //poly.add(new Point2D.Double(0, 40));
 
-        poly.add(new Point2D.Double(10, 10));
-        poly.add(new Point2D.Double(10, 20));
-        poly.add(new Point2D.Double(20, 20));
-        poly.add(new Point2D.Double(20, 10));
+        // poly.add(new Point2D.Double(10, 10));
+        // poly.add(new Point2D.Double(10, 20));
+        // poly.add(new Point2D.Double(20, 20));
+        // poly.add(new Point2D.Double(20, 10));
 
         runSketch();
     }
@@ -56,7 +59,7 @@ public class DrawingSurface extends PApplet
             fill(0);
             text("Perimeter: " + poly.getPerimeter() + "\nArea: " + poly.getArea() + "\nIs Equilateral?: "
                     + poly.isEquilateral(), (float) width / 2, (float) 20);
-            ellipse((float)poly.centerOfMass().getX(), (float)poly.centerOfMass().getY(), 5, 5);
+            ellipse((float) poly.centerOfMass().getX(), (float) poly.centerOfMass().getY(), 5, 5);
         }
         if (time > 0)
         {
