@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import processing.core.PApplet;
@@ -18,12 +19,11 @@ import processing.core.PApplet;
 public class Life
 {
     private boolean[][] grid;
-    
-    
+
     // Constructs an empty grid
     public Life()
     {
-        grid = new boolean[10][20];
+        grid = new boolean[20][20];
     }
 
     // Constructs the grid defined in the file specified
@@ -36,75 +36,73 @@ public class Life
     // Runs a single turn of the Game Of Life
     public void step()
     {
-        for (int i = 0; i < grid.length; i++)
+
+        boolean[][] nextGen = new boolean[grid.length][grid[0].length];
+
+        for (int i = 0; i < grid[0].length; i++)
         {
-            for (int j = 0; j < grid[i].length; j++)
+
+            for (int j = 0; j < grid.length; j++)
             {
-                int numNeighbours = countNeighbours(i, j);
-                
-                if (numNeighbours <= 1)
-                    grid[i][j] = false;
-                else if (numNeighbours >= 4)
-                    grid[i][j] = false;
-                else if (numNeighbours == 3)
-                    grid[i][j] = true;
+
+                int numNeighbours = countNeighbours(j, i);
+
+                if ((!grid[j][i]) && (numNeighbours == 3))
+                    nextGen[j][i] = true;
+                else if (grid[j][i] && (((numNeighbours < 2)) || (numNeighbours > 3)))
+                    nextGen[j][i] = false;
+                else
+                    nextGen[j][i] = grid[j][i];
+
             }
+
         }
+
+        // String result = "";
+        // for (int k = 0; k < grid[0].length; k++)
+        // {
+        // for (int m = 0; m < grid.length; m++)
+        // {
+        // if (nextGen[k][m])
+        // result += "* ";
+        // else
+        // result += "- ";
+        // }
+        //
+        // result += '\n';
+        // }
+        //
+        // System.out.println(result);
+
+        grid = nextGen;
+
     }
 
-    private int countNeighbours(int i, int j)
+    public int countNeighbours(int i, int j)
     {
-        // Math.min(0, x -1) stuff
-        int result = 0;
         
-        for (int x = 0; x < grid.length; x++)
+        int count = 0;
+
+        for (int k = (i == 0 ? 0 : i - 1); k <= (i == grid.length - 1 ? grid.length - 1 : i + 1); k++)
         {
-            for (int y = 0; y < grid[0].length; y++)
+            for (int m = (j == 0 ? 0 : j - 1); m <= (j == grid.length - 1 ? grid.length - 1 : j + 1); m++)
             {
-
-                int xMin = x - 1;
                 
-                int xMax = x + 1;
-                int yMin = y - 1;
-                int yMax = y + 1;
-
-                if (x == 0)
-                    xMin = 0;
-
-                if (y == 0)
-                    yMin = 0;
-
-                if (x == grid.length - 1)
-                    xMax = grid.length - 1;
-
-                if (y == grid[0].length - 1)
-                    yMax = grid[0].length - 1;
-
-//                if (tiles[x][y] instanceof Empty)
-//                {
-//                    int count = 0;
-//
-//                    for (int i = xMin; i <= xMax; i++)
-//                    {
-//                        for (int j = yMin; j <= yMax; j++)
-//                        {
-//                            if (tiles[i][j] instanceof Bomb)
-//                                count++;
-//                        }
-//                    }
-//
-//                    ((Empty) tiles[x][y]).setup(this, count);
-//
-//                }
-
+                if (grid[k][m] && (k != i || m != j))
+                    count++;
             }
+            
+
         }
+
+        return count;
+
     }
 
     // Runs n turns of the Game Of Life
     public void step(int n)
     {
-        for (int i = 0; i < n; i++) 
+        for (int i = 0; i < n; i++)
             step();
     }
 
@@ -122,8 +120,46 @@ public class Life
                 else
                     result += "- ";
             }
-            
+
             result += '\n';
+        }
+
+        return result;
+    }
+    
+    public int aliveInCol(int col)
+    {
+        int result = 0;
+        
+        for (int i = 0; i < grid[col - 1].length; i++)
+        {
+            if (grid[col - 1][i])
+                result++;
+        }
+        
+        return result;
+    }
+    
+    public int aliveInRow(int row)
+    {
+        int result = 0;
+        
+        for (int i = 0; i < grid.length; i++)
+        {
+            if (grid[i][row - 1])
+                result++;
+        }
+        
+        return result;
+    }
+    
+    public int totalAlive()
+    {
+        int result = 0;
+        
+        for (int i = 1; i <= grid[0].length; i++)
+        {
+            result += aliveInCol(i);
         }
         
         return result;
@@ -153,6 +189,7 @@ public class Life
                             gameData[i][count] = true;
 
                     count++;
+                        
                 }
             } catch (IOException ex)
             {
@@ -225,5 +262,7 @@ public class Life
     public void toggleCell(int i, int j)
     {
     }
+
+    
 
 }
