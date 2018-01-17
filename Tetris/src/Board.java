@@ -2,64 +2,42 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import processing.core.PApplet;
 
-/*
-
-	Represents a Game Of Life grid.
-
-	Coded by: Rishikesh Devanathan
-	Modified on: 1/12/2018
-
-*/
-
-public class Life
+public class Board
 {
     private boolean[][] grid;
+    
+    // Shapes of tetrominos
+    private boolean[][] I_SHAPE = { { true, true, true, true } };
+    private boolean[][] J_SHAPE = { { true, true, true, true }, { false, false, false, true } };
+    private boolean[][] L_SHAPE = { { true, true, true, true }, { true, false, false, false } };
+    private boolean[][] O_SHAPE = { { true, true }, { true, true } };
+    private boolean[][] S_SHAPE = { { false, true, true }, { true, true, false } };
+    private boolean[][] T_SHAPE = { { true, true, true }, { false, true, false } };
+    private boolean[][] Z_SHAPE = { { true, true, false }, { false, true, true } };
 
     // Constructs an empty grid
-    public Life()
+    public Board()
     {
         grid = new boolean[20][20];
     }
 
-    // Constructs the grid defined in the file specified
-    public Life(String filename)
+    public void create()
     {
-        this();
-        readData(filename, grid);
+        
+//        for (int i = 0; i < grid.length; i++)
+//        {
+//            for (int j = 0; )
+//        }
+    
     }
-
-    // Runs a single turn of the Game Of Life
-    public void step()
+    
+    public void fall()
     {
-
-        boolean[][] nextGen = new boolean[grid.length][grid[0].length];
-
-        for (int i = 0; i < grid[0].length; i++)
-        {
-
-            for (int j = 0; j < grid.length; j++)
-            {
-
-                int numNeighbours = countNeighbours(j, i);
-
-                if ((!grid[j][i]) && (numNeighbours == 3))
-                    nextGen[j][i] = true;
-                else if (grid[j][i] && (((numNeighbours < 2)) || (numNeighbours > 3)))
-                    nextGen[j][i] = false;
-                else
-                    nextGen[j][i] = grid[j][i];
-
-            }
-
-        }
-
-        grid = nextGen;
-
+        
     }
 
     public int countNeighbours(int i, int j)
@@ -74,13 +52,6 @@ public class Life
 
         return count;
 
-    }
-
-    // Runs n turns of the Game Of Life
-    public void step(int n)
-    {
-        for (int i = 0; i < n; i++)
-            step();
     }
 
     // Formats this Life grid as a String to be printed (one call to this method
@@ -111,7 +82,6 @@ public class Life
         for (int i = 0; i < grid[col - 1].length; i++)
             if (grid[col - 1][i])
                 result++;
-        
 
         return result;
     }
@@ -123,7 +93,6 @@ public class Life
         for (int i = 0; i < grid.length; i++)
             if (grid[i][row - 1])
                 result++;
-        
 
         return result;
     }
@@ -134,7 +103,6 @@ public class Life
 
         for (int i = 1; i <= grid[0].length; i++)
             result += aliveInCol(i);
-        
 
         return result;
     }
@@ -199,7 +167,7 @@ public class Life
     public void draw(PApplet marker, float x, float y, float width, float height)
     {
         marker.pushStyle();
-        
+
         for (int i = 0; i < grid[0].length; i++)
         {
             for (int j = 0; j < grid.length; j++)
@@ -208,16 +176,15 @@ public class Life
                     marker.fill(0, 0, 255);
                 else
                     marker.fill(255);
-                
-                marker.rect((i * (width / grid.length)) + x, j * (height / grid[0].length) + y, (width / grid.length) + x, (height / grid[0].length) + y);
+
+                marker.rect((i * (width / grid.length)) + x, j * (height / grid[0].length) + y,
+                        (width / grid.length) + x, (height / grid[0].length) + y);
             }
 
         }
-        
+
         marker.popStyle();
     }
-    
-    
 
     /**
      * Optionally, complete this method to determine which element of the grid
@@ -240,25 +207,22 @@ public class Life
      */
     public Point clickToIndex(Point p, float x, float y, float width, float height)
     {
-       
-        
+
         float cellWidth = (width / grid.length);
         float cellHeight = (height / grid[0].length);
-        
-        int j = (int)((p.x - x) / cellWidth);
-        int i = (int)((p.y - y) / cellHeight);
-        
+
+        int j = (int) ((p.x - x) / cellWidth);
+        int i = (int) ((p.y - y) / cellHeight);
+
         if (j < 0 || j >= grid.length)
-            return null; 
-        
+            return null;
+
         if (i < 0 || i >= grid[0].length)
-            return null; 
-        
-        
+            return null;
+
         Point answer = new Point(j, i);
-        
+
         return answer;
-        
 
     }
 
