@@ -8,7 +8,7 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet
 {
 
-    private Life board;
+    private Board board;
     private int runCount;
     private int speed;
     private Point prevToggle;
@@ -17,7 +17,7 @@ public class DrawingSurface extends PApplet
 
     public DrawingSurface()
     {
-        board = new Life("life tester.txt");
+        board = new Board();
         runCount = -1;
         speed = 120;
         prevToggle = null;
@@ -27,7 +27,8 @@ public class DrawingSurface extends PApplet
     // execute once when the program begins
     public void setup()
     {
-        
+        board.create();
+       
         // size(0,0,PApplet.P3D);
     }
 
@@ -47,7 +48,7 @@ public class DrawingSurface extends PApplet
 
         if (runCount == 0)
         {
-            board.step();
+
             runCount = speed;
         } else if (runCount > 0)
         {
@@ -56,7 +57,6 @@ public class DrawingSurface extends PApplet
 
         if (board != null)
         {
-
             board.draw(this, 0, 0, height, height);
         }
 
@@ -74,6 +74,7 @@ public class DrawingSurface extends PApplet
                 board.toggleCell(cellCoord.x, cellCoord.y);
                 prevToggle = cellCoord;
             }
+            
         }
     }
 
@@ -109,7 +110,7 @@ public class DrawingSurface extends PApplet
             runCount = Math.min(runCount, speed);
         } else if (keyCode == KeyEvent.VK_ENTER)
         {
-            board.step();
+            board.fall();
         }
     }
 

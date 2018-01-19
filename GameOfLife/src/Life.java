@@ -66,7 +66,7 @@ public class Life
     {
 
         int count = 0;
-
+        
         for (int k = (i == 0 ? 0 : i - 1); k <= (i == grid.length - 1 ? grid.length - 1 : i + 1); k++)
             for (int m = (j == 0 ? 0 : j - 1); m <= (j == grid.length - 1 ? grid.length - 1 : j + 1); m++)
                 if (grid[k][m] && (k != i || m != j))
