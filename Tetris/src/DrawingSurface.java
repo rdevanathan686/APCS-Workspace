@@ -28,7 +28,7 @@ public class DrawingSurface extends PApplet
     public void setup()
     {
         board.create();
-       
+        
         // size(0,0,PApplet.P3D);
     }
 
@@ -46,9 +46,11 @@ public class DrawingSurface extends PApplet
         text("Enter: Run 1 step\nSpace: Start/Stop\nUp arrow: Increase speed\nDown arrow: Decrease speed\n\nSpeed: "
                 + (60.0 / speed) + " per sec", height + 20, 30);
 
+        
+        
         if (runCount == 0)
         {
-
+            board.draw(this, 0, 0, MIN_SPEED, MAX_SPEED);
             runCount = speed;
         } else if (runCount > 0)
         {
@@ -110,7 +112,7 @@ public class DrawingSurface extends PApplet
             runCount = Math.min(runCount, speed);
         } else if (keyCode == KeyEvent.VK_ENTER)
         {
-            board.fall();
+            board.fall(); 
         }
     }
 

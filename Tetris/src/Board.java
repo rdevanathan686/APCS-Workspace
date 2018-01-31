@@ -19,10 +19,9 @@ public class Board
     private boolean[][] S_SHAPE = { { false, true, true }, { true, true, false } };
     private boolean[][] T_SHAPE = { { true, true, true }, { false, true, false } };
     private boolean[][] Z_SHAPE = { { true, true, false }, { false, true, true } };
-    
+
     private boolean[][] currentShape;
     public int[][][] coordShape;
-
 
     // Constructs an empty grid
     public Board()
@@ -36,7 +35,7 @@ public class Board
         int random = (int) (Math.random() * 100);
         currentShape = L_SHAPE;
         coordShape = new int[currentShape.length][currentShape[0].length][2];
-        
+
         if (random > 85)
             currentShape = I_SHAPE;
         else if (random > 70)
@@ -53,31 +52,34 @@ public class Board
             currentShape = Z_SHAPE;
 
         int x = (int) ((Math.random() * (grid[0].length - currentShape[0].length)));
-        
 
         for (int k = 0; k < currentShape.length; k++)
         {
             for (int m = 0; m < currentShape[0].length; m++)
             {
                 grid[k][m + x] = currentShape[k][m];
-                coordShape[k][m][0] = k;
-                coordShape[k][m][1] = m + x;
+                
+                if (currentShape[k][m])
+                {
+                    coordShape[k][m][0] = k;
+                    coordShape[k][m][1] = m + x;
+                }
+                else
+                {
+                    coordShape[k][m][0] = -1;
+                    coordShape[k][m][1] = -1;
+                }
+                
 
-                        
             }
         }
 
     }
-    
+
     public void fall()
     {
-        
-        for (int k = 0; k < grid.length - 1; k++)
-        {
-            move(coordShape[0][0][0], coordShape[0][0][1] - 1);
-            
-           
-        }
+        if (coordShape[0][0][0] + 1 < grid[0].length && coordShape[0][0][1] < grid.length)
+            move(coordShape[0][0][0], coordShape[0][0][1] + 1);
     }
 
     public void move(int i, int j)
@@ -86,21 +88,17 @@ public class Board
         {
             for (int m = 0; m < currentShape[0].length; m++)
             {
-                
-                if (grid[coordShape[k][m][0]][coordShape[k][m][1]])
+
+                if ((coordShape[k][m][0] != -1) && grid[coordShape[k][m][0]][coordShape[k][m][1]])
                 {
                     grid[coordShape[k][m][0]][coordShape[k][m][1]] = false;
 
                     coordShape[k][m][0] = i + k;
                     coordShape[k][m][1] = j + m;
-                    
+
                     grid[coordShape[k][m][0]][coordShape[k][m][1]] = true;
                 }
-                
 
-
-                
-                        
             }
         }
     }
