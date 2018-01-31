@@ -1,6 +1,8 @@
 
 public class RecursionPractice
 {
+    
+    private static int iterations;
 
     public static int triangleNumber(int n)
     {
@@ -42,8 +44,11 @@ public class RecursionPractice
             return (pentagonalNumber(n - 1) + (3 * n) - 2);
     }
 
+    // 1 index based
     public static int fibonacciRecursion(int n)
     {
+        iterations++;
+        
         if (n == 1)
             return 0;
         else if (n == 2)
@@ -54,10 +59,10 @@ public class RecursionPractice
 
     public static int fibonacciLoop(int n)
     {
-        int prev = 1;
+        int prev = 0;
         int current = 1;
 
-        for (int i = 2; i < n; i++)
+        for (int i = 2; i <= n; i++)
         {
             int temp = current;
             current += prev;
@@ -69,7 +74,7 @@ public class RecursionPractice
 
     public static void main(String[] args)
     {
-        int n = 5;
+        int n = 10;
 
         int test = triangleNumber(n);
         System.out.println("The " + n + "th triangular number is " + test);
@@ -77,18 +82,16 @@ public class RecursionPractice
         int test2 = squareNumber(n);
         System.out.println("The " + n + "th square number is " + test2);
 
-        int k = 32;
+        int k = pow(n);
         int test3 = logBase2(k);
         System.out.println("2^" + test3 + " is " + k);
 
-        int test4 = pow(n);
-        System.out.println("2^" + n + " is " + test4);
 
         int test5 = pentagonalNumber(4);
         System.out.println("The " + n + "th pentagonal number is " + test5);
 
         System.out.println(n + "th fibonacci number: " + fibonacciLoop(n));
-        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n));
+        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n) + " and it took " + iterations + " iterations.");
 
     }
 
