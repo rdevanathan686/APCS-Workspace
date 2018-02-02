@@ -71,6 +71,19 @@ public class RecursionPractice
 
         return prev;
     }
+    
+    public static void printHanoiSolution(int numberOfDisks)
+    {
+        printHanoiSolution(1, 3, numberOfDisks);
+    }
+    
+    private static void printHanoiSolution(int pegFrom, int pegTo, int numDisks)
+    {
+        if (numDisks == 1 || (pegFrom > 0 || pegFrom < 4) || (pegTo > 0 || pegTo < 4))
+            System.out.println("Move the top disk from peg " + pegFrom + " to peg " + pegTo);
+        else
+            printHanoiSolution(pegFrom, pegFrom + 1, numDisks - 1);
+    }
 
     public static void main(String[] args)
     {
@@ -92,6 +105,8 @@ public class RecursionPractice
 
         System.out.println(n + "th fibonacci number: " + fibonacciLoop(n));
         System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n) + " and it took " + iterations + " iterations.");
+        
+        printHanoiSolution(5);
 
     }
 
