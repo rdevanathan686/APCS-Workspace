@@ -1,12 +1,8 @@
 
 public class RecursionPractice
 {
-<<<<<<< HEAD
     private static int iteration = 0;
-=======
-    
-    private static int iterations;
->>>>>>> b4856f5a46307e64a317d1bdf1ccaf43d67a8349
+
 
     public static int triangleNumber(int n)
     {
@@ -51,7 +47,7 @@ public class RecursionPractice
     // 1 index based
     public static int fibonacciRecursion(int n)
     {
-        iterations++;
+        iteration++;
         
         if (n == 1)
             return 0;
@@ -76,19 +72,7 @@ public class RecursionPractice
         return prev;
     }
     
-    public static void printHanoiSolution(int numberOfDisks)
-    {
-        printHanoiSolution(1, 3, numberOfDisks);
-    }
-    
-    private static void printHanoiSolution(int pegFrom, int pegTo, int numDisks)
-    {
-        if (numDisks == 1 || (pegFrom > 0 || pegFrom < 4) || (pegTo > 0 || pegTo < 4))
-            System.out.println("Move the top disk from peg " + pegFrom + " to peg " + pegTo);
-        else
-            printHanoiSolution(pegFrom, pegFrom + 1, numDisks - 1);
-    }
-
+    // Mystery methods
     public static int identity(int num)
     {
         iteration++;
@@ -155,9 +139,7 @@ public class RecursionPractice
         System.out.println("The " + n + "th pentagonal number is " + test5);
 
         System.out.println(n + "th fibonacci number: " + fibonacciLoop(n));
-        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n) + " and it took " + iterations + " iterations.");
-        
-        printHanoiSolution(5);
+        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n) + " and it took " + iteration + " iterations.");
 
         doSomething(3);
         System.out.println(": " + iteration);
