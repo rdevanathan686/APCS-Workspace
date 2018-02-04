@@ -1,7 +1,12 @@
 
 public class RecursionPractice
 {
+<<<<<<< HEAD
     private static int iteration = 0;
+=======
+    
+    private static int iterations;
+>>>>>>> b4856f5a46307e64a317d1bdf1ccaf43d67a8349
 
     public static int triangleNumber(int n)
     {
@@ -43,8 +48,11 @@ public class RecursionPractice
             return (pentagonalNumber(n - 1) + (3 * n) - 2);
     }
 
+    // 1 index based
     public static int fibonacciRecursion(int n)
     {
+        iterations++;
+        
         if (n == 1)
             return 0;
         else if (n == 2)
@@ -55,10 +63,10 @@ public class RecursionPractice
 
     public static int fibonacciLoop(int n)
     {
-        int prev = 1;
+        int prev = 0;
         int current = 1;
 
-        for (int i = 2; i < n; i++)
+        for (int i = 2; i <= n; i++)
         {
             int temp = current;
             current += prev;
@@ -66,6 +74,19 @@ public class RecursionPractice
         }
 
         return prev;
+    }
+    
+    public static void printHanoiSolution(int numberOfDisks)
+    {
+        printHanoiSolution(1, 3, numberOfDisks);
+    }
+    
+    private static void printHanoiSolution(int pegFrom, int pegTo, int numDisks)
+    {
+        if (numDisks == 1 || (pegFrom > 0 || pegFrom < 4) || (pegTo > 0 || pegTo < 4))
+            System.out.println("Move the top disk from peg " + pegFrom + " to peg " + pegTo);
+        else
+            printHanoiSolution(pegFrom, pegFrom + 1, numDisks - 1);
     }
 
     public static int identity(int num)
@@ -117,7 +138,7 @@ public class RecursionPractice
 
     public static void main(String[] args)
     {
-        int n = 5;
+        int n = 10;
 
         int test = triangleNumber(n);
         System.out.println("The " + n + "th triangular number is " + test);
@@ -125,18 +146,18 @@ public class RecursionPractice
         int test2 = squareNumber(n);
         System.out.println("The " + n + "th square number is " + test2);
 
-        int k = 32;
+        int k = pow(n);
         int test3 = logBase2(k);
         System.out.println("2^" + test3 + " is " + k);
 
-        int test4 = pow(n);
-        System.out.println("2^" + n + " is " + test4);
 
         int test5 = pentagonalNumber(4);
         System.out.println("The " + n + "th pentagonal number is " + test5);
 
         System.out.println(n + "th fibonacci number: " + fibonacciLoop(n));
-        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n));
+        System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n) + " and it took " + iterations + " iterations.");
+        
+        printHanoiSolution(5);
 
         doSomething(3);
         System.out.println(": " + iteration);
