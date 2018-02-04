@@ -1,6 +1,7 @@
 
 public class RecursionPractice
 {
+    private static int iteration = 0;
 
     public static int triangleNumber(int n)
     {
@@ -67,6 +68,53 @@ public class RecursionPractice
         return prev;
     }
 
+    public static int identity(int num)
+    {
+        iteration++;
+        if (num < 1)
+            return 10;
+        else
+            return num + identity(num - 2);
+
+    }
+
+    public static void doSomething(int n)
+    {
+        iteration++;
+
+        if (n > 0)
+        {
+            doSomething(n - 2);
+            System.out.print("-");
+            doSomething(n - 1);
+            System.out.print("!");
+        }
+        else
+        {
+            System.out.print(".");
+        }
+    }
+
+    public static int jump(int n)
+    {
+        iteration++;
+        if (n < 5)
+            return n + 3;
+        else
+            return jump(jump(n - 5));
+
+    }
+
+    public static int mystery(int n, int k)
+    {
+        iteration++;
+        if (k == 0 || n == k)
+            return 1;
+        else
+            return (mystery(n - 1, k) + mystery(n - 1, k - 1));
+
+    }
+
     public static void main(String[] args)
     {
         int n = 5;
@@ -90,6 +138,16 @@ public class RecursionPractice
         System.out.println(n + "th fibonacci number: " + fibonacciLoop(n));
         System.out.println(n + "th fibonacci number: " + fibonacciRecursion(n));
 
+        doSomething(3);
+        System.out.println(": " + iteration);
+        iteration = 0;
+        System.out.println(jump(10) + ": " + iteration);
+        iteration = 0;
+        System.out.println(mystery(3, 2) + ": " + iteration);
+        
+        iteration = 0;
+        System.out.println(identity(10) + ": " + iteration);
+               
     }
 
 }
