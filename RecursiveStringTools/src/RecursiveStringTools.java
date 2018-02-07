@@ -62,11 +62,36 @@ public class RecursiveStringTools
             return eq && isPalindrome(in.substring(1, in.length() - 1));
         }
     }
-
+    
     // Exercise #3
+    
     public static void printPermutations(String in)
     {
+       printPermutations(in, "");
+    }
+    
+    private static void printPermutations(String in, String prefix)
+    {
+        if (in.length() == 1)
+            System.out.println(prefix + in);
+        else
+            forLoop(0, in.length(), in, prefix);
         
+    }
+    
+    public static void forLoop(int i, int n, String in, String prefix)
+    {
+        if (i >= n)
+            return;
+        else
+        {
+            String prefixNext = prefix + in.charAt(i);
+            String next = in.substring(0, i) + in.substring(i + 1);
+            
+            printPermutations(next, prefixNext);
+            forLoop(i + 1, n, in, prefix);
+
+        }
     }
 
     public static String piglatinate(String in)
@@ -80,8 +105,8 @@ public class RecursiveStringTools
         System.out.println("Please enter a string:");
         String s = kboard.nextLine();
 
-        String out = RecursiveStringTools.isPalindrome(s) + "";
-        System.out.print("\n\nThe result is --> " + out + "\n\n");
+        RecursiveStringTools.printPermutations(s);
+//        System.out.print("\n\nThe result is --> " + out + "\n\n");
 
     }
 }
