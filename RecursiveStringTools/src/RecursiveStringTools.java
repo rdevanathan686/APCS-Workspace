@@ -98,8 +98,7 @@ public class RecursiveStringTools
 
     public static String piglatinate(String in)
     {
-        String[] words = in.split("[[ ]*|[,]*|[\\.]*|[:]*|[/]*|[!]*|[?]*|[+]*]+");
-
+        String[] words = in.split("(?<=\\b|[^\\p{L}])");
         return forLoop2(0, words, "");
 
     }
@@ -112,10 +111,11 @@ public class RecursiveStringTools
         else
         {
             System.out.println(words[i]);
-            result += piglatinate(words[i], words[i], 0);
-
-            if (i >= 0)
-                result += " ";
+            
+            if (Character.isLetter(words[i].charAt(0)))
+                result += piglatinate(words[i], words[i], 0);
+            else
+                result += words[i];
 
             return forLoop2(i + 1, words, result);
 
