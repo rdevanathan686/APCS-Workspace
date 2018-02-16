@@ -24,9 +24,7 @@ public class DrawingSurface extends PApplet
     // execute once when the program begins
     public void setup()
     {
-        curve1.setup(this);
-        curve2.setup(this);
-        curve3.setup(this);
+        frameRate(30);
     }
 
     // The statements in draw() are executed until the
@@ -51,9 +49,14 @@ public class DrawingSurface extends PApplet
     {
         int num = event.getCount();
         length -= num * 10;
-        curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
-        curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
-        curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
+        
+        if (length > 0)
+        {
+            curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
+            curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
+            curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
+        }
+        
     }
 
     public void keyPressed()
@@ -65,7 +68,7 @@ public class DrawingSurface extends PApplet
             curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
             curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
         }
-        else if (keyCode == KeyEvent.VK_DOWN)
+        else if (keyCode == KeyEvent.VK_DOWN )
         {
             level--;
             curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));

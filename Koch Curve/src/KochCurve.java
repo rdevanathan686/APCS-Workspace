@@ -20,11 +20,6 @@ public class KochCurve
         kochLines = new ArrayList<Line>();
         create(start, length, angle, level);        
     }
-    
-    public void setup(PApplet marker)
-    {
-        marker.frameRate(30);
-    }
 
     public void draw(PApplet marker)
     {
