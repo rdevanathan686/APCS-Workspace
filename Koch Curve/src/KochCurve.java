@@ -1,7 +1,8 @@
-import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
+
 
 /**
  * KochCurve.java
@@ -12,89 +13,107 @@ import processing.core.PApplet;
  */
 public class KochCurve
 {
-
-    private int level, length;
-
-    public KochCurve(int level, int length)
+    private ArrayList<Line> kochLines;
+    
+    public KochCurve(int level, double length, double angle, Point2D.Double start)
     {
-        this.length = length;
-        this.level = level;
+        kochLines = new ArrayList<Line>();
+        create(start, length, angle, level);        
+    }
+    
+    public void setup(PApplet marker)
+    {
+        marker.frameRate(30);
     }
 
     public void draw(PApplet marker)
     {
-        drawKochCurve(new Point2D.Double(50, 200), length, 0, 2, marker);
+        for (Line line: kochLines)
+            marker.line(line.getX1(), line.getY1(), line.getX2(), line.getY2());
     }
 
-    private void drawKochCurve(Point2D.Double start, double length, double angle, int k, PApplet marker)
+    private void create(Point2D.Double start, double length, double angle, int k)
     {
         if (k < 1)
-            marker.line((float)start.x, (float)start.y, (float)((start.x) + (length * (Math.cos(Math.toRadians(angle))))), (float)(start.y + (length * (Math.sin(Math.toRadians(angle))))));
+        {
+            kochLines.add(new Line((float)start.x, (float)start.y, (float)((start.x) + (length * (Math.cos(Math.toRadians(angle))))), 
+                    (float)(start.y + (length * (Math.sin(Math.toRadians(angle)))))));
+        }
         else
         {
-            drawKochCurve(start, length / 3, angle, k - 1, marker);
+            
+            create(start, length / 3, angle, k - 1);
             
             double x = ((start.x) + (length / 3 * (Math.cos(Math.toRadians(angle)))));
             double y = (start.y + (length / 3 * (Math.sin(Math.toRadians(angle)))));
             
-            drawKochCurve(new Point2D.Double(x, y), length / 3, angle - 60, k - 1, marker);
+            create(new Point2D.Double(x, y), length / 3, angle - 60, k - 1);
             
             x += (length / 3 * (Math.cos(Math.toRadians(angle - 60))));
             y += (length / 3 * (Math.sin(Math.toRadians(angle - 60))));
             
-            drawKochCurve(new Point2D.Double(x, y), length / 3, angle + 60, k - 1, marker);
-
-
-//            float lengthX = (x2 - x1) / 3;
-//            float lengthY = (y2 - y1) / 3;
-//            float length = (float) Point2D.distance(x1, y1, x2, y2);
-//            
-//            float startX = x1;
-//            float startY = y1;
-//            float endX = x2 + lengthX;
-//            float endY = y2 + lengthY;
-//
-//            drawKochCurve(startX, startY, endX, endY, k - 1, angle + 60, marker);
-//
-//            startX = endX;
-//            startY = endY;
-//            endX = (float) (startX + (int)((lengthX * 0.5) + lengthY * (Math.sin(Math.toRadians(60)))));
-//            endY = (float) (startY + (int)((lengthY * 0.5) - lengthX * (Math.sin(Math.toRadians(60)))));
-//
-//            drawKochCurve(startX, startY, endX, endY, k - 1, marker);
-//            
-//            startX = endX;
-//            startY = endY;
-//            endX = x2 - lengthX;
-//            endY = y2 - lengthY;
-//            
-//            drawKochCurve(startX, startY, endX, endY, k - 1, marker);
-//
-//            startX = endX;
-//            startY = endY;
-//            endX = x2;
-//            endY = y2;
-//            
-//            drawKochCurve(startX, startY, endX, endY, k - 1, marker);
-
-//
-//            startX = endX;
-//            startY = endY;
-//            endX = (float) (endX + (length * (Math.cos(Math.toRadians(-60)))));
-//            endY = (float) (endY - (length * (Math.sin(Math.toRadians(-60)))));
-//
-//            drawKochCurve(startX, startY, endX, endY, k - 1, marker, length / 3);
-//
-//            startX = endX;
-//            startY = endY;
-//            endX += length;
-//
-//            drawKochCurve(startX, startY, endX, endY, k - 1, marker, length / 3);
+            create(new Point2D.Double(x, y), length / 3, angle + 60, k - 1);
+            
+            x += (length / 3 * (Math.cos(Math.toRadians(angle + 60))));
+            y += (length / 3 * (Math.sin(Math.toRadians(angle + 60))));
+            
+            create(new Point2D.Double(x, y), length / 3, angle, k - 1);
 
         }
 
     }
 
-    
+    public class Line
+    {
+        float x1, y1, x2, y2;
+        
+        public Line(float x1, float y1, float x2, float y2)
+        {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2; 
+        }
+
+        public float getX1()
+        {
+            return x1;
+        }
+
+        public void setX1(float x1)
+        {
+            this.x1 = x1;
+        }
+
+        public float getY1()
+        {
+            return y1;
+        }
+
+        public void setY1(float y1)
+        {
+            this.y1 = y1;
+        }
+
+        public float getX2()
+        {
+            return x2;
+        }
+
+        public void setX2(float x2)
+        {
+            this.x2 = x2;
+        }
+
+        public float getY2()
+        {
+            return y2;
+        }
+
+        public void setY2(float y2)
+        {
+            this.y2 = y2;
+        }
+    }
 
 }
