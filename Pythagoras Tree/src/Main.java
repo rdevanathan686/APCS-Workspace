@@ -6,7 +6,9 @@ import processing.core.PApplet;
 
 public class Main
 {
-
+    public static final float SCREEN_WIDTH = 500;
+    public static final float SCREEN_HEIGHT = 500;
+    
     public static void main(String args[])
     {
         DrawingSurface drawing = new DrawingSurface();
@@ -15,8 +17,9 @@ public class Main
         PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
         JFrame window = (JFrame) canvas.getFrame();
 
-        window.setSize(400, 300);
-        window.setMinimumSize(new Dimension(100, 100));
+        window.setSize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
+        window.setMinimumSize(new Dimension((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT));
+        window.setLocation(0, 0);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
 
