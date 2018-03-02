@@ -7,7 +7,7 @@ import processing.event.MouseEvent;
 public class DrawingSurface extends PApplet
 {
 
-    private KochCurve curve1, curve2, curve3;
+    private SierpinskiTriangle curve1;
 
     private int level, length;
 
@@ -15,9 +15,8 @@ public class DrawingSurface extends PApplet
     {
         level = 3;
         length = 100;
-        curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
-        curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
-        curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
+        curve1 = new SierpinskiTriangle(level, length, 0, new Point2D.Double(150, 100));
+
     }
 
     // The statements in the setup() function
@@ -41,22 +40,20 @@ public class DrawingSurface extends PApplet
 
         stroke(0);
         curve1.draw(this);
-        curve2.draw(this);
-        curve3.draw(this);
+
     }
 
     public void mouseWheel(MouseEvent event)
     {
         int num = event.getCount();
         length -= num * 10;
-        
+
         if (length > 0)
         {
-            curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
-            curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
-            curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
+            curve1 = new SierpinskiTriangle(level, length, 0, new Point2D.Double(150, 100));
+
         }
-        
+
     }
 
     public void keyPressed()
@@ -64,16 +61,13 @@ public class DrawingSurface extends PApplet
         if (keyCode == KeyEvent.VK_UP)
         {
             level++;
-            curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
-            curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
-            curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
-        }
-        else if (keyCode == KeyEvent.VK_DOWN )
+            curve1 = new SierpinskiTriangle(level, length, 0, new Point2D.Double(150, 100));
+
+        } else if (keyCode == KeyEvent.VK_DOWN)
         {
             level--;
-            curve1 = new KochCurve(level, length, 0, new Point2D.Double(150, 100));
-            curve2 = new KochCurve(level, length, 120, new Point2D.Double(150 + length, 100));
-            curve3 = new KochCurve(level, length, -120, new Point2D.Double(150 + (length * 0.5), 100 + (length * 0.866025403784)));
+            curve1 = new SierpinskiTriangle(level, length, 0, new Point2D.Double(150, 100));
+
         }
     }
 

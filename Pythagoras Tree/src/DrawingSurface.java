@@ -39,14 +39,12 @@ public class DrawingSurface extends PApplet
 
         textSize(12);
         fill(0);
-        text("Use the mouse wheel to change length, use UP/DOWN keys to change level.\n" 
+        text("Use the mouse wheel to change length, use UP/DOWN keys to change level.\n"
                 + "Press R to randomize the tree and SPACE to increase the angle of seperation.\n"
                 + "Drag the mouse to move the tree.", 0, 15);
 
         stroke(0);
         pTree.draw(this);
-        
-
 
     }
 
@@ -74,24 +72,21 @@ public class DrawingSurface extends PApplet
             pTree = new Tree(level, length, deltaAngle, new Point2D.Double(pTree.getX(), pTree.getY()),
                     pTree.getScaleFactor());
 
-        }
-        else if (keyCode == KeyEvent.VK_DOWN && (level != 1))
+        } else if (keyCode == KeyEvent.VK_DOWN && (level != 1))
         {
             level--;
             pTree = new Tree(level, length, deltaAngle, new Point2D.Double(pTree.getX(), pTree.getY()),
                     pTree.getScaleFactor());
-        }
-        else if (keyCode == KeyEvent.VK_SPACE)
+        } else if (keyCode == KeyEvent.VK_SPACE)
         {
             deltaAngle = (float) new Random().nextInt((30 - 20) + 1) + 20;
 
             pTree = new Tree(level, length, deltaAngle, new Point2D.Double(pTree.getX(), pTree.getY()),
                     pTree.getScaleFactor());
-        }
-        else if (keyCode == KeyEvent.VK_R)
+        } else if (keyCode == KeyEvent.VK_R)
         {
             Tree.isRandom = !Tree.isRandom;
-            
+
             pTree = new Tree(level, length, deltaAngle, new Point2D.Double(pTree.getX(), pTree.getY()),
                     pTree.getScaleFactor());
         }
