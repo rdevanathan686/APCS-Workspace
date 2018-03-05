@@ -40,7 +40,12 @@ public class Maze
     // or not
     public boolean solve()
     {
-        return solve(startX, startY);
+        for (int i = 0; i < grid.length; i++)
+            for (int j = 0; j < grid[i].length; j++)
+                if (grid[i][j] == 'C')
+                    return solve(i, j);
+        
+        return false;
     }
 
     // Private recursive version of solve()
