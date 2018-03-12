@@ -31,43 +31,34 @@ public class Fibonacci
 
     public static void main(String[] args)
     {
-        Scanner kboard = new Scanner(System.in);
-        
-        int x = 0;
         boolean valid = false;
-        
+
         while (!valid)
         {
             try
             {
+                Scanner kboard = new Scanner(System.in);
                 System.out.print("Which fibonacci number would you like to find? --> ");
-                x = kboard.nextInt();
+                int x = kboard.nextInt();
+                long answer = computeFibonacci(x);
+                System.out.println("The " + x + " fibonacci number is " + answer + ".");
                 valid = true;
+            }
+            catch (StackOverflowError error)
+            {
+                System.out.println("The inputted number was too big! Please try agian.");
             }
             catch (InputMismatchException exception)
             {
-                System.out.println("Please only input positive integers.");
-                kboard.nextLine();
+                System.out.println("No Strings! Please only input positive integers.");
+            }
+            catch (IllegalArgumentException exception)
+            {
+                System.out.println("The inputted number must be positive! Please try agian.");
             }
 
         }
-        
 
-        long answer = 0;
-        
-        try
-        {
-            answer = computeFibonacci(x);
-        }
-        catch (StackOverflowError error)
-        {
-            System.out.println("The inputted number was too big! Please try agian.");
-            return;
-        }
-        
-        
-        System.out.println("The " + x + " fibonacci number is " + answer + ".");
-        kboard.close();
     }
 
 }
