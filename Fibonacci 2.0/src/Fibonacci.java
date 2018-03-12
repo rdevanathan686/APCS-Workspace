@@ -16,11 +16,11 @@ public class Fibonacci
     {
 
         if (x < 0)
-            throw new IllegalArgumentException("Negative Numbers are not allowed");
-        
+            throw new IllegalArgumentException("Negative Numbers are not allowed!");
+
         if (x <= 1)
             return x;
-        
+
         else
         {
             long answer = computeFibonacci(x - 2) + computeFibonacci(x - 1);
@@ -32,22 +32,42 @@ public class Fibonacci
     public static void main(String[] args)
     {
         Scanner kboard = new Scanner(System.in);
-        System.out.print("Which fibonacci number would you like to find? --> ");
         
         int x = 0;
+        boolean valid = false;
+        
+        while (!valid)
+        {
+            try
+            {
+                System.out.print("Which fibonacci number would you like to find? --> ");
+                x = kboard.nextInt();
+                valid = true;
+            }
+            catch (InputMismatchException exception)
+            {
+                System.out.println("Please only input positive integers.");
+                kboard.nextLine();
+            }
 
-        try 
-        {
-            x = kboard.nextInt();
         }
-        catch (InputMismatchException exception)
+        
+
+        long answer = 0;
+        
+        try
         {
-            System.out.println("Only input integers ");
+            answer = computeFibonacci(x);
+        }
+        catch (StackOverflowError error)
+        {
+            System.out.println("The inputted number was too big! Please try agian.");
+            return;
         }
         
         
-        long answer = computeFibonacci(x);
         System.out.println("The " + x + " fibonacci number is " + answer + ".");
+        kboard.close();
     }
 
 }
