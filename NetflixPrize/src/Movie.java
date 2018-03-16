@@ -1,6 +1,8 @@
-// Add three classes w/ fields - everything should be accounted for
 public class Movie
 {
-    private int movieId;
-    
+    private int movieId, imdbId, tmdbId; //IDs
+    private String title;
+    private int releaseYear;
+    private String[] genres;
+
 }
