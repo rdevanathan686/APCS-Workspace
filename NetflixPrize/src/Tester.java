@@ -12,6 +12,8 @@ public class Tester
 //            System.out.println(movie);
 //        }
         
+       
+        
         ArrayList<Movie> movieData = new ArrayList<Movie>();
         MovieLensCSVTranslator translator = new MovieLensCSVTranslator();
         
@@ -25,6 +27,9 @@ public class Tester
         {
             System.out.println(m);
         }
+        
+        
+        
 
     }
 
