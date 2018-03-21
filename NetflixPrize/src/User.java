@@ -5,26 +5,34 @@ public class User
 {
     private int userId;
     private ArrayList<Rating> ratings;
+    private ArrayList<Tag> tags;
     
-    public User(int userId, ArrayList<Rating> ratings)
+    public User(int userId, ArrayList<Rating> ratings, ArrayList<Tag> tags)
     {
         this.userId = userId;
         this.ratings = ratings;
+        this.tags = tags;
+
     }
     
     public User()
     {
-        this(-1, new ArrayList<Rating>());
+        this(-1, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
     
     public User(int userId)
     {
-        this(userId, new ArrayList<Rating>());
+        this(userId, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
     
     public void addRating(Rating r)
     {
         ratings.add(r);
+    }
+    
+    public void addTag(Tag t)
+    {
+        tags.add(t);
     }
     
     public String toString()

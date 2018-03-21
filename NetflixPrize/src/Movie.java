@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Movie
@@ -7,9 +8,11 @@ public class Movie
     private int releaseYear;
     private String[] genres;
     
+    private ArrayList<Rating> rating;
+    private ArrayList<Tag> tags;
 
     public Movie(int movieId, int imdbId, int tmdbId, 
-            String title, int releaseYear, String[] genres)
+            String title, int releaseYear, String[] genres, ArrayList<Rating> rating)
     {
         this.movieId = movieId;
         this.imdbId = imdbId;
@@ -17,18 +20,19 @@ public class Movie
         this.title = title;
         this.releaseYear = releaseYear;
         this.genres = genres;
+        this.rating = rating;
+
     }
     
     public Movie(int movieId, String title, int releaseYear, String[] genres)
     {
-        this(movieId, -1, -1, title, releaseYear, genres);
+        this(movieId, -1, -1, title, releaseYear, genres, null);
     }
     
     public Movie()
     {
         this(-1, "", -1, null);
     }
-
 
     public String toString()
     {
@@ -100,6 +104,16 @@ public class Movie
     public void setGenres(String[] genres)
     {
         this.genres = genres;
+    }
+
+    public Rating getRating()
+    {
+        return rating;
+    }
+
+    public void setRating(Rating rating)
+    {
+        this.rating = rating;
     }
     
     

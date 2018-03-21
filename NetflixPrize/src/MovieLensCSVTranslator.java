@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+
 /*
  * 
  * 
@@ -34,7 +35,7 @@ public class MovieLensCSVTranslator
 
     private ArrayList<String> getLinePieces(String line)
     {
-        ArrayList<String> pieces = new ArrayList<String>(); 
+        ArrayList<String> pieces = new ArrayList<String>();
         boolean quoted = false;
         int start = 0;
 
@@ -42,10 +43,10 @@ public class MovieLensCSVTranslator
         {
             char thisChar = line.charAt(i);
             if (thisChar == '"')
-                quoted = !quoted; 
+                quoted = !quoted;  
             else if (thisChar == ',' && !quoted)
-            { 
-                pieces.add(line.substring(start, i)); 
+            {
+                pieces.add(line.substring(start, i));
                 start = i + 1;
             }
         }
@@ -57,79 +58,70 @@ public class MovieLensCSVTranslator
 
     public Movie parseMovie(String line)
     {
-        ArrayList<String> pieces = getLinePieces(line); 
+        ArrayList<String> pieces = getLinePieces(line);
         int id = Integer.parseInt(pieces.get(0));
-        String title = pieces.get(1); 
+        String title = pieces.get(1);
 
         int yearStart = title.lastIndexOf("(");
         int year = -1;
 
         if (yearStart != -1)
-            year = Integer.parseInt(title.substring(yearStart + 1, yearStart + 5)); 
-        
+            year = Integer.parseInt(title.substring(yearStart + 1, yearStart + 5));
+
         String[] genrePieces = pieces.get(2).split("\\|");
 
         Movie m = new Movie(id, title, year, genrePieces);
         return m;
     }
-    
+
     public void parseLinks(Movie m, String line)
     {
-        ArrayList<String> pieces = getLinePieces(line); 
+        ArrayList<String> pieces = getLinePieces(line);
         int movieId = Integer.parseInt(pieces.get(0));
-        
+
         int imdbId = -1;
         if (!pieces.get(1).equals(""))
             imdbId = Integer.parseInt(pieces.get(1));
-        
+
         int tmdbId = -1;
         if (!pieces.get(2).equals(""))
             tmdbId = Integer.parseInt(pieces.get(2));
-        
+
         if (m.getMovieId() == movieId)
         {
             m.setImdbId(imdbId);
             m.setTmdbId(tmdbId);
         }
-        
+
     }
 
     public void parseUser(String line, ArrayList<User> userData)
     {
-        ArrayList<String> pieces = getLinePieces(line); 
-        int userId = Integer.parseInt(pieces.get(0));      
+        ArrayList<String> pieces = getLinePieces(line);
+        int userId = Integer.parseInt(pieces.get(0));
 
-        
         for (User u : userData)
-        {
             if (u.getUserId() == userId)
-            {
                 return;
-            }
-                
-        }
-        
+
         User user = new User(userId);
         userData.add(user);
-    
+
     }
-    
+
     public void assignRating(String line, User u, ArrayList<Movie> movieData)
     {
 
-        
         ArrayList<String> pieces = getLinePieces(line);
-        
-       
-        
-        int userId = Integer.parseInt(pieces.get(0));  
-        
+
+        int userId = Integer.parseInt(pieces.get(0));
+
         if (u.getUserId() != userId)
             return;
-        
+
         int movieId = Integer.parseInt(pieces.get(1));
         Movie movie = null;
-        
+
         for (Movie m : movieData)
         {
             if (m.getMovieId() == movieId)
@@ -137,47 +129,38 @@ public class MovieLensCSVTranslator
                 movie = m;
                 break;
             }
-                
+
         }
-        
+
         double rating = Double.parseDouble(pieces.get(2));
         int timestamp = Integer.parseInt(pieces.get(3));
-        
+
         Rating r = new Rating(timestamp, rating, null, movie);
         u.addRating(r);
-    
+
     }
-    
-    
+
     public void assignTag(String line, User u)
     {
 
-        
         ArrayList<String> pieces = getLinePieces(line);
-        
-       
-        
-        int userId = Integer.parseInt(pieces.get(0));  
-        
-        
+
+        int userId = Integer.parseInt(pieces.get(0));
+
         if (u.getUserId() != userId)
             return;
-        
-        int movieId = Integer.parseInt(pieces.get(1));  
-        String tag = pieces.get(2); 
-        
+
+        int movieId = Integer.parseInt(pieces.get(1));
+        String tag = pieces.get(2);
+
         for (Rating r : u.getRatings())
         {
             if (r.getMovie().getMovieId() == movieId)
                 r.setTag(tag);
         }
-    
+
     }
-    
-    /*
-     *         
-     */
-    
+
     // HERE WE NEED
     // METHODS FOR TRANSLATING
     // RATINGS

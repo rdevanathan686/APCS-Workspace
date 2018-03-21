@@ -1,11 +1,12 @@
-public class Rating
+public class Tag
 {
     private int userId; 
     private int timestamp; //Seconds from midnight (could be converted to Time class)
-    private double rating; // 0.5 - 5.0
+    private String tag; // User generated comments
     private Movie movie; //Movie the rating is related to
+    // movieId?
     
-    public Rating(int timestamp, double rating, String tag, Movie movie)
+    public Tag(int timestamp, double rating, String tag, Movie movie)
     {
         this.timestamp = timestamp;
         this.rating = rating;
@@ -13,7 +14,7 @@ public class Rating
         this.movie = movie;
     }
     
-    public Rating()
+    public Tag()
     {
         this(-1, -1, null, null);
     }
