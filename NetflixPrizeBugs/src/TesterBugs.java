@@ -11,14 +11,17 @@ public class TesterBugs {
 		
 		ArrayList<Movie> movieData = new ArrayList<Movie>();
 		MovieLensCSVTranslatorBugs translator = new MovieLensCSVTranslatorBugs();
+		
 		for (int i = 1; i < movieStringData.size(); i++) {
 			Movie m = translator.parseMovie(movieStringData.get(i));
 			movieData.add(m);
 		}
+		
+		System.out.println(movieData.size());
 
-		for (Movie m : movieData) {
-			System.out.println(m);
-		}
+//		for (Movie m : movieData) {
+//			System.out.println(m);
+//		}
 
 	}
 

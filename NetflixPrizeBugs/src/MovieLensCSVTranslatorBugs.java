@@ -9,6 +9,7 @@ public class MovieLensCSVTranslatorBugs
         ArrayList<String> pieces = new ArrayList<String>(); // Holds comma separated pieces of the line
         boolean quoted = false; // Keeps track of whether the current character is inside of quotes or not
         int start = 0;
+        
         for (int i = 0; i < line.length(); i++)
         { // For each character...
             char thisChar = line.charAt(i);
@@ -38,7 +39,10 @@ public class MovieLensCSVTranslatorBugs
         String title = pieces.get(1); // title is the first piece of data
 
         int yearStart = title.lastIndexOf("(");
-        int year = Integer.parseInt(title.substring(yearStart + 1, yearStart + 5)); // Extract the year from inside
+        int year = -1;
+        
+        if (yearStart != -1)
+            year = Integer.parseInt(title.substring(yearStart + 1, yearStart + 5)); // Extract the year from inside
                                                                                     // parenthesis
 
         String[] genrePieces = pieces.get(2).split("\\|"); // Split up the genres by looking for |

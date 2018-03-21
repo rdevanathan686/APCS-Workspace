@@ -32,8 +32,14 @@ public class Movie
 
     public String toString()
     {
-        return "Movie [movieId=" + movieId + ", imdbId=" + imdbId + ", tmdbId=" + tmdbId + ", title=" + title
-                + ", releaseYear=" + releaseYear + ", genres=" + Arrays.toString(genres) + "]";
+        String out = "\nTITLE: " + title;
+        out += "\nYEAR: " + releaseYear;
+        out += "\nMOVIEID: " + movieId;
+        out += "\nIMDBID: " + imdbId;
+        out += "\nTMDBID: " + tmdbId;
+        out += "\nGENRES: " + Arrays.toString(genres);
+        
+        return out;
     }
 
     public int getMovieId()
