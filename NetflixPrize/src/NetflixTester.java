@@ -9,7 +9,6 @@ public class NetflixTester
     public static final String moviesFile = "ml-small-dataset" + FileIO.fileSeparator + "movies.csv";
     public static final String linksFile = "ml-small-dataset" + FileIO.fileSeparator + "links.csv";
     public static final String tagsFile = "ml-small-dataset" + FileIO.fileSeparator + "tags.csv";
-    public static final String ratingsFile = "ml-small-dataset" + FileIO.fileSeparator + "ratings.csv";
 
     public static void main(String[] args)
     {
@@ -21,7 +20,7 @@ public class NetflixTester
 
         System.out.println("\n***Initializing Predictor***");
 
-        NetFlixPredictor tester = new NetFlixPredictor(moviesFile, ratingsFile, tagsFile, linksFile);
+        NetFlixPredictor tester = new NetFlixPredictor(moviesFile, baseFile, tagsFile, linksFile);
 
         System.out.println("\n***Testing getRating Method***");
 

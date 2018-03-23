@@ -104,7 +104,7 @@ public class MovieLensCSVTranslator
             if (u.getUserId() == userId)
                 return null;
 
-        User user = new User(userId);
+        User user = new User(userId); 
         return user;
     }
 

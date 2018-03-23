@@ -10,6 +10,8 @@ public class Movie
     
     private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
+    
+    private double avgRating;
 
     public Movie(int movieId, int imdbId, int tmdbId, 
             String title, int releaseYear, String[] genres, 
@@ -22,9 +24,18 @@ public class Movie
         this.releaseYear = releaseYear;
         this.genres = genres;
         this.setRating(rating);
+        setAvgRating();
         this.setTags(tags);
     }
     
+    private void setAvgRating()
+    {
+        for (Rating r : ratings)
+            avgRating += r.getRating();
+        
+        avgRating /= ratings.size();
+    }
+
     public Movie(int movieId, String title, int releaseYear, String[] genres)
     {
         this(movieId, -1, -1, title, releaseYear, genres, 
