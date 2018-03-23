@@ -111,7 +111,27 @@ public class NetFlixPredictor
         if (r != -1)
             return r;
         
-          
+        User user = null;
+        Movie movie = null;
+        
+        for (User u : userData)
+        {
+            if (userID == u.getUserId())
+            {
+                user = u;
+                break;
+            }
+        }
+        
+        for (Movie m : movieData)
+        {
+            if (movieID == m.getMovieId())
+            {
+                movie = m;
+                break;
+            }
+        }
+        
         
         
         return 0;

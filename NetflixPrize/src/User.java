@@ -39,7 +39,7 @@ public class User
     {
         String out = "\nUSERID: " + userId;
         out += "\nRATINGS: ";
-
+ 
         for (Rating r : ratings)
             out += r.toString() + "\n";
 
