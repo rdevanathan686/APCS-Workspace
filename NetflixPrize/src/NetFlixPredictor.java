@@ -42,27 +42,21 @@ public class NetFlixPredictor
 
         for (int i = 1; i < ratingStringData.size(); i++)
         {
-            translator.parseUser(ratingStringData.get(i), userData);
+            User user = translator.parseUser(ratingStringData.get(i), userData);
+            if (user != null)
+                userData.add(user);
         }
-
+            
+        
         for (User u : userData)
         {
-
             for (int i = 1; i < ratingStringData.size(); i++)
-            {
-
                 translator.assignRating(ratingStringData.get(i), u, movieData);
 
-            }
-
             for (int i = 1; i < tagStringData.size(); i++)
-            {
-
-                translator.assignTag(tagStringData.get(i), u);
-
-            }
-
+                translator.assignTag(tagStringData.get(i), u, movieData);
         }
+        
     }
 
     /**
@@ -78,8 +72,20 @@ public class NetFlixPredictor
      */
     public double getRating(int userID, int movieID)
     {
-
-        return -1;
+        double ratingValue = -1;
+        for (User user: userData)
+        {
+            if (user.getUserId() == userID)
+            {
+                for (Rating rating : user.getRatings())
+                {
+                    if (rating.getMovie().getMovieId() == movieID)
+                        ratingValue = rating.getRating();
+                }
+            }
+        }
+        
+        return ratingValue;
     }
 
     /**

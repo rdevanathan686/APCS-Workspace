@@ -8,11 +8,12 @@ public class Movie
     private int releaseYear;
     private String[] genres;
     
-    private ArrayList<Rating> rating;
+    private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
 
     public Movie(int movieId, int imdbId, int tmdbId, 
-            String title, int releaseYear, String[] genres, ArrayList<Rating> rating)
+            String title, int releaseYear, String[] genres, 
+            ArrayList<Rating> rating, ArrayList<Tag> tags)
     {
         this.movieId = movieId;
         this.imdbId = imdbId;
@@ -20,18 +21,30 @@ public class Movie
         this.title = title;
         this.releaseYear = releaseYear;
         this.genres = genres;
-        this.rating = rating;
-
+        this.setRating(rating);
+        this.setTags(tags);
     }
     
     public Movie(int movieId, String title, int releaseYear, String[] genres)
     {
-        this(movieId, -1, -1, title, releaseYear, genres, null);
+        this(movieId, -1, -1, title, releaseYear, genres, 
+                new ArrayList<Rating>(), new ArrayList<Tag>());
     }
     
+    // TODO unecessary?
     public Movie()
     {
         this(-1, "", -1, null);
+    }
+    
+    public void addRating(Rating r)
+    {
+        ratings.add(r);
+    }
+    
+    public void addTag(Tag t)
+    {
+        tags.add(t);
     }
 
     public String toString()
@@ -42,6 +55,7 @@ public class Movie
         out += "\nIMDBID: " + imdbId;
         out += "\nTMDBID: " + tmdbId;
         out += "\nGENRES: " + Arrays.toString(genres);
+        
         
         return out;
     }
@@ -106,15 +120,26 @@ public class Movie
         this.genres = genres;
     }
 
-    public Rating getRating()
+    public ArrayList<Rating> getRating()
     {
-        return rating;
+        return ratings;
     }
 
-    public void setRating(Rating rating)
+    public void setRating(ArrayList<Rating> rating)
     {
-        this.rating = rating;
+        this.ratings = rating;
     }
+
+    public ArrayList<Tag> getTags()
+    {
+        return tags;
+    }
+
+    public void setTags(ArrayList<Tag> tags)
+    {
+        this.tags = tags;
+    }
+
     
     
 

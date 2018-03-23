@@ -9,7 +9,7 @@ public class FileIO
 {
     public static final String fileSeparator = System.getProperty("file.separator");
     public static final String lineSeparator = System.getProperty("line.separator");
-    
+
     // Checked Exception
     public static ArrayList<String> readFile(String filename)
     {
@@ -40,15 +40,15 @@ public class FileIO
 
         return null;
     }
-    
+
     public static void writeFile(String filename, ArrayList<String> fileData)
     {
         FileWriter write = null;
         try
         {
             write = new FileWriter(filename);
-            
-            for (String line: fileData)
+
+            for (String line : fileData)
             {
                 write.write(line);
                 write.write(lineSeparator);
@@ -70,7 +70,7 @@ public class FileIO
             {
                 e.printStackTrace();
             }
-            
+
         }
 
     }

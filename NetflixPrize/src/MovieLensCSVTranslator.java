@@ -95,18 +95,17 @@ public class MovieLensCSVTranslator
 
     }
 
-    public void parseUser(String line, ArrayList<User> userData)
+    public User parseUser(String line, ArrayList<User> userData)
     {
         ArrayList<String> pieces = getLinePieces(line);
         int userId = Integer.parseInt(pieces.get(0));
 
         for (User u : userData)
             if (u.getUserId() == userId)
-                return;
+                return null;
 
         User user = new User(userId);
-        userData.add(user);
-
+        return user;
     }
 
     public void assignRating(String line, User u, ArrayList<Movie> movieData)
@@ -135,12 +134,17 @@ public class MovieLensCSVTranslator
         double rating = Double.parseDouble(pieces.get(2));
         int timestamp = Integer.parseInt(pieces.get(3));
 
-        Rating r = new Rating(timestamp, rating, null, movie);
+        
+        Rating r = new Rating(timestamp, rating, movie, userId);
+        
+        if (movie != null)
+            movie.addRating(r);
+        
         u.addRating(r);
 
     }
-
-    public void assignTag(String line, User u)
+    
+    public void assignTag(String line, User u, ArrayList<Movie> movieData)
     {
 
         ArrayList<String> pieces = getLinePieces(line);
@@ -151,20 +155,29 @@ public class MovieLensCSVTranslator
             return;
 
         int movieId = Integer.parseInt(pieces.get(1));
-        String tag = pieces.get(2);
+        Movie movie = null;
 
-        for (Rating r : u.getRatings())
+        for (Movie m : movieData)
         {
-            if (r.getMovie().getMovieId() == movieId)
-                r.setTag(tag);
+            if (m.getMovieId() == movieId)
+            {
+                movie = m;
+                break;
+            }
+
         }
 
-    }
+        String tag = pieces.get(2);
+        int timestamp = Integer.parseInt(pieces.get(3));
 
-    // HERE WE NEED
-    // METHODS FOR TRANSLATING
-    // RATINGS
-    // TAGS
-    // AND LINKS
+        
+        Tag t = new Tag(timestamp, tag, movie, userId);
+        
+        if (movie != null)
+            movie.addTag(t);
+        
+        u.addTag(t);
+
+    }
 
 }

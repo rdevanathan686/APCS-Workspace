@@ -6,7 +6,7 @@ public class User
     private int userId;
     private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
-    
+
     public User(int userId, ArrayList<Rating> ratings, ArrayList<Tag> tags)
     {
         this.userId = userId;
@@ -14,39 +14,42 @@ public class User
         this.tags = tags;
 
     }
-    
+
     public User()
     {
         this(-1, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
-    
+
     public User(int userId)
     {
         this(userId, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
-    
+
     public void addRating(Rating r)
     {
         ratings.add(r);
     }
-    
+
     public void addTag(Tag t)
     {
         tags.add(t);
     }
-    
+
     public String toString()
     {
         String out = "\nUSERID: " + userId;
         out += "\nRATINGS: ";
-        
-        for (Rating r: ratings)
-        {
+
+        for (Rating r : ratings)
             out += r.toString() + "\n";
-        }
-        
+
+        out += "\nTAGS: ";
+
+        for (Tag t : tags)
+            out += t.toString() + "\n";
+
         return out;
-        
+
     }
 
     public int getUserId()
@@ -68,7 +71,15 @@ public class User
     {
         this.ratings = ratings;
     }
-    
-    
-    
+
+    public ArrayList<Tag> getTags()
+    {
+        return tags;
+    }
+
+    public void setTags(ArrayList<Tag> tags)
+    {
+        this.tags = tags;
+    }
+
 }

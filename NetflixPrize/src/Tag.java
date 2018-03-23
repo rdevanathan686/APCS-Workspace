@@ -4,27 +4,27 @@ public class Tag
     private int timestamp; //Seconds from midnight (could be converted to Time class)
     private String tag; // User generated comments
     private Movie movie; //Movie the rating is related to
-    // movieId?
+    // TODO movieId?
     
-    public Tag(int timestamp, double rating, String tag, Movie movie)
+    public Tag(int timestamp, String tag, Movie movie, int userId)
     {
         this.timestamp = timestamp;
-        this.rating = rating;
+        this.userId = userId;
         this.tag = tag;
         this.movie = movie;
     }
     
     public Tag()
     {
-        this(-1, -1, null, null);
+        this(-1, null, null, -1);
     }
     
     public String toString()
     {
         String out = "\nMOVIE: " + movie.toString();
         out += "\nTIMESTAMP: " + timestamp;
-        out += "\nRATING: " + rating;
         out += "\nTAG: " + tag;
+        out += "\nUSERID: " + userId;
         
         return out;
         
@@ -38,16 +38,6 @@ public class Tag
     public void setTimestamp(int timestamp)
     {
         this.timestamp = timestamp;
-    }
-
-    public double getRating()
-    {
-        return rating;
-    }
-
-    public void setRating(double rating)
-    {
-        this.rating = rating;
     }
 
     public String getTag()
@@ -68,6 +58,16 @@ public class Tag
     public void setMovie(Movie movie)
     {
         this.movie = movie;
+    }
+
+    public int getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(int userId)
+    {
+        this.userId = userId;
     }
     
     
