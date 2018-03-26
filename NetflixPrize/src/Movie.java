@@ -66,6 +66,7 @@ public class Movie
         out += "\nMOVIEID: " + movieId;
         out += "\nIMDBID: " + imdbId;
         out += "\nTMDBID: " + tmdbId;
+        out += "\nAvgRating: " + avgRating;
         out += "\nGENRES: " + Arrays.toString(genres);
 
         return out;

@@ -150,7 +150,7 @@ public class NetFlixPredictor
         int match = 0;
         
         // if the user has rated something 
-        // of the similar genre, add it to the avg genre rating
+        // of the similar genre, add it to the avg genre rating for the specific genre
         for (Rating rating : user.getRatings())
         {
             for (String genre : rating.getMovie().getGenres())
@@ -171,9 +171,11 @@ public class NetFlixPredictor
         if (match == 0)
             return movie.getAvgRating();
         
-        double userBuffer = (user.getAvgRating() - movie.getAvgRating()) * 0.5;
+        // Avg user bias?
+        double userBias = (user.getAvgRating() - movie.getAvgRating()) / ((user.getRatings().size()) / 50.);
+        System.out.println(userBias);
         
-        return (ratingGuess / match) + userBuffer;
+        return (ratingGuess / match) + userBias;
     }
 
     /**

@@ -54,6 +54,7 @@ public class User
         
         String out = "\n(USER)";
         out += "\nUSERID: " + userId;
+        out += "\nUserAvgRating: " + avgRating;
         out += "\nRATINGS:\n";
 
             for (int i  = 0; i < ratings.size(); i++)

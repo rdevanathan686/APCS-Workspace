@@ -69,8 +69,11 @@ public class Tester
                 userData.add(user);
         }
         
+        User user = userData.get(0);
+        Movie movie = movieData.get(30);
+        double userBias = (user.getAvgRating() - movie.getAvgRating());
         
-        System.out.print(movieData.get(0).getAvgRating());
+        System.out.print(userBias);
         
 
     }
