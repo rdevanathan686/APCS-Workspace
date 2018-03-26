@@ -40,26 +40,46 @@ public class NetFlixPredictor
             movieData.add(m);
         }
 
+        int queueId = Integer.parseInt(tagStringData.get(1).substring(0, tagStringData.get(1).indexOf(","))); // 15
+        int queuedIndex = 1;
+        
         for (int i = 1; i < ratingStringData.size(); i++)
         {
-            User user = translator.parseUser(ratingStringData.get(i), userData);
+            User user = null;
+            if (userData.size() == 0)
+                user = translator.parseUser(ratingStringData.get(i), null);
+            else
+                user = translator.parseUser(ratingStringData.get(i), userData.get(userData.size() - 1));
+            
+            
             
             if (user != null)
+                translator.assignRating(ratingStringData.get(i), user, movieData);
+            else
+                translator.assignRating(ratingStringData.get(i), userData.get(userData.size() - 1), movieData);
+
+            if (user != null && user.getUserId() == queueId)
+            {
+                
+                for (int j = queuedIndex; j < tagStringData.size(); j++)
+                {
+                    int assignedId = translator.assignTag(tagStringData.get(j), user, movieData);
+                    
+                    if (assignedId != queueId)
+                    {
+                        queueId = assignedId;
+                        queuedIndex = j;
+                        break;
+                    }
+                        
+                }
+                    
+            }   
             
+            if (user != null)
                 userData.add(user);
-            
-               
         }
-            
-        
-        for (User u : userData)
-        {
-            for (int j = 1; j < ratingStringData.size(); j++)
-                translator.assignRating(ratingStringData.get(j), u, movieData);
-            
-            for (int j = 1; j < tagStringData.size(); j++)
-                translator.assignTag(tagStringData.get(j), u, movieData);
-        }
+           
         
     }
 
@@ -76,20 +96,13 @@ public class NetFlixPredictor
      */
     public double getRating(int userID, int movieID)
     {
-        double ratingValue = -1;
         for (User user: userData)
-        {
             if (user.getUserId() == userID)
-            {
                 for (Rating rating : user.getRatings())
-                {
                     if (rating.getMovie().getMovieId() == movieID)
-                        ratingValue = rating.getRating();
-                }
-            }
-        }
-        
-        return ratingValue;
+                        return rating.getRating();
+                
+        return -1;
     }
 
     /**

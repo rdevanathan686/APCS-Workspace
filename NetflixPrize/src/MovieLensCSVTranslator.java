@@ -95,14 +95,16 @@ public class MovieLensCSVTranslator
 
     }
 
-    public User parseUser(String line, ArrayList<User> userData)
+    public User parseUser(String line, User recentData)
     {
         ArrayList<String> pieces = getLinePieces(line);
         int userId = Integer.parseInt(pieces.get(0));
 
-        for (User u : userData)
-            if (u.getUserId() == userId)
-                return null;
+        if (recentData == null)
+            return new User(userId); 
+
+        if (recentData.getUserId() == userId)
+            return null;
 
         User user = new User(userId); 
         return user;
@@ -144,7 +146,7 @@ public class MovieLensCSVTranslator
 
     }
     
-    public void assignTag(String line, User u, ArrayList<Movie> movieData)
+    public int assignTag(String line, User u, ArrayList<Movie> movieData)
     {
 
         ArrayList<String> pieces = getLinePieces(line);
@@ -152,7 +154,7 @@ public class MovieLensCSVTranslator
         int userId = Integer.parseInt(pieces.get(0));
 
         if (u.getUserId() != userId)
-            return;
+            return userId;
 
         int movieId = Integer.parseInt(pieces.get(1));
         Movie movie = null;
@@ -177,7 +179,7 @@ public class MovieLensCSVTranslator
             movie.addTag(t);
         
         u.addTag(t);
-
+        return userId;
     }
 
 }

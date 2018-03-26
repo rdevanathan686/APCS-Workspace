@@ -37,16 +37,18 @@ public class User
 
     public String toString()
     {
-        String out = "\nUSERID: " + userId;
-        out += "\nRATINGS: ";
- 
-        for (Rating r : ratings)
-            out += r.toString() + "\n";
+        
+        String out = "\n(USER)";
+        out += "\nUSERID: " + userId;
+        out += "\nRATINGS:\n";
 
-        out += "\nTAGS: ";
+            for (int i  = 0; i < ratings.size(); i++)
+                out += (i + 1) + ") " + ratings.get(i).toString() + "\n";
 
-        for (Tag t : tags)
-            out += t.toString() + "\n";
+        out += "\nTAGS:\n";
+
+        for (int i  = 0; i < tags.size(); i++)
+            out += (i + 1) + ") " + tags.get(i).toString() + "\n";
 
         return out;
 
