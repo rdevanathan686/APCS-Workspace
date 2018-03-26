@@ -3,18 +3,17 @@ import java.util.Arrays;
 
 public class Movie
 {
-    private int movieId, imdbId, tmdbId; //IDs
+    private int movieId, imdbId, tmdbId; // IDs
     private String title;
     private int releaseYear;
     private String[] genres;
-    
+
     private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
-    
+
     private double avgRating;
 
-    public Movie(int movieId, int imdbId, int tmdbId, 
-            String title, int releaseYear, String[] genres, 
+    public Movie(int movieId, int imdbId, int tmdbId, String title, int releaseYear, String[] genres,
             ArrayList<Rating> rating, ArrayList<Tag> tags)
     {
         this.movieId = movieId;
@@ -24,35 +23,37 @@ public class Movie
         this.releaseYear = releaseYear;
         this.genres = genres;
         this.setRating(rating);
-        setAvgRating();
+        this.avgRating = 0;
         this.setTags(tags);
     }
-    
+
     private void setAvgRating()
     {
         for (Rating r : ratings)
             avgRating += r.getRating();
-        
+
         avgRating /= ratings.size();
     }
 
     public Movie(int movieId, String title, int releaseYear, String[] genres)
     {
-        this(movieId, -1, -1, title, releaseYear, genres, 
-                new ArrayList<Rating>(), new ArrayList<Tag>());
+        this(movieId, -1, -1, title, releaseYear, genres, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
-    
+
     // TODO unecessary?
     public Movie()
     {
         this(-1, "", -1, null);
     }
-    
+
     public void addRating(Rating r)
     {
+        double temp = avgRating * ratings.size();
         ratings.add(r);
+        temp += r.getRating();
+        avgRating = (temp / ratings.size());
     }
-    
+
     public void addTag(Tag t)
     {
         tags.add(t);
@@ -66,8 +67,7 @@ public class Movie
         out += "\nIMDBID: " + imdbId;
         out += "\nTMDBID: " + tmdbId;
         out += "\nGENRES: " + Arrays.toString(genres);
-        
-        
+
         return out;
     }
 
@@ -151,7 +151,14 @@ public class Movie
         this.tags = tags;
     }
 
-    
-    
+    public double getAvgRating()
+    {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating)
+    {
+        this.avgRating = avgRating;
+    }
 
 }

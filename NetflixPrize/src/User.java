@@ -6,13 +6,24 @@ public class User
     private int userId;
     private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
-
+    private double avgRating;
+    
+    
+    
     public User(int userId, ArrayList<Rating> ratings, ArrayList<Tag> tags)
     {
         this.userId = userId;
         this.ratings = ratings;
         this.tags = tags;
 
+    }
+    
+    private void setAvgRating()
+    {
+        for (Rating r : ratings)
+            avgRating += r.getRating();
+
+        avgRating /= ratings.size();
     }
 
     public User()
@@ -27,7 +38,10 @@ public class User
 
     public void addRating(Rating r)
     {
+        double temp = avgRating * ratings.size();
         ratings.add(r);
+        temp += r.getRating();
+        avgRating = (temp / ratings.size());
     }
 
     public void addTag(Tag t)
@@ -83,5 +97,17 @@ public class User
     {
         this.tags = tags;
     }
+
+    public double getAvgRating()
+    {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating)
+    {
+        this.avgRating = avgRating;
+    }
+    
+    
 
 }

@@ -127,6 +127,7 @@ public class NetFlixPredictor
         User user = null;
         Movie movie = null;
         
+        // Find user and movie objects in the database 
         for (User u : userData)
         {
             if (userID == u.getUserId())
@@ -145,9 +146,34 @@ public class NetFlixPredictor
             }
         }
         
+        double ratingGuess = 0;
+        int match = 0;
         
+        // if the user has rated something 
+        // of the similar genre, add it to the avg genre rating
+        for (Rating rating : user.getRatings())
+        {
+            for (String genre : rating.getMovie().getGenres())
+            {
+                for (String genreMovie : movie.getGenres())
+                {
+                    if (genre.equals(genreMovie))
+                    {
+                        ratingGuess += rating.getMovie().getAvgRating();
+                        match++;
+                    }
+                }
+
+                
+            }
+        }
         
-        return 0;
+        if (match == 0)
+            return movie.getAvgRating();
+        
+        double userBuffer = (user.getAvgRating() - movie.getAvgRating()) * 0.5;
+        
+        return (ratingGuess / match) + userBuffer;
     }
 
     /**

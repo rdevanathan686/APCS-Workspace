@@ -69,11 +69,8 @@ public class Tester
                 userData.add(user);
         }
         
-        for (User u : userData)
-        {
-            if (u.getUserId() == 611)
-                System.out.print(u);
-        }
+        
+        System.out.print(movieData.get(0).getAvgRating());
         
 
     }
