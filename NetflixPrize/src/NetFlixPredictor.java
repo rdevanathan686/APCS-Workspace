@@ -146,6 +146,15 @@ public class NetFlixPredictor
             }
         }
         
+        double baseline = 0;
+        
+        for (User u : userData)
+        {
+            baseline += u.getAvgRating();
+        }
+        
+        baseline /= userData.size();
+        
         double ratingGuess = 0;
         int match = 0;
         
@@ -172,11 +181,13 @@ public class NetFlixPredictor
             return movie.getAvgRating();
         
         // Avg user bias?
-        double userBias = (user.getAvgRating() - movie.getAvgRating()) / ((user.getRatings().size()) / 50.);
+        double userBias = (baseline - user.getAvgRating());
         System.out.println(userBias);
         
-        return (ratingGuess / match) + userBias;
+        return (ratingGuess / match) - userBias;
     }
+    
+    
 
     /**
      * Recommend a movie that you think this user would enjoy (but they have not
