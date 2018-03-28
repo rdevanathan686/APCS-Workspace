@@ -1,4 +1,4 @@
-public class Rating
+public class Rating implements Comparable<Rating>
 {
     private User user; 
     private int timestamp; //Seconds from midnight (could be converted to Time class)
@@ -19,6 +19,12 @@ public class Rating
         this(-1, -1, null, null);
     }
     
+    public Rating(User user, Movie movie)
+    {
+        this.user = user;
+        this.movie = movie;
+    }
+
     public String toString()
     {
         String out = "\nMOVIE " + movie.toString();
@@ -29,7 +35,26 @@ public class Rating
         return out;
         
     }
-
+    
+    
+    
+    // compare userid and movieid
+    public int compareTo(Rating o)
+    {
+        if (user.compareTo(o.getUser()) > 0)
+            return 1;
+        else if (user.compareTo(o.getUser()) < 0)
+            return -1;
+        else
+        {
+            if (movie.compareTo(o.getMovie()) > 0)
+                return 1;
+            else if (movie.compareTo(o.getMovie()) < 0)
+                return -1;
+            else
+                return 0;
+        }
+    }
     public int getTimestamp()
     {
         return timestamp;
@@ -69,6 +94,8 @@ public class Rating
     {
         this.user = user;
     }
+
+
 
     
     

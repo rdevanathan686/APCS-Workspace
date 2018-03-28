@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class User
+public class User implements Comparable<User>
 {
     private int userId;
     private ArrayList<Rating> ratings;
@@ -68,6 +68,11 @@ public class User
         return out;
 
     }
+    
+    public int compareTo(User o)
+    {
+        return userId - o.getUserId();
+    }
 
     public int getUserId()
     {
@@ -108,7 +113,4 @@ public class User
     {
         this.avgRating = avgRating;
     }
-    
-    
-
 }

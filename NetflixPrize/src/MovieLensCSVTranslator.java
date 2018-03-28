@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /*
  * 
@@ -121,17 +122,18 @@ public class MovieLensCSVTranslator
             return;
 
         int movieId = Integer.parseInt(pieces.get(1));
-        Movie movie = null;
-
-        for (Movie m : movieData)
-        {
-            if (m.getMovieId() == movieId)
-            {
-                movie = m;
-                break;
-            }
-
-        }
+        Movie movie = movieData.get(Collections.binarySearch(movieData, new Movie(movieId)));
+//
+//        
+//        for (Movie m : movieData)
+//        {
+//            if (m.getMovieId() == movieId)
+//            {
+//                movie = m;
+//                break;
+//            }
+//
+//        }
 
         double rating = Double.parseDouble(pieces.get(2));
         int timestamp = Integer.parseInt(pieces.get(3));
@@ -157,17 +159,17 @@ public class MovieLensCSVTranslator
             return userId;
 
         int movieId = Integer.parseInt(pieces.get(1));
-        Movie movie = null;
-
-        for (Movie m : movieData)
-        {
-            if (m.getMovieId() == movieId)
-            {
-                movie = m;
-                break;
-            }
-
-        }
+        Movie movie = movieData.get(Collections.binarySearch(movieData, new Movie(movieId)));
+//
+//        for (Movie m : movieData)
+//        {
+//            if (m.getMovieId() == movieId)
+//            {
+//                movie = m;
+//                break;
+//            }
+//
+//        }
 
         String tag = pieces.get(2);
         int timestamp = Integer.parseInt(pieces.get(3));

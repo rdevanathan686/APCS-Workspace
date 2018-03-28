@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Movie
+public class Movie implements Comparable<Movie>
 {
     private int movieId, imdbId, tmdbId; // IDs
     private String title;
@@ -12,6 +12,11 @@ public class Movie
     private ArrayList<Tag> tags;
 
     private double avgRating;
+    
+    public Movie(int movieId)
+    {
+        this.movieId = movieId;
+    }
 
     public Movie(int movieId, int imdbId, int tmdbId, String title, int releaseYear, String[] genres,
             ArrayList<Rating> rating, ArrayList<Tag> tags)
@@ -70,6 +75,11 @@ public class Movie
         out += "\nGENRES: " + Arrays.toString(genres);
 
         return out;
+    }
+    
+    public int compareTo(Movie o)
+    {
+        return movieId - o.getMovieId(); // 0 is same, pos if >
     }
 
     public int getMovieId()
@@ -161,5 +171,7 @@ public class Movie
     {
         this.avgRating = avgRating;
     }
+
+
 
 }
