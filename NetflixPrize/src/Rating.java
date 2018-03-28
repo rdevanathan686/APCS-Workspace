@@ -1,22 +1,22 @@
 public class Rating
 {
-    private int userId; 
+    private User user; 
     private int timestamp; //Seconds from midnight (could be converted to Time class)
     private double rating; // 0.5 - 5.0
     private Movie movie; //Movie the rating is related to
     
-    public Rating(int timestamp, double rating, Movie movie, int userId)
+    public Rating(int timestamp, double rating, Movie movie, User u)
     {
         this.timestamp = timestamp;
         this.rating = rating;
         this.movie = movie;
-        this.userId = userId;
+        this.user = u;
 
     }
     
     public Rating()
     {
-        this(-1, -1, null, -1);
+        this(-1, -1, null, null);
     }
     
     public String toString()
@@ -24,7 +24,7 @@ public class Rating
         String out = "\nMOVIE " + movie.toString();
         out += "\nTIMESTAMP: " + timestamp;
         out += "\nRATING: " + rating;
-        out += "\nUSERID: " + userId;
+        out += "\nUSERID: " + user.getUserId();
         
         return out;
         
@@ -60,15 +60,17 @@ public class Rating
         this.movie = movie;
     }
 
-    public int getUserId()
+    public User getUser()
     {
-        return userId;
+        return user;
     }
 
-    public void setUserId(int userId)
+    public void setUser(User user)
     {
-        this.userId = userId;
+        this.user = user;
     }
+
+    
     
     
    

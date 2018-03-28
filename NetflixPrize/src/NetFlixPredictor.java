@@ -146,48 +146,117 @@ public class NetFlixPredictor
             }
         }
         
-        double baseline = 0;
+//        double baseline = 0;
+//        
+//        for (User u : userData)
+//        {
+//            baseline += u.getAvgRating();
+//        }
+//        
+//        baseline /= userData.size();
+//        
+//        double ratingGuess = 0;
+//        int match = 0;
+//        
+//        // if the user has rated something 
+//        // of the similar genre, add it to the avg genre rating for the specific genre
+//        for (Rating rating : user.getRatings())
+//        {
+//            for (String genre : rating.getMovie().getGenres())
+//            {
+//                for (String genreMovie : movie.getGenres())
+//                {
+//                    if (genre.equals(genreMovie))
+//                    {
+//                        ratingGuess += rating.getMovie().getAvgRating();
+//                        match++;
+//                    }
+//                }
+//
+//                
+//            }
+//        }
         
-        for (User u : userData)
+//        for (User u : userData)
+//        {
+//            double simil = similiarity(user, u);
+//            if (simil > 0)
+//            {
+//                U.add(u);
+//                sim.add(simil);
+//            }
+//        }
+        
+        double rating = 0;
+        double index = 0;
+        for (Rating k : movie.getRating())
         {
-            baseline += u.getAvgRating();
-        }
-        
-        baseline /= userData.size();
-        
-        double ratingGuess = 0;
-        int match = 0;
-        
-        // if the user has rated something 
-        // of the similar genre, add it to the avg genre rating for the specific genre
-        for (Rating rating : user.getRatings())
-        {
-            for (String genre : rating.getMovie().getGenres())
-            {
-                for (String genreMovie : movie.getGenres())
-                {
-                    if (genre.equals(genreMovie))
-                    {
-                        ratingGuess += rating.getMovie().getAvgRating();
-                        match++;
-                    }
-                }
-
+            double sim = similarity(k.getUser(), user);
+            rating +=  sim * (k.getRating() - k.getUser().getAvgRating());
+            index += Math.abs(sim);
                 
-            }
+            
         }
         
-        if (match == 0)
-            return movie.getAvgRating();
+        if (index != 0)
+            index = 1 / index;
         
-        // Avg user bias?
-        double userBias = (baseline - user.getAvgRating());
-        System.out.println(userBias);
+        System.out.println((index * rating) + user.getAvgRating());
         
-        return (ratingGuess / match) - userBias;
+//        if (match == 0)
+//            return movie.getAvgRating();
+//        
+//        // Avg user bias?
+//        double userBias = (baseline - user.getAvgRating());
+//        System.out.println(userBias);
+//        
+//        return (ratingGuess / match) - userBias;
+        
+        return (index * rating) + user.getAvgRating();
     }
     
-    
+    private double similarity(User i, User j)
+    {
+        double sim = 0;
+        double iSim = 0;
+        double jSim = 0;
+        
+        // Cosine similarity 
+//        for (Rating a : i.getRatings())
+//        {
+//            for (Rating b : j.getRatings())
+//            {
+//                if (a.getMovie().getMovieId() == b.getMovie().getMovieId())
+//                    sim += (a.getRating()) * (b.getRating());
+//                
+//                jSim += (b.getRating()) * b.getRating();
+//            }
+//            
+//            iSim += (a.getRating()) * a.getRating();
+//        }
+        
+        for (Rating a : i.getRatings())
+        {
+            
+            for (Rating b : j.getRatings())
+            {
+                if (a.getMovie().getMovieId() == b.getMovie().getMovieId())
+                {
+                    jSim += (b.getRating() - j.getAvgRating()) * (b.getRating() - j.getAvgRating());
+                    iSim += (a.getRating() - i.getAvgRating()) * (a.getRating() - i.getAvgRating());
+                    sim += (a.getRating() - i.getAvgRating()) * (b.getRating() - j.getAvgRating());
+                }
+
+            }
+            
+            
+        }
+       
+        if (sim == 0)
+            return 0;
+        
+        return (sim) / ((Math.sqrt(iSim)) * (Math.sqrt(jSim)));
+    }
 
     /**
      * Recommend a movie that you think this user would enjoy (but they have not

@@ -137,7 +137,7 @@ public class MovieLensCSVTranslator
         int timestamp = Integer.parseInt(pieces.get(3));
 
         
-        Rating r = new Rating(timestamp, rating, movie, userId);
+        Rating r = new Rating(timestamp, rating, movie, u);
         
         if (movie != null)
             movie.addRating(r);

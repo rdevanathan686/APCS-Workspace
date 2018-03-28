@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.lang.model.util.SimpleAnnotationValueVisitor6;
+
 public class Tester
 {
     public static final String movieFilePath = "ml-small-dataset" + FileIO.fileSeparator + "movies.csv";
@@ -73,9 +75,49 @@ public class Tester
         Movie movie = movieData.get(30);
         double userBias = (user.getAvgRating() - movie.getAvgRating());
         
-        System.out.print(userBias);
+        System.out.println(movie.getRating());
+        
+        System.out.println(similiarity(userData.get(0), userData.get(6)));
         
 
+    }
+    
+    private static double similiarity(User i, User j)
+    {
+        double sim = 0;
+        double iSim = 0;
+        double jSim = 0;
+//        for (Rating a : i.getRatings())
+//        {
+//            for (Rating b : j.getRatings())
+//            {
+//                if (a.getMovie().getMovieId() == b.getMovie().getMovieId())
+//                    sim += (a.getRating()) * (b.getRating());
+//                
+//                jSim += (b.getRating()) * b.getRating();
+//            }
+//            
+//            iSim += (a.getRating()) * a.getRating();
+//        }
+        
+        for (Rating a : i.getRatings())
+        {
+            for (Rating b : j.getRatings())
+            {
+                if (a.getMovie().getMovieId() == b.getMovie().getMovieId())
+                {
+                    jSim += (b.getRating() - j.getAvgRating()) * (b.getRating() - j.getAvgRating());
+                    iSim += (a.getRating() - i.getAvgRating()) * (a.getRating() - i.getAvgRating());
+                    sim += (a.getRating() - i.getAvgRating()) * (b.getRating() - j.getAvgRating());
+                }
+
+            }
+            
+            
+        }
+       
+        
+        return (sim) / ((Math.sqrt(iSim)) * (Math.sqrt(jSim)));
     }
 
 }
