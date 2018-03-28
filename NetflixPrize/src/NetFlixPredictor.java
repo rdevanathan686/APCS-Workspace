@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class NetFlixPredictor
 {
@@ -107,6 +108,7 @@ public class NetFlixPredictor
         User user = userData.get(userIndex);
         
         Collections.sort(user.getRatings());
+         
         int ratingIndex = Collections.binarySearch(user.getRatings(), new Rating(new User(userID), new Movie(movieID)));
         
         if (ratingIndex < 0)
@@ -202,6 +204,14 @@ public class NetFlixPredictor
         // sim.add(simil);
         // }
         // }
+        // if (match == 0)
+        // return movie.getAvgRating();
+        //
+        // // Avg user bias?
+        // double userBias = (baseline - user.getAvgRating());
+        // System.out.println(userBias);
+        //
+        // return (ratingGuess / match) - userBias;
 
         double rating = 0;
         double index = 0;
@@ -217,15 +227,6 @@ public class NetFlixPredictor
             index = 1 / index;
 
         System.out.println((index * rating) + user.getAvgRating());
-
-        // if (match == 0)
-        // return movie.getAvgRating();
-        //
-        // // Avg user bias?
-        // double userBias = (baseline - user.getAvgRating());
-        // System.out.println(userBias);
-        //
-        // return (ratingGuess / match) - userBias;
 
         return (index * rating) + user.getAvgRating();
     }
@@ -253,23 +254,30 @@ public class NetFlixPredictor
         
         ArrayList<Rating> smaller = j.getRatings();
         ArrayList<Rating> bigger = i.getRatings();
+        User smallerUser = j;
+        User biggerUser = i;
+        
         
         if (j.getRatings().size() > i.getRatings().size())
         {
             smaller = i.getRatings();
             bigger = j.getRatings();
+            smallerUser = i;
+            biggerUser = j;
         }
+        
+        Collections.sort(bigger, new MovieComparator());
         
         for (Rating a : smaller)
         {
-            int indexFound = Collections.binarySearch(bigger, a);
-            
+            int indexFound = Collections.binarySearch(bigger, a, new MovieComparator());
+
             if (indexFound >= 0)
             {
                 Rating b = bigger.get(indexFound);
-                jSim += (b.getRating() - j.getAvgRating()) * (b.getRating() - j.getAvgRating());
-                iSim += (a.getRating() - i.getAvgRating()) * (a.getRating() - i.getAvgRating());
-                sim += (a.getRating() - i.getAvgRating()) * (b.getRating() - j.getAvgRating());
+                jSim += (b.getRating() - biggerUser.getAvgRating()) * (b.getRating() - biggerUser.getAvgRating());
+                iSim += (a.getRating() - smallerUser.getAvgRating()) * (a.getRating() - smallerUser.getAvgRating());
+                sim += (a.getRating() - smallerUser.getAvgRating()) * (b.getRating() - biggerUser.getAvgRating());
             }
                 
 //            for (Rating b : j.getRatings())
@@ -278,12 +286,11 @@ public class NetFlixPredictor
 //                {
 //                    
 //                }
-//
 //            }
 
         }
 
-        if (sim == 0)
+        if (iSim == 0 || jSim == 0)
             return 0;
 
         return (sim) / ((Math.sqrt(iSim)) * (Math.sqrt(jSim)));
@@ -306,3 +313,13 @@ public class NetFlixPredictor
     }
 
 }
+
+class MovieComparator implements Comparator<Rating>
+{
+    public int compare(Rating o1, Rating o2)
+    {
+        return o1.getMovie().compareTo(o2.getMovie());
+    }
+    
+}
+

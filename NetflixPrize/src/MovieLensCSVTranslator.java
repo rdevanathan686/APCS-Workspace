@@ -123,17 +123,6 @@ public class MovieLensCSVTranslator
 
         int movieId = Integer.parseInt(pieces.get(1));
         Movie movie = movieData.get(Collections.binarySearch(movieData, new Movie(movieId)));
-//
-//        
-//        for (Movie m : movieData)
-//        {
-//            if (m.getMovieId() == movieId)
-//            {
-//                movie = m;
-//                break;
-//            }
-//
-//        }
 
         double rating = Double.parseDouble(pieces.get(2));
         int timestamp = Integer.parseInt(pieces.get(3));
@@ -160,20 +149,9 @@ public class MovieLensCSVTranslator
 
         int movieId = Integer.parseInt(pieces.get(1));
         Movie movie = movieData.get(Collections.binarySearch(movieData, new Movie(movieId)));
-//
-//        for (Movie m : movieData)
-//        {
-//            if (m.getMovieId() == movieId)
-//            {
-//                movie = m;
-//                break;
-//            }
-//
-//        }
 
         String tag = pieces.get(2);
         int timestamp = Integer.parseInt(pieces.get(3));
-
         
         Tag t = new Tag(timestamp, tag, movie, userId);
         
