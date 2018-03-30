@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class NetFlixPredictor
 {
@@ -193,14 +194,13 @@ public class NetFlixPredictor
         double rating = 0;
         double index = 0;
         double stdDev = 0;
+        
+        
 
-        for (Rating k : user.getRatings())
-        {
-            stdDev += (k.getRating() - k.getUser().getAvgRating()) * (k.getRating() - k.getUser().getAvgRating());
-        }
-
-        stdDev /= (user.getRatings().size() - 1);
-        stdDev = Math.sqrt(stdDev);
+        
+        
+        HashMap<String, Double> genreAvg = new HashMap<String, Double>();
+        HashMap<String, Integer> occurrence = new HashMap<String, Integer>();
 
         for (Rating k : movie.getRating())
         {
@@ -208,10 +208,39 @@ public class NetFlixPredictor
             int common = commonItems(movie, k.getMovie());
             rating += sim * (k.getRating() - k.getUser().getAvgRating()) * (common / k.getMovie().getGenres().length);
             index += Math.abs(sim);
-
+            
+            for (String genre : k.getMovie().getGenres())
+                genreAvg.put(genre, 0.0);
         }
         
+        for (Rating k : user.getRatings())
+        {
+            stdDev += (k.getRating() - k.getUser().getAvgRating()) * (k.getRating() - k.getUser().getAvgRating());
+            
+            String[] keys = genreAvg.keySet().toArray(new String[genreAvg.keySet().size()]);
+            Arrays.sort(keys);
+            
+            int indexFound = -1;
+            
+            for (String genre : k.getMovie().getGenres())
+            {
+                indexFound = Arrays.binarySearch(keys, genre);
+                
+                if (indexFound >= 0)
+                {
+                    genreAvg.put(genre, genreAvg.get(genre) + k.getRating());
+                    occurrence.put(genre, (int) (genreAvg.get(genre) + 1));
+                }
+                    
+            }
+                
+            
+        }
 
+        stdDev /= (user.getRatings().size() - 1);
+        stdDev = Math.sqrt(stdDev);
+        
+        
         if (index != 0)
             index = 1 / index;
 
@@ -352,6 +381,25 @@ public class NetFlixPredictor
 
     }
 
+    public ArrayList<Movie> getMovieData()
+    {
+        return movieData;
+    }
+
+    public void setMovieData(ArrayList<Movie> movieData)
+    {
+        this.movieData = movieData;
+    }
+
+    public ArrayList<User> getUserData()
+    {
+        return userData;
+    }
+
+    public void setUserData(ArrayList<User> userData)
+    {
+        this.userData = userData;
+    }
 }
 
 class MovieComparator implements Comparator<Rating>
