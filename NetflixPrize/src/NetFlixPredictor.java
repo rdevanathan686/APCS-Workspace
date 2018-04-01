@@ -11,6 +11,9 @@ public class NetFlixPredictor
     private ArrayList<Movie> movieData;
     private ArrayList<User> userData;
 
+    private double globalMovieAvg;
+    private double globalUserAvg;
+
     // TODO more than one prediction per user
 
     /**
@@ -29,6 +32,9 @@ public class NetFlixPredictor
     public NetFlixPredictor(String movieFilePath, String ratingsFilePath, String tagFilePath, String linkFilePath)
     {
         // Testing movies
+
+        globalMovieAvg = 0;
+        globalUserAvg = 0;
         movieData = new ArrayList<Movie>();
         userData = new ArrayList<User>();
 
@@ -44,6 +50,7 @@ public class NetFlixPredictor
             Movie m = translator.parseMovie(movieStringData.get(i));
             translator.parseLinks(m, linkStringData.get(i));
             movieData.add(m);
+
         }
 
         Collections.sort(movieData);
@@ -84,9 +91,33 @@ public class NetFlixPredictor
 
             if (user != null)
                 userData.add(user);
+
         }
 
+        // int count = 0;
+        //
+        // for (Movie m : movieData)
+        // {
+        // globalMovieAvg += (m.getAvgRating()) * (m.getRating().size() / 4);
+        // count += (m.getRating().size() / 4);
+        // }
+        //
+        // globalMovieAvg /= count;
+
+        int count = 0;
+
+        for (User u : userData)
+        {
+            globalUserAvg += (u.getAvgRating()) * (u.getRatings().size() / 4);
+            count += (u.getRatings().size() / 4);
+        }
+
+        globalUserAvg /= count;
+
+        System.out.println(globalUserAvg);
+
         Collections.sort(userData);
+
     }
 
     /**
@@ -108,10 +139,10 @@ public class NetFlixPredictor
             return -1;
 
         User user = userData.get(userIndex);
+        ArrayList<Rating> search = new ArrayList<Rating>(user.getRatings());
+        Collections.sort(search);
 
-        Collections.sort(user.getRatings());
-
-        int ratingIndex = Collections.binarySearch(user.getRatings(), new Rating(new User(userID), new Movie(movieID)));
+        int ratingIndex = Collections.binarySearch(search, new Rating(new User(userID), new Movie(movieID)));
 
         if (ratingIndex < 0)
             return -1;
@@ -141,37 +172,7 @@ public class NetFlixPredictor
         Movie movie = movieData.get(Collections.binarySearch(movieData, new Movie(movieID)));
         User user = userData.get(Collections.binarySearch(userData, new User(userID)));
 
-        // double baseline = 0;
-        //
-        // for (User u : userData)
-        // {
-        // baseline += u.getAvgRating();
-        // }
-        //
-        // baseline /= userData.size();
-        //
-        // double ratingGuess = 0;
-        // int match = 0;
-        //
-        // // if the user has rated something
-        // // of the similar genre, add it to the avg genre rating for the specific
-        // genre
-        // for (Rating rating : user.getRatings())
-        // {
-        // for (String genre : rating.getMovie().getGenres())
-        // {
-        // for (String genreMovie : movie.getGenres())
-        // {
-        // if (genre.equals(genreMovie))
-        // {
-        // ratingGuess += rating.getMovie().getAvgRating();
-        // match++;
-        // }
-        // }
-        //
-        //
-        // }
-        // }
+
 
         // for (User u : userData)
         // {
@@ -194,66 +195,91 @@ public class NetFlixPredictor
         double rating = 0;
         double index = 0;
         double stdDev = 0;
-        
-        
 
-        
-        
         HashMap<String, Double> genreAvg = new HashMap<String, Double>();
         HashMap<String, Integer> occurrence = new HashMap<String, Integer>();
-
+        
         for (Rating k : movie.getRating())
         {
             double sim = (similarity(k.getUser(), user));
-            int common = commonItems(movie, k.getMovie());
-            rating += sim * (k.getRating() - k.getUser().getAvgRating()) * (common / k.getMovie().getGenres().length);
+
+            // System.out.println(movieSimilarity(movie, k.getMovie()));
+            // double movieSim = (movieSimilarity(movie, movie));
+            // int common = commonItems(movie, k.getMovie());
+
+            rating += sim * (k.getRating() - k.getUser().getAvgRating());
             index += Math.abs(sim);
-            
+
             for (String genre : k.getMovie().getGenres())
+            {
                 genreAvg.put(genre, 0.0);
+                occurrence.put(genre, 0);
+            }
+
         }
+        
+        double avgTime = 0;
         
         for (Rating k : user.getRatings())
         {
             stdDev += (k.getRating() - k.getUser().getAvgRating()) * (k.getRating() - k.getUser().getAvgRating());
+            avgTime += k.getMovie().getReleaseYear();
             
             String[] keys = genreAvg.keySet().toArray(new String[genreAvg.keySet().size()]);
             Arrays.sort(keys);
-            
+
             int indexFound = -1;
-            
+
             for (String genre : k.getMovie().getGenres())
             {
                 indexFound = Arrays.binarySearch(keys, genre);
-                
+
                 if (indexFound >= 0)
                 {
                     genreAvg.put(genre, genreAvg.get(genre) + k.getRating());
-                    occurrence.put(genre, (int) (genreAvg.get(genre) + 1));
+                    occurrence.put(genre, (int) (occurrence.get(genre) + 1));
                 }
-                    
+
             }
-                
-            
+
+        }
+
+        double avgGenre = 0;
+        int count = 0;
+
+        for (String genre : genreAvg.keySet())
+        {
+            if (occurrence.get(genre) != 0 && genreAvg.get(genre) != 0.0)
+            {
+                avgGenre += (occurrence.get(genre) / 3) * (genreAvg.get(genre) / occurrence.get(genre));
+                count += (occurrence.get(genre) / 3);
+            }
+
+        }
+
+        if (count == 0)
+        {
+            avgGenre = user.getAvgRating();
+            count = 1;
         }
 
         stdDev /= (user.getRatings().size() - 1);
         stdDev = Math.sqrt(stdDev);
-        
-        
+
         if (index != 0)
             index = 1 / index;
 
-        return (stdDev * (index * rating)) + user.getAvgRating();
+        return ((stdDev * (index * rating)) + (avgGenre / (count)));
+
     }
 
-    private double similarity(User i, User j)
+    private double movieSimilarity(Movie i, Movie j)
     {
         double sim = 0;
         double iSim = 0;
         double jSim = 0;
 
-        // Cosine similarity
+        // Cosine similarity (only for movies)
         // for (Rating a : i.getRatings())
         // {
         // for (Rating b : j.getRatings())
@@ -267,8 +293,53 @@ public class NetFlixPredictor
         // iSim += (a.getRating()) * a.getRating();
         // }
 
-        ArrayList<Rating> smaller = j.getRatings();
-        ArrayList<Rating> bigger = i.getRatings();
+        ArrayList<Rating> smaller = new ArrayList<Rating>(j.getRating());
+        ArrayList<Rating> bigger = new ArrayList<Rating>(i.getRating());
+
+        Movie smallerMovie = j;
+        Movie biggerMovie = i;
+
+        if (j.getRating().size() > i.getRating().size())
+        {
+            smaller = i.getRating();
+            bigger = j.getRating();
+            smallerMovie = i;
+            biggerMovie = j;
+        }
+
+        Collections.sort(bigger, new UserComparator());
+
+        for (Rating a : smaller)
+        {
+            int indexFound = Collections.binarySearch(bigger, a, new UserComparator());
+
+            if (indexFound >= 0)
+            {
+                Rating b = bigger.get(indexFound);
+
+                // int commonGenres = commonItems(a.getMovie(), b.getMovie());
+
+                jSim += (b.getRating() - biggerMovie.getAvgRating()) * (b.getRating() - biggerMovie.getAvgRating());
+                iSim += (a.getRating() - smallerMovie.getAvgRating()) * (a.getRating() - smallerMovie.getAvgRating());
+                sim += ((a.getRating() - smallerMovie.getAvgRating()) * (b.getRating() - biggerMovie.getAvgRating()));
+            }
+
+        }
+
+        if (iSim == 0 || jSim == 0)
+            return 0;
+
+        return (sim) / ((Math.sqrt(iSim)) * (Math.sqrt(jSim)));
+    }
+
+    private double similarity(User i, User j)
+    {
+        double sim = 0;
+        double iSim = 0;
+        double jSim = 0;
+
+        ArrayList<Rating> smaller = new ArrayList<Rating>(j.getRatings());
+        ArrayList<Rating> bigger = new ArrayList<Rating>(i.getRatings());
         User smallerUser = j;
         User biggerUser = i;
 
@@ -289,9 +360,9 @@ public class NetFlixPredictor
             if (indexFound >= 0)
             {
                 Rating b = bigger.get(indexFound);
-                
-//                int commonGenres = commonItems(a.getMovie(), b.getMovie());
-                
+
+                // int commonGenres = commonItems(a.getMovie(), b.getMovie());
+
                 jSim += (b.getRating() - biggerUser.getAvgRating()) * (b.getRating() - biggerUser.getAvgRating());
                 iSim += (a.getRating() - smallerUser.getAvgRating()) * (a.getRating() - smallerUser.getAvgRating());
                 sim += ((a.getRating() - smallerUser.getAvgRating()) * (b.getRating() - biggerUser.getAvgRating()));
@@ -308,41 +379,20 @@ public class NetFlixPredictor
     private int commonItems(Movie movie, Movie movie2)
     {
         int result = 0;
-        
-        Arrays.sort(movie2.getGenres(), new Comparator<String>()
-        {
-            public int compare(String o1, String o2)
-            {
-                return o1.compareTo(o2);
-            }
 
-        });
-        
-        Arrays.sort(movie.getGenres(), new Comparator<String>()
-        {
-            public int compare(String o1, String o2)
-            {
-                return o1.compareTo(o2);
-            }
+        Arrays.sort(movie2.getGenres());
 
-        });
-        
+        Arrays.sort(movie.getGenres());
+
         for (String genre : movie.getGenres())
         {
-            int index = Arrays.binarySearch(movie2.getGenres(), genre, new Comparator<String>()
-            {
-                public int compare(String o1, String o2)
-                {
-                    return o1.compareTo(o2);
-                }
+            int index = Arrays.binarySearch(movie2.getGenres(), genre);
 
-            });
-            
             if (index >= 0)
                 result++;
 
         }
-        
+
         return result;
     }
 
@@ -361,6 +411,7 @@ public class NetFlixPredictor
         User user = userData.get(Collections.binarySearch(userData, new User(userID)));
         double maxRating = 0;
         int movieID = 0;
+        Movie m = null;
 
         for (Rating r : user.getRatings())
         {
@@ -368,15 +419,19 @@ public class NetFlixPredictor
             {
                 double guess = guessRating(userID, k.getMovie().getMovieId());
 
-                if (guess > maxRating)
+                if (guess > maxRating && guess > user.getAvgRating())
                 {
                     maxRating = guess;
                     movieID = k.getMovie().getMovieId();
+                    m = k.getMovie();
                 }
 
             }
         }
-
+        
+        
+        //System.out.println(m);
+        
         return movieID;
 
     }
@@ -388,6 +443,7 @@ public class NetFlixPredictor
 
     public void setMovieData(ArrayList<Movie> movieData)
     {
+        
         this.movieData = movieData;
     }
 
@@ -407,6 +463,15 @@ class MovieComparator implements Comparator<Rating>
     public int compare(Rating o1, Rating o2)
     {
         return o1.getMovie().compareTo(o2.getMovie());
+    }
+
+}
+
+class UserComparator implements Comparator<Rating>
+{
+    public int compare(Rating o1, Rating o2)
+    {
+        return o1.getUser().compareTo(o2.getUser());
     }
 
 }

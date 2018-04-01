@@ -80,13 +80,13 @@ public class MovieLensCSVTranslator
         ArrayList<String> pieces = getLinePieces(line);
         int movieId = Integer.parseInt(pieces.get(0));
 
-        int imdbId = -1;
+        String imdbId = "";
         if (!pieces.get(1).equals(""))
-            imdbId = Integer.parseInt(pieces.get(1));
+            imdbId = pieces.get(1);
 
-        int tmdbId = -1;
+        String tmdbId = "";
         if (!pieces.get(2).equals(""))
-            tmdbId = Integer.parseInt(pieces.get(2));
+            tmdbId = pieces.get(2);
 
         if (m.getMovieId() == movieId)
         {

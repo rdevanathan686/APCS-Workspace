@@ -3,14 +3,14 @@ import java.util.Arrays;
 
 public class Movie implements Comparable<Movie>
 {
-    private int movieId, imdbId, tmdbId; // IDs
+    private int movieId;
+    private String imdbId, tmdbId; // IDs
     private String title;
     private int releaseYear;
     private String[] genres;
 
     private ArrayList<Rating> ratings;
     private ArrayList<Tag> tags;
-
     private double avgRating;
     
     public Movie(int movieId)
@@ -18,7 +18,7 @@ public class Movie implements Comparable<Movie>
         this.movieId = movieId;
     }
 
-    public Movie(int movieId, int imdbId, int tmdbId, String title, int releaseYear, String[] genres,
+    public Movie(int movieId, String imdbId, String tmdbId, String title, int releaseYear, String[] genres,
             ArrayList<Rating> rating, ArrayList<Tag> tags)
     {
         this.movieId = movieId;
@@ -42,7 +42,7 @@ public class Movie implements Comparable<Movie>
 
     public Movie(int movieId, String title, int releaseYear, String[] genres)
     {
-        this(movieId, -1, -1, title, releaseYear, genres, new ArrayList<Rating>(), new ArrayList<Tag>());
+        this(movieId, "", "", title, releaseYear, genres, new ArrayList<Rating>(), new ArrayList<Tag>());
     }
 
     // TODO unecessary?
@@ -92,22 +92,22 @@ public class Movie implements Comparable<Movie>
         this.movieId = movieId;
     }
 
-    public int getImdbId()
+    public String getImdbId()
     {
         return imdbId;
     }
 
-    public void setImdbId(int imdbId)
+    public void setImdbId(String imdbId)
     {
         this.imdbId = imdbId;
     }
 
-    public int getTmdbId()
+    public String getTmdbId()
     {
         return tmdbId;
     }
 
-    public void setTmdbId(int tmdbId)
+    public void setTmdbId(String tmdbId)
     {
         this.tmdbId = tmdbId;
     }

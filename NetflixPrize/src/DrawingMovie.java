@@ -22,6 +22,8 @@ public class DrawingMovie
 
     public void draw(PApplet drawer, float x, float y, float width, float height)
     {
+        drawer.pushStyle();
+        drawer.pushMatrix();
         if (movie != null)
         {
             if (coverArt != null)
@@ -30,12 +32,19 @@ public class DrawingMovie
             }
             
             String title = movie.getTitle();
-            drawer.text(title, x, y);
+            
+            
+            if (title.length() > width / 15)
+                title = title.subSequence(0, 15) + "...";
+            
+            drawer.text(title, x - 2, y);
         }
 
         drawer.stroke(0);
         drawer.noFill();
         drawer.rect(x, y, width, height);
+        drawer.popStyle();
+        drawer.popMatrix();
     }
 
     public void downloadArt(PApplet drawer)
@@ -51,10 +60,8 @@ public class DrawingMovie
                 
                 try
                 {
-                    String link = movie.getImdbId() + "";
-                    
-                    if (link.length() < 7)
-                        link = "0" + link;
+                    String link = movie.getImdbId();
+   
                     
                     String pageUrlString = "http://www.imdb.com/title/tt" + link + "/";
                     
@@ -104,5 +111,17 @@ public class DrawingMovie
         downloader.start();
 
     }
+
+    public Movie getMovie()
+    {
+        return movie;
+    }
+
+    public void setMovie(Movie movie)
+    {
+        this.movie = movie;
+    }
+    
+    
 
 }
