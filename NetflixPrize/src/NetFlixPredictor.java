@@ -114,8 +114,6 @@ public class NetFlixPredictor
 
         globalUserAvg /= count;
 
-        System.out.println(globalUserAvg);
-
         Collections.sort(userData);
 
     }
@@ -134,9 +132,13 @@ public class NetFlixPredictor
     public double getRating(int userID, int movieID)
     {
         int userIndex = Collections.binarySearch(userData, new User(userID));
-
         if (userIndex < 0)
             return -1;
+        
+        int movieIndex = Collections.binarySearch(movieData, new Movie(movieID));
+        if (movieIndex < 0)
+            return -1;
+        
 
         User user = userData.get(userIndex);
         ArrayList<Rating> search = new ArrayList<Rating>(user.getRatings());
@@ -280,7 +282,7 @@ public class NetFlixPredictor
         double iSim = 0;
         double jSim = 0;
 
-        // Cosine similarity (only for movies)
+        // Cosine similarity
         // for (Rating a : i.getRatings())
         // {
         // for (Rating b : j.getRatings())
@@ -429,9 +431,6 @@ public class NetFlixPredictor
 
             }
         }
-        
-        
-        //System.out.println(m);
         
         return movieID;
 

@@ -35,7 +35,7 @@ public class DrawingMovie
             
             
             if (title.length() > width / 15)
-                title = title.subSequence(0, 15) + "...";
+                title = title.substring(0, 15) + "...";
             
             drawer.text(title, x - 2, y);
         }
