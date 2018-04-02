@@ -204,11 +204,12 @@ public class NetFlixPredictor
             double sim = (similarity(k.getUser(), user));
 
             // System.out.println(movieSimilarity(movie, k.getMovie()));
-            // double movieSim = (movieSimilarity(movie, movie));
+            double movieSim = (movieSimilarity(movie, movie));
             // int common = commonItems(movie, k.getMovie());
 
-            rating += sim * (k.getRating() - k.getUser().getAvgRating());
-            index += Math.abs(sim);
+            rating += sim * (k.getRating() - k.getUser().getAvgRating()) 
+                    * (movieSim * 1.01);
+            index += Math.abs(sim) * Math.abs(movieSim);
 
             for (String genre : k.getMovie().getGenres())
             {
@@ -269,8 +270,8 @@ public class NetFlixPredictor
         if (index != 0)
             index = 1 / index;
 
-        return ((stdDev * (index * rating)) + (avgGenre / (count)));
-
+        return (((stdDev * (index * rating)) + (avgGenre / (count))) * 0.80)  
+                + ((0.10 * movie.getAvgRating()) + (0.10 * user.getAvgRating()));
     }
 
     private double movieSimilarity(Movie i, Movie j)
