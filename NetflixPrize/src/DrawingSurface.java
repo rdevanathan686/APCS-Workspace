@@ -1,6 +1,8 @@
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,7 +59,7 @@ public class DrawingSurface extends PApplet
             {
                 predictor = new NetFlixPredictor(moviesFile, ratingsFile, tagsFile, linksFile);
 
-                predictorLoaded = true;
+
 
                 int recommendedID = predictor.recommendMovie(currentUserID);
 
@@ -65,6 +67,8 @@ public class DrawingSurface extends PApplet
                 Movie m = predictor.getMovieData().get(index);
                 recommendedMovie = new DrawingMovie(m);
                 recommendedMovie.downloadArt(DrawingSurface.this);
+                
+                predictorLoaded = true;
             }
         }.start();
 
@@ -118,10 +122,35 @@ public class DrawingSurface extends PApplet
             fill(0);
             textAlign(LEFT);
             textSize(30);
-            text("Recommended", DRAWING_WIDTH / 2 - DRAWING_WIDTH / 4, DRAWING_HEIGHT / 2.5f - 50);
+            text("Recommended for user " + currentUserID, 80, DRAWING_HEIGHT / 2.5f - 50);
             
-            recommendedMovie.draw(this, DRAWING_WIDTH / 2 - DRAWING_WIDTH / 4, DRAWING_HEIGHT / 2.5f, DRAWING_WIDTH / 2,
+            recommendedMovie.draw(this, 80, DRAWING_HEIGHT / 2.5f, DRAWING_WIDTH / 2,
                     DRAWING_HEIGHT / 2);
+            
+            if (predictorLoaded)
+            {
+                text("Title: " + recommendedMovie.getMovie().getTitle(), DRAWING_WIDTH / 2 + 100, DRAWING_HEIGHT / 2.5f);
+                text("Release: " + recommendedMovie.getMovie().getReleaseYear(), DRAWING_WIDTH / 2 + 100, DRAWING_HEIGHT / 2.5f + 50);
+                text("Average Rating: " +  new BigDecimal(recommendedMovie.getMovie().getAvgRating()).setScale(2, RoundingMode.DOWN)
+                        + " (" + recommendedMovie.getMovie().getRating().size() + ")",
+                        DRAWING_WIDTH / 2 + 100, DRAWING_HEIGHT / 2.5f + 100);
+                
+                String genres = "\n";
+                
+                for (String gen : recommendedMovie.getMovie().getGenres())
+                    genres += gen + '\n';
+                
+                text("Genres: " + genres, DRAWING_WIDTH / 2 + 100, DRAWING_HEIGHT / 2.5f + 150);
+                
+                String Comments = "\n";
+                
+                for (Tag t : recommendedMovie.getMovie().getTags())
+                    Comments += "\"" + t.getTag() + "\"" + '\n';
+                
+                if (!Comments.equals("\n"))
+                    text("Comments: " + Comments, DRAWING_WIDTH / 2 + 100, DRAWING_HEIGHT / 2.5f + 450);
+                
+            }
             
             
         }

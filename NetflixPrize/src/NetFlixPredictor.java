@@ -412,25 +412,85 @@ public class NetFlixPredictor
     public int recommendMovie(int userID)
     {
         User user = userData.get(Collections.binarySearch(userData, new User(userID)));
+        
+        double mostSimilar = 0;
+        User simUser = null;
+       
+        
+        for (User u : userData)
+        {
+            double sim = similarity(u, user);
+            
+            if (sim > mostSimilar)
+            {
+                mostSimilar = sim;
+                simUser = u;
+            }
+        }
+        
         double maxRating = 0;
         int movieID = 0;
         Movie m = null;
 
-        for (Rating r : user.getRatings())
+        for (Rating r : simUser.getRatings())
         {
-            for (Rating k : r.getMovie().getRating())
-            {
-                double guess = guessRating(userID, k.getMovie().getMovieId());
+            Movie movie = r.getMovie();
+            
+            double guess = guessRating(userID, movie.getMovieId());
+            
+            int index = Collections.binarySearch(user.getRatings(), new Rating(new User(userID), new Movie(movie.getMovieId())));
 
+            if (index >= 0)
+                continue;
+            
+            int commonGenres = 0;
+            
+            for (Rating rat : user.getRatings())
+                commonGenres += commonItems(movie, rat.getMovie());
+            
+            if (movie.getAvgRating() > 3.5 && movie.getRating().size() > 10 && commonGenres > 20)
+            {
                 if (guess > maxRating && guess > user.getAvgRating())
                 {
                     maxRating = guess;
-                    movieID = k.getMovie().getMovieId();
-                    m = k.getMovie();
+                    movieID = movie.getMovieId();
+                    m = movie;
                 }
+            }
+            System.out.println("trap");
+            
+        }
+        
+        if (m == null)
+        {
+            for (Movie movie : movieData)
+            {
+                int index = Collections.binarySearch(user.getRatings(), new Rating(new User(userID), new Movie(movie.getMovieId())));
 
+                if (index >= 0)
+                    continue;
+                
+                double guess = guessRating(userID, movie.getMovieId());
+                int commonGenres = 0;
+                
+                for (Rating r : user.getRatings())
+                    commonGenres += commonItems(movie, r.getMovie());
+                    
+                if (movie.getAvgRating() > 3.7 && movie.getRating().size() > 15 && commonGenres > 20)
+                {
+                    if (guess > maxRating && guess > user.getAvgRating())
+                    {
+                        maxRating = guess;
+                        movieID = movie.getMovieId();
+                        m = movie;
+                    }
+                }
+                
             }
         }
+        
+        
+        System.out.println(user);
         
         return movieID;
 
