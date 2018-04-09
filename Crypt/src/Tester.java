@@ -6,7 +6,7 @@ public class Tester
     {
         Crypt c = new Crypt();
         String fileName = "Romeo.txt";
-        c.encrypt(fileName, "Encrypted" + fileName, "TIGER");
+        c.encrypt(fileName, "Encrypted" + fileName, "playfair");
     }
 
 }

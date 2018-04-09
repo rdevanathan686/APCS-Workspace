@@ -5,7 +5,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
@@ -49,17 +53,61 @@ public class Crypt
     public void encrypt(String inputFilename, String outputFilename, String keyword)
     {
         // needed to close in finally block
-        boolean[] seen = new boolean[26];
-        char[] arr = keyword.toCharArray();
-        for (int i = 0; i < arr.length; i++)
+        Set<Character> dupKey = new LinkedHashSet<Character>();
+        
+        for (int i = 0; i < keyword.length(); i++)
         {
-            char c = arr[i];
-            
-            if (seen[c - 'a'])
-                arr[i] = null;
-            else
-                seen[c - 'a'] = true;
+            dupKey.add(keyword.charAt(i));
         }
+        
+        
+        boolean[] seen = new boolean[26];
+        Character[] key = dupKey.toArray(new Character[dupKey.size()]); 
+        char[][] arr = new char[5][5];
+        
+        int x = 0, y = 0;
+        char fill = 'a';
+        
+        for (int i = 0; i < 25; i++)
+        {
+            if (i < dupKey.size())
+            {
+//                char c = key[i];
+//                
+//                if (!seen[c - 'a'])
+//                {
+//                    arr[x][y] = c;
+//                    x = (x + 1) % 5;
+//                    y = (y + 1) % 5;
+//                }
+//                else
+////                    seen[c - 'a'] = true;
+              arr[x][y] = key[i];
+              
+              if (dupKey.contains(fill))
+                  fill += 1;
+            }
+            else
+            {
+                if (dupKey.contains(fill))
+                {
+                    arr[x][y] = fill;
+                    fill += 1;
+                }
+               
+            }
+            
+            x = (x + 1) % 5;
+
+            if (x == 5)
+                y++;
+                
+            
+        }
+        
+        
+        System.out.println(Arrays.toString(arr));
+        
         Scanner scan = null;
         FileWriter write = null;
         BufferedWriter bw = null;
