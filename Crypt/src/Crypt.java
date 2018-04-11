@@ -53,6 +53,7 @@ public class Crypt
     public void encrypt(String inputFilename, String outputFilename, String keyword)
     {
         // needed to close in finally block
+        int[][] pos = new int[26][2];
         Set<Character> dupKey = new LinkedHashSet<Character>();
         
         for (int i = 0; i < keyword.length(); i++)
@@ -60,53 +61,71 @@ public class Crypt
             dupKey.add(keyword.charAt(i));
         }
         
-        
-        boolean[] seen = new boolean[26];
         Character[] key = dupKey.toArray(new Character[dupKey.size()]); 
         char[][] arr = new char[5][5];
         
-        int x = 0, y = 0;
+        int x = 0;
         char fill = 'a';
         
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; x < 25; i++)
         {
             if (i < dupKey.size())
-            {
-//                char c = key[i];
-//                
-//                if (!seen[c - 'a'])
-//                {
-//                    arr[x][y] = c;
-//                    x = (x + 1) % 5;
-//                    y = (y + 1) % 5;
-//                }
-//                else
-////                    seen[c - 'a'] = true;
-              arr[x][y] = key[i];
+            {                
+              arr[x / 5][x % 5] = key[i];
+              pos[key[i] - 'a'][0] = x / 5;
+              pos[key[i] - 'a'][1] = x % 5;
               
               if (dupKey.contains(fill))
-                  fill += 1;
+                  fill++;
+              
+              x++;
             }
             else
             {
-                if (dupKey.contains(fill))
+                if (!dupKey.contains(fill))
                 {
-                    arr[x][y] = fill;
-                    fill += 1;
+                    if (fill == 'i' || fill == 'j')
+                    {
+                        if (!dupKey.contains('j') && !dupKey.contains('i'))
+                        {
+                            arr[x / 5][x % 5] = fill;
+                            pos[fill - 'a'][0] = x / 5;
+                            pos[fill - 'a'][1] = x % 5;
+                            x++;
+                            fill+=2;
+                        }
+                        else
+                        {
+                            fill++;
+                        }
+                        
+                        continue;
+                    }
+                    else
+                    {
+                        arr[x / 5][x % 5] = fill;
+                        pos[fill - 'a'][0] = x / 5;
+                        pos[fill - 'a'][1] = x % 5;
+                        x++;
+                    }
+                    
+                    
                 }
+                
+                fill ++;
                
             }
             
-            x = (x + 1) % 5;
-
-            if (x == 5)
-                y++;
+            
                 
             
         }
-        
-        
-        System.out.println(Arrays.toString(arr));
+//        
+//        
+//        for (int i = 0; i < pos.length; i++)
+//        {
+//            System.out.println(Arrays.toString(pos[i]));
+//        }
         
         Scanner scan = null;
         FileWriter write = null;
@@ -122,17 +141,94 @@ public class Crypt
             bw = new BufferedWriter(write);
 
 
-
+            int pair = 0;
+            int pairIndexI = 0, pairIndexJ = 1; 
+            char offsetI = 'a', offsetJ = 'a';
+            int outputLength = 0;
+            int lineSepOffset = 0;
+            StringBuffer output = new StringBuffer();
+            StringBuffer original = new StringBuffer();
+            
             while (scan.hasNextLine())
             {
+                
                 String data = scan.nextLine();
+                original.append(data);
                 
-                // Encrypt the data
+                for (int i = 0; i < data.length(); i++)
+                {
+                    
+                    if (pair < 2 && Character.isLetter(data.charAt(i)))
+                    {
+                        if (pair == 0)
+                        {
+                            pairIndexI = outputLength + i;
+                            
+                            if (Character.isUpperCase(data.charAt(i)))
+                                offsetI = 'A';
+                        }
+                        else if (pair == 1)
+                        {
+                            pairIndexJ = outputLength + i;
+
+                            if (Character.isUpperCase(data.charAt(i)))
+                                offsetJ = 'A';
+                        }
+                        
+                        pair++;
+                        
+                    }
+                    else if (!Character.isLetter(data.charAt(i)))
+                        output.append(data.charAt(i));
+                    if (pair == 2)
+                    {
+                        char a = original.charAt(pairIndexI);
+                        char b = original.charAt(pairIndexJ);
+                        char newA = a;
+                        char newB = b;
+                        
+                        
+                        
+                        if (Character.isUpperCase(a))    
+                            newA = arr[pos[a - offsetI][0]][pos[b - offsetJ][1]];
+                        else
+                            newA = arr[pos[a - offsetI][0]][pos[b - offsetJ][1]];
+                        
+                        if (Character.isUpperCase(b))
+                            newB = arr[pos[b - offsetJ][0]][pos[a - offsetI][1]];
+                        else
+                            newB = arr[pos[b - offsetJ][0]][pos[a - offsetI][1]];
+                        
+                        if (pos[a - offsetI][1] == pos[b - offsetJ][1])
+                        {
+                            
+                            newA = b;
+                            newB = a;
+                        }
+                        
+                        output.insert(pairIndexI, (char)(Character.toLowerCase(newA)  - ('a' - offsetI)));
+                        output.insert(pairIndexJ, (char)(Character.toLowerCase(newB)  - ('a' - offsetJ)));
+
+                        pair = 0;
+                        offsetI = 'a';
+                        offsetJ = 'a';
+                        
+                    }
+                    
+                }
                 
                 
-                bw.write(data);
-                bw.write(lineSeparator);
+                output.append(lineSeparator);
+                outputLength += data.length();
+                
+                
+                    
+                
+
             }
+            
+            bw.write(output.toString());
+
 
         }
         catch (IOException e)
