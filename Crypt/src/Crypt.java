@@ -120,6 +120,10 @@ public class Crypt
                 
             
         }
+        
+        pos[9][0] = pos[8][0];
+        pos[9][1] = pos[8][1];
+
 //        
 //        
 //        for (int i = 0; i < pos.length; i++)
@@ -144,20 +148,25 @@ public class Crypt
             int pair = 0;
             int pairIndexI = 0, pairIndexJ = 1; 
             char offsetI = 'a', offsetJ = 'a';
+            
             int outputLength = 0;
-            int lineSepOffset = 0;
+            
             StringBuffer output = new StringBuffer();
             StringBuffer original = new StringBuffer();
+            StringBuffer punctuationI = new StringBuffer();
+            StringBuffer punctuationJ = new StringBuffer();
+
             
             while (scan.hasNextLine())
             {
                 
                 String data = scan.nextLine();
+
                 original.append(data);
                 
                 for (int i = 0; i < data.length(); i++)
                 {
-                    
+                    char c = data.charAt(i);
                     if (pair < 2 && Character.isLetter(data.charAt(i)))
                     {
                         if (pair == 0)
@@ -179,51 +188,51 @@ public class Crypt
                         
                     }
                     else if (!Character.isLetter(data.charAt(i)))
-                        output.append(data.charAt(i));
+                    {
+                        if (pair == 0)
+                            punctuationI.append(data.charAt(i));
+                        else if (pair == 1)
+                            punctuationJ.append(data.charAt(i));
+                        
+                    }
                     if (pair == 2)
                     {
                         char a = original.charAt(pairIndexI);
                         char b = original.charAt(pairIndexJ);
-                        char newA = a;
-                        char newB = b;
+                        char newA = arr[pos[a - offsetI][0]][pos[b - offsetJ][1]];
+                        char newB = arr[pos[b - offsetJ][0]][pos[a - offsetI][1]];
                         
-                        
-                        
-                        if (Character.isUpperCase(a))    
-                            newA = arr[pos[a - offsetI][0]][pos[b - offsetJ][1]];
-                        else
-                            newA = arr[pos[a - offsetI][0]][pos[b - offsetJ][1]];
-                        
-                        if (Character.isUpperCase(b))
-                            newB = arr[pos[b - offsetJ][0]][pos[a - offsetI][1]];
-                        else
-                            newB = arr[pos[b - offsetJ][0]][pos[a - offsetI][1]];
+
+                            
                         
                         if (pos[a - offsetI][1] == pos[b - offsetJ][1])
                         {
-                            
                             newA = b;
                             newB = a;
                         }
+                       
+                            
                         
-                        output.insert(pairIndexI, (char)(Character.toLowerCase(newA)  - ('a' - offsetI)));
-                        output.insert(pairIndexJ, (char)(Character.toLowerCase(newB)  - ('a' - offsetJ)));
+                        output.append(punctuationI.toString() + (char)(Character.toLowerCase(newA)  - ('a' - offsetI)));
+                        output.append(punctuationJ.toString() + (char)(Character.toLowerCase(newB)  - ('a' - offsetJ)));
 
                         pair = 0;
                         offsetI = 'a';
                         offsetJ = 'a';
-                        
+                        punctuationI = new StringBuffer();
+                        punctuationJ = new StringBuffer();
+
                     }
                     
                 }
                 
                 
-                output.append(lineSeparator);
+                if (pair == 0)
+                    punctuationI.append(lineSeparator);
+                else if (pair == 1)
+                    punctuationJ.append(lineSeparator);
+                
                 outputLength += data.length();
-                
-                
-                    
-                
 
             }
             
