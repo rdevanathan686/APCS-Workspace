@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,9 +17,11 @@ import processing.core.PApplet;
 
 */
 
-public class Life
+public class Life implements Serializable
 {
     private boolean[][] grid;
+    private static final long serialVersionUID = 3000L;
+
 
     // Constructs an empty grid
     public Life()
