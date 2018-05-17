@@ -4,7 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * 
@@ -40,13 +42,13 @@ public class Crypt
         char[] alphabets = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                 'u', 'v', 'w', 'x', 'y', 'z' };
-        char[] keywordArr = keyword.toCharArray();
-
-        for (int i = 0; i < keywordArr.length; i++)
+        
+        StringBuffer keywordArr = new StringBuffer(keyword);
+        
+        for (int i = 0; i < keywordArr.length(); i++)
         {
 
-            char c = keyword.charAt(i);
-
+            char c = keywordArr.charAt(i);
 
             if (c == 'j')
                 c = 'i';
@@ -56,24 +58,28 @@ public class Crypt
 
 
             if (index >= 0)
+            {
                 alphabets[index] = '\u0000';
+                Arrays.sort(alphabets);
+            }
             else
             {
-                keywordArr[index] = '\u0000';
+                keywordArr.deleteCharAt(i);
                 i--;
             }
 
         }
+       
         
         int counter = 0;
-        for (int i = 0; i < 25 + keywordArr.length; i++)
+        for (int i = 0; i < 25 + keywordArr.length(); i++)
         {
             char c;
             
-            if (i < keywordArr.length)
-                c = keywordArr[i];
+            if (i < keywordArr.length())
+                c = keywordArr.charAt(i);
             else
-                c = alphabets[i - keywordArr.length];
+                c = alphabets[i - keywordArr.length()];
             
             if (c >= 'a')
             {
@@ -89,6 +95,7 @@ public class Crypt
         
         pos[9][0] = pos[8][0];
         pos[9][1] = pos[8][1];
+        
         
     }
 
@@ -137,6 +144,7 @@ public class Crypt
             {
 
                 String data = scan.nextLine();
+//                System.out.println(data);
 
                 for (int i = 0; i < data.length(); i++)
                 {
@@ -162,14 +170,15 @@ public class Crypt
                         pair++;
 
                     }
+                    
                     else if (!Character.isLetter(c))
                     {
                         if (pair == 0)
                             punctuationI.append(c);
                         else if (pair == 1)
                             punctuationJ.append(c);
-
                     }
+                    
                     if (pair == 2)
                     {
 
@@ -205,7 +214,7 @@ public class Crypt
             
             if (pair == 1)
             {
-                b = 'j';
+                b = 'i';
                 
                 char newA = arr[(pos[a - offsetI][0])][(pos[b - offsetJ][1])];
                 char newB = arr[(pos[b - offsetJ][0])][(pos[a - offsetI][1])];
@@ -216,8 +225,8 @@ public class Crypt
                     newB = a;
                 }
                 
-                output.append((char) (Character.toLowerCase(newA) - ('a' - offsetI)));
-                output.append((char) (Character.toLowerCase(newB) - ('a' - offsetJ)));
+                output.append(punctuationI.toString() + (char) (Character.toLowerCase(newA) - ('a' - offsetI)));
+                output.append(punctuationJ.toString() + (char) (Character.toLowerCase(newB) - ('a' - offsetJ)));
             }
                 
 
@@ -261,7 +270,7 @@ public class Crypt
      */
     public void decrypt(String inputFilename, String outputFilename, String keyword)
     {
-        encrypt(inputFilename, outputFilename, keyword);
+        //encrypt(inputFilename, outputFilename, keyword);
     }
 
 }
